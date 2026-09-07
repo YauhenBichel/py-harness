@@ -13,4 +13,4 @@ jobs:
       # `pull_request_target` with `pull-requests: write`, so it has the
       # repository's token on a pull request from anyone. A tag can be
       # moved; a commit cannot.
-      - uses: YauhenBichel/merge-cheer@b6f4bc2cc6e64917e31574f4d2bcac18e7e79691 # v1.3.0
+      - uses: YauhenBichel/merge-cheer@f9fa79020cf18b41d92e7ec4d9cc1636def6aaf4 # v1.5.0

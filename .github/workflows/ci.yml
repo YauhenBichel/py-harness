@@ -2,7 +2,19 @@ name: CI
 
 on:
   push:
+    branches: [main]
   pull_request:
+
+# This matrix is nine jobs across three operating systems, and it was running
+# twice for every push to a branch with a pull request open: once for the push
+# event, once for the pull request event, on the same commit. Restricting push
+# to main leaves exactly one run per change.
+#
+# Cancelling only applies to pull requests, so a push to main is never killed
+# part-way through.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
   contents: read
@@ -11,6 +23,7 @@ jobs:
   test:
     name: ${{ matrix.os }} / py${{ matrix.python }}
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:

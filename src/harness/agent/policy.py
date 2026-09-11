@@ -300,6 +300,17 @@ def _refuse_other_than_named(task: str, project: Path, path: str) -> str:
 
 def refuse_before(state: LoopState, turn) -> str:
     """The turn is about to run a tool. Return a refusal, or ""."""
+    if turn.action == "patch":
+        # These refusals explicitly ask the model to satisfy a prerequisite and
+        # retry the same patch. Do not poison the requested retry.
+        prerequisite = refuse_patch_before_reading(state, turn) or refuse_new_path_before_existing(state, turn)
+        if prerequisite:
+            return prerequisite
+        # Remember the proposal before any policy rejects it. Otherwise a
+        # refused patch can be resubmitted forever without reaching the guard.
+        repeated = state.guard.check(turn)
+        if repeated:
+            return repeated
     if state.autofixed and turn.action not in {"run", "done"}:
         if turn.action in {"edit", "patch"} and "test" in (
             turn.path or state.last_path or ""
@@ -310,6 +321,8 @@ def refuse_before(state: LoopState, turn) -> str:
             "Action: run Argv: -m unittest discover -s tests -q"
         )
     if not state.allow_writes and turn.action in WRITE_ACTIONS:
+        if turn.action == "patch":
+            state.guard.remember_patch_result(turn, "refused")
         return (
             "This run is read-only. Do not patch, edit, or run. "
             "Action: done Summary: say what you would change and why."
@@ -332,7 +345,10 @@ def refuse_before(state: LoopState, turn) -> str:
             "You have already asked. Choose the most likely reading, say "
             "which you chose, and continue."
         )
-    return _tool_refusals(state, turn)
+    blocked = _tool_refusals(state, turn)
+    if blocked and turn.action == "patch":
+        state.guard.remember_patch_result(turn, "refused")
+    return blocked
 
 
 def _tool_refusals(state: LoopState, turn) -> str:
@@ -363,7 +379,7 @@ def _tool_refusals(state: LoopState, turn) -> str:
         lambda: refuse_smell_wrong_file(
             state.task, turn.action, turn.path, state.located_path, _located_body(state)
         ),
-        lambda: state.guard.check(turn),
+        lambda: state.guard.check(turn) if turn.action != "patch" else "",
         lambda: _refuse_ship(state.task, turn.action)
         if turn.action in SHIP_ACTIONS
         else "",

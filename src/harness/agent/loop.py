@@ -552,6 +552,8 @@ class Agent:
         if turn.action == "run" and result.startswith("exit 0"):
             state.ran_tests = True
         if result.startswith(("patched", "wrote")):
+            if turn.action == "patch":
+                state.guard.remember_patch_result(turn, "applied")
             run.writes.append(turn.path or state.last_path)
             state.wrote_something = True
             cover = _cover_after_add(
@@ -562,6 +564,8 @@ class Agent:
                     if rel not in run.writes:
                         run.writes.append(rel)
                 result = f"{result}\n{cover}"
+        elif turn.action == "patch":
+            state.guard.remember_patch_result(turn, "refused")
         return result
 
     def _ask(self, question: Question, options: AgentOptions) -> str | None:

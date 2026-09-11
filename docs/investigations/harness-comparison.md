@@ -75,7 +75,7 @@ Reproduced on a two-file scratch project, no model in the loop:
 | Kit skills ship fixture paths | `add-feature` says `Path: pkg/mathy.py`; copying it verbatim created `pkg/mathy.py` in an unrelated project | writes junk into someone's repo |
 | `Find:` misses are dead ends | `Find: string not in file` with no next move; a lost indent or a doubled space is unrecoverable | wasted steps |
 | `map` reports sizes | `src/app.py 64 B` does not say what is in it, so the first grep is a guess | wasted steps |
-| No repeat detection | the same `grep` can be re-served until `--steps` runs out | wasted steps |
+| No repeat detection | the same read or patch body can be re-served until `--steps` runs out | wasted steps |
 | Target project's own rules ignored | its `AGENTS.md` was never read | wrong-by-convention edits |
 
 `write-tests` shipped a third failure of the first kind in its body:
@@ -99,8 +99,9 @@ the eval fixture.
   under the file list, budgeted to 120 lines. This is aider's argument:
   signatures are what let the model pick a file.
 - `src/harness/loop_guard.py` — an identical read-only action is refused
-  once with the next action spelled out. `run` and `patch` are never
-  guarded: re-running tests after a fix is progress.
+  once with the next action spelled out. An exact patch body is remembered
+  before policy checks and refused if proposed again, even for another path;
+  re-running tests after a fix remains progress.
 - `src/harness/project_docs.py` — the target project's `AGENTS.md` (then
   `CLAUDE.md`, `CONTRIBUTING.md`) is prepended, capped at 1200 chars, and
   ranked above the kit skill.

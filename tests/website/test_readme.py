@@ -88,56 +88,71 @@ class ReadmeContributorsTest(unittest.TestCase):
         text = WORKFLOW.read_text(encoding="utf-8")
         self.assertRegex(text, r"uses: actions/checkout@[0-9a-f]{40}")
 
-    def test_a_fork_pull_request_does_not_run_the_job(self) -> None:
-        """It cannot work on one, and it used to fail rather than skip.
+    @staticmethod
+    def _commands(text: str) -> str:
+        """The workflow minus its comments, which tell the history in the
+        very words the negative checks forbid."""
+        return "\n".join(l for l in text.splitlines() if not l.lstrip().startswith("#"))
 
-        The branch of a fork pull request lives on the fork, so the
-        checkout cannot fetch it from here. The job ran anyway and died
-        on `git fetch origin +refs/heads/patch-2*`, which showed on the
-        pull request as a failing check that had nothing to do with the
-        change.
+    def test_nothing_runs_on_a_pull_request(self) -> None:
+        """A wall drawn on a pull request branch is stale by the time it merges.
+
+        A fork's pull request cannot run the job at all: its branch lives on
+        the fork, so the checkout died on `git fetch origin
+        +refs/heads/patch-2*` and showed a failing check that had nothing to
+        do with the change. A same-repository branch runs it, then lands a
+        wall computed before whatever merged ahead of it. MoleCare/molecare-mcp
+        lost a contributor exactly that way, in 44 seconds.
+        """
+        on_block = WORKFLOW.read_text(encoding="utf-8").split("\npermissions:")[0]
+        self.assertNotRegex(self._commands(on_block), r"(?m)^\s*pull_request(_target)?:")
+        self.assertRegex(on_block, r"(?m)^  push:\n    branches:\n      - main")
+
+    def test_a_stale_list_on_main_is_pushed_to_main(self) -> None:
+        """No separate pull request: the refresh lands on main itself.
+
+        main is protected. The job used to force-push to docs/contributors
+        and stop, and nothing merged that branch, then it opened a pull
+        request for it. It now pushes to main through a write deploy key,
+        the one bypass actor on the ruleset besides the owner.
         """
         text = WORKFLOW.read_text(encoding="utf-8")
-        head, _sep, steps = text.partition("steps:")
-        self.assertIn("head.repo.full_name == github.repository", head)
-        self.assertIn("github.event_name != 'pull_request'", head)
-        # The step-level guard is subsumed by the job-level one.
-        self.assertNotIn("head.repo.full_name", steps)
+        commands = self._commands(text)
+        self.assertIn("ref: main", commands)
+        self.assertIn("ssh-key: ${{ secrets.CONTRIBUTORS_DEPLOY_KEY }}", commands)
+        self.assertIn("git push origin HEAD:main", commands)
+        self.assertNotIn("gh pr create", commands)
+        self.assertNotIn("docs/contributors", commands)
+        self.assertNotIn("pull-requests: write", commands)
+        # A deploy-key push starts workflows; a README-only refresh must not.
+        self.assertIn("[skip ci]", commands)
 
-    def test_a_stale_list_on_main_becomes_a_pull_request(self) -> None:
-        """Pushing to a branch nobody merges is not updating anything.
+    def test_a_fork_merge_reaches_the_wall(self) -> None:
+        """The job runs on main after every merge, forks included.
 
-        main takes changes only through a reviewed pull request, so the
-        workflow cannot commit there. It used to force-push the refresh
-        to `docs/contributors` and stop. Nothing merged that branch, so
-        a new contributor never reached the README.
+        After a fork merge the generated list used to be discarded, because
+        both the PR-head push and the default-branch push were skipped.
         """
-        text = WORKFLOW.read_text(encoding="utf-8")
-        self.assertIn("gh pr create", text)
-        self.assertIn("pull-requests: write", text)
-        self.assertIn("GH_TOKEN", text)
-        # and it must not open a second one on every push
-        self.assertIn("gh pr list --head docs/contributors", text)
+        commands = self._commands(WORKFLOW.read_text(encoding="utf-8"))
+        self.assertNotIn("head.repo.full_name", commands)
+        self.assertNotIn("github.event.repository.default_branch", commands)
+        self.assertIn("workflow_dispatch", commands)
+        self.assertIn("schedule", commands)
 
-    def test_a_branch_of_this_repo_still_takes_it_in_place(self) -> None:
-        """No pull request is needed where a plain push works."""
-        text = WORKFLOW.read_text(encoding="utf-8")
-        self.assertIn('if [ "$BRANCH" != "$DEFAULT_BRANCH" ]', text)
+    def test_a_removal_waits_for_a_person(self) -> None:
+        """A name should never leave the wall; if one would, the API
+        most likely answered short.
 
-    def test_workflow_keeps_a_fork_merge_on_a_writable_branch(self) -> None:
-        """A fork PR cannot be pushed, and protected main cannot either.
-
-        After that merge the generated list was discarded because both
-        the PR-head push and the default-branch push were skipped.
+        That is why a person used to read the refresh. With no pull request
+        left, an automatic run that would remove a name pushes nothing and
+        says so, and only a run started by hand pushes the removal.
         """
-        text = WORKFLOW.read_text(encoding="utf-8")
-        self.assertIn("docs/contributors", text)
-        self.assertIn("head.repo.full_name == github.repository", text)
-        self.assertIn("DEFAULT_BRANCH", text)
-        self.assertNotIn(
-            "github.event.repository.default_branch != (github.head_ref || github.ref_name)",
-            text,
-        )
+        commands = self._commands(WORKFLOW.read_text(encoding="utf-8"))
+        self.assertIn("REMOVED=$(git diff --cached -U0 -- README.md", commands)
+        self.assertIn("STARTED_BY_HAND: ${{ github.event_name == 'workflow_dispatch' }}", commands)
+        guard = commands.index('if [ "$REMOVED" -gt 0 ] && [ "$STARTED_BY_HAND" != "true" ]; then')
+        self.assertIn("::warning::", commands[guard:guard + 400])
+        self.assertLess(guard, commands.index("git commit"), "the guard must come before the commit")
 
     def test_celebrate_merge_hardcodes_no_gif(self) -> None:
         """The celebration moved into `YauhenBichel/merge-cheer`, which

@@ -1,55 +1,56 @@
 name: Contributors
 
-# Fills the README markers from the GitHub contributors API
-# (commit order, bots omitted). Do not hardcode names or counts.
+# Fills the README contributors wall from the GitHub contributors API (commit
+# order, bots omitted) and commits it straight to main — no separate pull
+# request. Names are never hardcoded; a stale hand-written list is worse than
+# none.
 #
-# Does not open a pull request. Protected main refuses both a
-# GITHUB_TOKEN push and "Actions may create PRs" (that setting is
-# off). Same-repo PR / feature branches get the commit in place.
-# A fork PR is skipped outright. Nothing here can work on one: the
-# branch lives on the fork, so the checkout cannot fetch it, and there
-# is nowhere to push if it could. The contributor is not in the API
-# until merge either. It used to run anyway and fail while fetching a
-# ref this repository does not have.
+# It runs after every push to main, weekly, and by hand, and only ever on main.
+# It used to run on pull requests and refresh the PR branch, then open a
+# docs/contributors pull request for main. That shape lost people: a fork's
+# pull request cannot run it, and a same-repository branch lands a wall
+# computed before anything that merged ahead of it. A run on main after the
+# merge sees every commit.
 #
-# main takes changes only through a reviewed pull request, so this
-# cannot commit there. It used to force-push the refresh to a branch
-# called docs/contributors and stop, and nothing merged that branch, so
-# the list never actually reached the README. It opens a pull request
-# now: still one click to land, but visible and landable.
+# main is protected, so the push goes through a write deploy key stored as
+# CONTRIBUTORS_DEPLOY_KEY, the one bypass actor on the main ruleset besides the
+# owner. A deploy-key push starts workflows, so the commit carries the skip-ci
+# marker and neither CI nor this job runs again for a README-only change.
+#
+# One guard survives from the pull request days, because it is the reason a
+# person used to read the refresh: a name should never leave the wall, and if
+# one would, the contributors API most likely answered short. An automatic run
+# that would remove a name does not push; it says so and stops. A run started
+# by hand is a person saying the removal is real, and it pushes.
 
-# `push` is limited to the default branch on purpose. A feature branch
-# fires both events for the same ref, both resolve `github.head_ref ||
-# github.ref_name` to that same branch, and both do identical work — so
-# the concurrency group below cancels one of them and the pull request
-# shows a red X that means nothing. It hit three branches in one evening.
-# The pull_request run covers a branch; this covers main.
 on:
-  pull_request:
-  workflow_dispatch:
   push:
     branches:
       - main
+  schedule:
+    - cron: "41 5 * * 1"
+  workflow_dispatch:
 
+# The push uses the deploy key; the token only reads the contributors API.
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
 
 concurrency:
-  group: contributors-${{ github.head_ref || github.ref_name }}
+  group: contributors
   cancel-in-progress: true
 
 jobs:
   readme:
-    if: >-
-      github.actor != 'github-actions[bot]'
-      && (github.event_name != 'pull_request'
-      || github.event.pull_request.head.repo.full_name == github.repository)
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
+      # Always main, whatever the run started from. Named rather than read from
+      # github.event.repository, which a scheduled run's payload does not carry.
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          ref: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}
+          ref: main
+          ssh-key: ${{ secrets.CONTRIBUTORS_DEPLOY_KEY }}
           persist-credentials: true
 
       - name: Fill README contributors
@@ -58,51 +59,41 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           format: html
 
-      # The job only runs where a push is possible, so this needs no
-      # condition of its own.
-      - name: Push the list on a writable branch
+      - name: Commit the wall to main
         env:
-          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
-          BRANCH: ${{ github.head_ref || github.ref_name }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          STARTED_BY_HAND: ${{ github.event_name == 'workflow_dispatch' }}
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add README.md .github/faces
-          git diff --cached --quiet && exit 0
-          # A refresh should only ever add people. A name disappearing
-          # means the API answered short — a rate limit, a transient
-          # failure — not that someone stopped being a contributor. That
-          # has happened: a hand-run refresh in a pull request removed
-          # four. Additions merge themselves; a removal waits for a
-          # person.
-          REMOVED=$(git diff --cached -U0 -- README.md \
-            | grep -cE '^-.*href="https://github.com/' || true)
-          git commit -m "docs: refresh README contributors"
-          if [ "$BRANCH" != "$DEFAULT_BRANCH" ]; then
-            # A branch of this repository takes the commit in place.
-            git push
+          if git diff --cached --quiet; then
+            echo "The wall already matches the contributors API."
             exit 0
           fi
-          # main is review-only, so offer the refresh as a pull request.
-          git checkout -B docs/contributors
-          git push --force --set-upstream origin docs/contributors
-          NUMBER="$(gh pr list --head docs/contributors --state open --json number -q '.[0].number')"
-          if [ -z "$NUMBER" ]; then
-            if [ "$REMOVED" -gt 0 ]; then
-              NOTE="This refresh removes $REMOVED name(s), so it is left for a person to read. A name should not disappear from this list; if one has, the contributors API most likely answered short."
-            else
-              NOTE="Additions only, so this merges itself once the checks pass."
-            fi
-            NUMBER="$(gh pr create --base "$DEFAULT_BRANCH" --head docs/contributors \
-              --title "docs: refresh README contributors" \
-              --body "The contributors list changed. Filled from the GitHub contributors API, bots omitted. Opened by the Contributors workflow because main takes changes only through a pull request.
 
-          $NOTE" | grep -o '[0-9]*$')"
+          REMOVED=$(git diff --cached -U0 -- README.md \
+            | grep -cE '^-.*href="https://github.com/' || true)
+          if [ "$REMOVED" -gt 0 ] && [ "$STARTED_BY_HAND" != "true" ]; then
+            echo "::warning::This refresh would remove $REMOVED name(s) from the wall. A name should not leave it; the contributors API most likely answered short. Nothing was pushed. If the removal is real, run this workflow by hand to accept it."
+            exit 0
           fi
-          if [ "$REMOVED" -eq 0 ] && [ -n "$NUMBER" ]; then
-            # Adding a name to a generated table is not a change anybody
-            # needs to read. Auto-merge still waits for the checks.
-            gh pr merge "$NUMBER" --auto --squash || \
-              echo "auto-merge not enabled; leaving #$NUMBER for a person"
-          fi
+
+          added=$(git diff --cached --name-only --diff-filter=A -- .github/faces \
+            | sed 's#.*/##; s#\.svg$##' | paste -sd, - | sed 's/,/, /g')
+          git commit -m "docs: refresh README contributors${added:+ (adds $added)} [skip ci]"
+
+          # main can move while this runs; the commit only touches the wall,
+          # which was just recomputed, so replaying it on the new tip is safe.
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then
+              echo "Wall updated on main${added:+: added $added}."
+              exit 0
+            fi
+            if ! git pull --rebase origin main; then
+              git rebase --abort || true
+              echo "::error::main changed the wall's files while this ran; the next run will recompute it."
+              exit 1
+            fi
+          done
+          echo "::error::Could not push to main. Check CONTRIBUTORS_DEPLOY_KEY is a write deploy key and that deploy keys may bypass the main ruleset."
+          exit 1

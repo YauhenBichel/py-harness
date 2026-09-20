@@ -308,7 +308,9 @@ def refuse_before(state: LoopState, turn) -> str:
             return prerequisite
         # Remember the proposal before any policy rejects it. Otherwise a
         # refused patch can be resubmitted forever without reaching the guard.
-        repeated = state.guard.check(turn)
+        # The path the executor will use, so two pathless patches on different
+        # files are two destinations, not one.
+        repeated = state.guard.check(turn, path=turn.path or state.last_path)
         if repeated:
             return repeated
     if state.autofixed and turn.action not in {"run", "done"}:
@@ -322,7 +324,7 @@ def refuse_before(state: LoopState, turn) -> str:
         )
     if not state.allow_writes and turn.action in WRITE_ACTIONS:
         if turn.action == "patch":
-            state.guard.remember_patch_result(turn, "refused")
+            state.guard.remember_patch_result(turn, "refused", path=turn.path or state.last_path)
         return (
             "This run is read-only. Do not patch, edit, or run. "
             "Action: done Summary: say what you would change and why."
@@ -347,7 +349,7 @@ def refuse_before(state: LoopState, turn) -> str:
         )
     blocked = _tool_refusals(state, turn)
     if blocked and turn.action == "patch":
-        state.guard.remember_patch_result(turn, "refused")
+        state.guard.remember_patch_result(turn, "refused", path=turn.path or state.last_path)
     return blocked
 
 

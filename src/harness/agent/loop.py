@@ -553,7 +553,8 @@ class Agent:
             state.ran_tests = True
         if result.startswith(("patched", "wrote")):
             if turn.action == "patch":
-                state.guard.remember_patch_result(turn, "applied")
+                # last_path is now the file the patch landed on.
+                state.guard.remember_patch_result(turn, "applied", path=turn.path or state.last_path)
             run.writes.append(turn.path or state.last_path)
             state.wrote_something = True
             cover = _cover_after_add(
@@ -565,7 +566,7 @@ class Agent:
                         run.writes.append(rel)
                 result = f"{result}\n{cover}"
         elif turn.action == "patch":
-            state.guard.remember_patch_result(turn, "refused")
+            state.guard.remember_patch_result(turn, "refused", path=turn.path or state.last_path)
         return result
 
     def _ask(self, question: Question, options: AgentOptions) -> str | None:

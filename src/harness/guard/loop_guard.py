@@ -37,8 +37,14 @@ def turn_key(turn) -> tuple[str, ...]:
     )
 
 
-def patch_key(turn) -> tuple[str, ...] | None:
-    """The destination and exact mutation a patch proposes."""
+def patch_key(turn, path: str | None = None) -> tuple[str, ...] | None:
+    """The destination and exact mutation a patch proposes.
+
+    A patch with no Path lands on the last file read, so the caller passes that
+    resolved path. Keying on the bare `turn.path` instead made every pathless
+    patch share one empty destination: the same boilerplate appended to two
+    files in turn was refused the second time, for a file it had never touched.
+    """
     if turn.action != "patch":
         return None
     body = tuple(
@@ -46,7 +52,8 @@ def patch_key(turn) -> tuple[str, ...] | None:
     )
     if not any(body):
         return None
-    return ("patch", turn.path.strip(), *body)
+    destination = (path if path is not None else turn.path) or ""
+    return ("patch", destination.strip(), *body)
 
 
 @dataclass
@@ -55,16 +62,16 @@ class LoopGuard:
 
     seen: dict[tuple[str, ...], str] = field(default_factory=dict)
 
-    def remember_patch_result(self, turn, result: str) -> None:
+    def remember_patch_result(self, turn, result: str, path: str | None = None) -> None:
         """Record whether a previously accepted patch was applied or refused."""
-        patch = patch_key(turn)
+        patch = patch_key(turn, path)
         if patch is not None and patch in self.seen:
             self.seen[patch] = result
 
-    def check(self, turn) -> str:
+    def check(self, turn, path: str | None = None) -> str:
         if turn is None:
             return ""
-        patch = patch_key(turn)
+        patch = patch_key(turn, path)
         if patch is not None:
             if result := self.seen.get(patch):
                 return (

@@ -69,6 +69,32 @@ class LoopGuardTest(unittest.TestCase):
         state.files_seen.add("src/orders.py")
         self.assertEqual(refuse_before(state, patch), "")
 
+    def test_same_body_without_a_path_is_two_files(self) -> None:
+        # A patch with no Path lands on the last file read. The same import line
+        # added to two files in turn is ordinary work, not a repeat.
+        guard = LoopGuard()
+        turn = AgentTurn(action="patch", append="from __future__ import annotations")
+        self.assertEqual(guard.check(turn, path="src/a.py"), "")
+        self.assertEqual(guard.check(turn, path="src/b.py"), "")
+
+    def test_same_body_on_the_same_resolved_path_is_refused(self) -> None:
+        guard = LoopGuard()
+        turn = AgentTurn(action="patch", append="from __future__ import annotations")
+        self.assertEqual(guard.check(turn, path="src/a.py"), "")
+        self.assertIn("already proposed that exact patch", guard.check(turn, path="src/a.py"))
+
+    def test_pathless_patch_follows_the_file_last_read(self) -> None:
+        state = LoopState(task="fix the bug in total in src/orders.py", project=Path("."))
+        state.files_seen.update({"src/a.py", "src/b.py"})
+        patch = AgentTurn(action="patch", find="    return 0", replace="    return 1")
+
+        state.last_path = "src/a.py"
+        self.assertEqual(refuse_before(state, patch), "")
+        state.last_path = "src/b.py"
+        self.assertEqual(refuse_before(state, patch), "")
+        state.last_path = "src/a.py"
+        self.assertIn("already proposed that exact patch", refuse_before(state, patch))
+
     def test_none_turn(self) -> None:
         self.assertEqual(LoopGuard().check(None), "")
 

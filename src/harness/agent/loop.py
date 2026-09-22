@@ -546,6 +546,8 @@ class Agent:
             # blames a file the model did not touch, and the repair names
             # it too. A failed patch is still about the file it named.
             state.last_path = turn.path or state.last_path
+            if turn.action == "patch":
+                state.guard.remember_patch_result(turn, "refused", path=state.last_path)
             return str(exc)
         if turn.action == "read" and state.last_path:
             state.files_seen.add(state.last_path)

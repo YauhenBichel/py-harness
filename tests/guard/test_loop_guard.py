@@ -1,7 +1,11 @@
 from pathlib import Path
 import unittest
+import tempfile
+from types import SimpleNamespace
 
 from harness.act.parse import AgentTurn
+from harness.agent.loop import Agent
+from harness.agent.options import AgentOptions
 from harness.agent.policy import LoopState, refuse_before
 from harness.guard.loop_guard import LoopGuard
 
@@ -94,6 +98,48 @@ class LoopGuardTest(unittest.TestCase):
         self.assertEqual(refuse_before(state, patch), "")
         state.last_path = "src/a.py"
         self.assertIn("already proposed that exact patch", refuse_before(state, patch))
+
+    def test_mechanical_fix_refusal_records_the_actual_result(self) -> None:
+        state = LoopState(task="change app.py", project=Path("."), autofixed=True)
+        patch = AgentTurn(action="patch", path="app.py", append="value = 1")
+        self.assertIn("mechanical fix", refuse_before(state, patch))
+        self.assertIn("It was refused", refuse_before(state, patch))
+
+    def test_raised_patch_error_records_a_refusal(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "app.py").write_text("value = 1\n", encoding="utf-8")
+            options = AgentOptions(project=root, task="change app.py")
+            agent = Agent(options)
+            state = LoopState(task=options.task, project=root, last_path="app.py")
+            run = SimpleNamespace(options=options, preamble=SimpleNamespace(target=None), writes=[])
+            patch = AgentTurn(action="patch", append="oops(\n")
+            self.assertEqual(refuse_before(state, patch), "")
+            self.assertTrue(agent._carry_out(patch, state, run))
+            self.assertEqual((root / "app.py").read_text(), "value = 1\n")
+            self.assertIn("It was refused", refuse_before(state, patch))
+
+    def test_pathless_patches_record_applied_results_on_each_file(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            for name in ("a.py", "b.py"):
+                (root / name).write_text("def value():\n    return 1\n\ndef other():\n    return 2\n", encoding="utf-8")
+            options = AgentOptions(project=root, task="update modules")
+            agent = Agent(options)
+            state = LoopState(task=options.task, project=root)
+            run = SimpleNamespace(options=options, preamble=SimpleNamespace(target=None), writes=[])
+            patch = AgentTurn(action="patch", append="extra = 2\n")
+            for name in ("a.py", "b.py"):
+                read = AgentTurn(action="read", path=name)
+                self.assertEqual(refuse_before(state, read), "")
+                agent._carry_out(read, state, run)
+                self.assertEqual(refuse_before(state, patch), "")
+                result = agent._carry_out(patch, state, run)
+                self.assertTrue(result.startswith(("patched", "wrote")), result)
+                self.assertEqual((root / name).read_text().count("extra = 2"), 1)
+                self.assertIn("It was applied", refuse_before(state, patch))
+            state.last_path = "a.py"
+            self.assertIn("It was applied", refuse_before(state, patch))
 
     def test_none_turn(self) -> None:
         self.assertEqual(LoopGuard().check(None), "")

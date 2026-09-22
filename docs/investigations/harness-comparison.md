@@ -98,10 +98,14 @@ the eval fixture.
   outline (`def apply_source(path, source, *, original: str) -> None`)
   under the file list, budgeted to 120 lines. This is aider's argument:
   signatures are what let the model pick a file.
-- `src/harness/loop_guard.py` — an identical read-only action is refused
+- `src/harness/guard/loop_guard.py` — an identical read-only action is refused
   once with the next action spelled out. An exact patch body is remembered
-  before policy checks and refused if proposed again, even for another path;
-  re-running tests after a fix remains progress.
+  with its resolved destination (`Path` or the last file read), so the same
+  body may still be applied to another file. Read-first prerequisites permit
+  the instructed retry; other policy refusals and execution errors remain
+  remembered. Repeated patches report whether the earlier attempt was applied
+  or refused, including syntax errors and mechanical-fix policy refusals.
+  Re-running tests after a fix remains progress.
 - `src/harness/project_docs.py` — the target project's `AGENTS.md` (then
   `CLAUDE.md`, `CONTRIBUTING.md`) is prepended, capped at 1200 chars, and
   ranked above the kit skill.

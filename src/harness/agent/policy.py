@@ -318,6 +318,8 @@ def refuse_before(state: LoopState, turn) -> str:
             turn.path or state.last_path or ""
         ).lower():
             return ""
+        if turn.action == "patch":
+            state.guard.remember_patch_result(turn, "refused", path=turn.path or state.last_path)
         return (
             "Harness already applied the mechanical fix. "
             "Action: run Argv: -m unittest discover -s tests -q"

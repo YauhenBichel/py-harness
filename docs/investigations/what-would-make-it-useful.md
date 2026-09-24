@@ -43,7 +43,18 @@ same place, and the tier a hosted 32B was rented to clear.
 | `Qwen2.5-Coder-32B`, hosted, billed | 18 / 20 |
 | `llama3.1:8b`, the old default | 8 / 20 |
 
-<!-- SMALL-ARM -->
+A second local model on the same four cases, same day, same machine:
+`factory-qwen3.5-9b` scored 16 of 20, losing `env-flag` 2 of 5 — the
+same case the old 8B never passed. Two of its runs never started, which
+the record marks separately so they are not counted as failures.
+
+Across all fifteen cases, five passes:
+
+| all tiers, 75 runs | worked |
+| --- | --- |
+| `qwen3-coder:30b`, local | **72 / 75** |
+| `llama3.1:8b`, recorded 6 September | 64 / 75 |
+
 
 Measured today, in four minutes, on a machine that already had the model
 pulled. The old ceiling of 7–8B came from an 18 GB laptop. It is not the

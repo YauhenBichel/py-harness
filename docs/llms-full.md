@@ -174,3 +174,4 @@ When a run says done and means nothing {{ '/investigations/false-finish/' | abso
 Asking a bigger model {{ '/investigations/asking-a-bigger-model/' | absolute_url }}
 Small steps, measured {{ '/investigations/small-steps/' | absolute_url }}
 What to improve {{ '/investigations/what-to-improve/' | absolute_url }}
+What would make it useful {{ '/investigations/what-would-make-it-useful/' | absolute_url }}

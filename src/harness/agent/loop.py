@@ -407,13 +407,18 @@ class Agent:
         steps: list[Step] = []
 
         for number in range(1, options.steps + 1):
-            draft = generate(prompt)
-            _remember(generate, prompt, draft)
-            options.emit("draft", f"--- step {number} ---\n{draft}")
-            turn = parse_turn_smart(
-                draft,
+            draft, turn, tried = _first_that_parses(
+                generate,
+                prompt,
+                options.drafts,
                 question=looks_like_question(options.task),
                 ship=looks_like_ship(options.task),
+            )
+            _remember(generate, prompt, draft)
+            options.emit(
+                "draft",
+                f"--- step {number} ---\n{draft}"
+                + (f"\n[draft {tried} of {options.drafts}]" if tried > 1 else ""),
             )
             trace = trace_path(options)
             if trace is not None:
@@ -695,6 +700,33 @@ def _with_task(options: AgentOptions, task: str) -> AgentOptions:
     from dataclasses import replace
 
     return replace(options, task=task)
+
+
+def _first_that_parses(generate, prompt: str, drafts: int, *, question: bool,
+                       ship: bool):
+    """Ask up to `drafts` times, and keep the first reply that parses.
+
+    A reply the loop cannot read costs a whole step: it is answered with
+    "Could not parse" and the budget is one shorter. Asking again is the
+    cheapest repair there is, because the model is not being argued with
+    — it is simply being asked again, which measures better than feeding
+    a small model its own mistake.
+
+    The check is deliberately only "does this parse into an action".
+    Anything further would need the action carried out, and a draft that
+    has been carried out cannot be taken back.
+
+    Returns the draft kept, its parsed turn, and how many were asked for,
+    so a run can be read afterwards for how often this fired.
+    """
+    draft = generate(prompt)
+    turn = parse_turn_smart(draft, question=question, ship=ship)
+    tried = 1
+    while turn is None and tried < drafts:
+        tried += 1
+        draft = generate(prompt)
+        turn = parse_turn_smart(draft, question=question, ship=ship)
+    return draft, turn, tried
 
 
 def _remember(generate, prompt: str, draft: str) -> None:

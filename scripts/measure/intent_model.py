@@ -33,6 +33,8 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "src"))
 DATA = ROOT / "data" / "intent"
 LEDGER = ROOT / "docs" / "experiments"
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import ollama_client  # noqa: E402
 
 from harness import task as T  # noqa: E402
 
@@ -63,15 +65,8 @@ def read(name: str) -> list[dict]:
 def embed(model: str, texts: list[str], host: str, timeout: int, batch: int = 64) -> np.ndarray:
     out: list[np.ndarray] = []
     for i in range(0, len(texts), batch):
-        chunk = texts[i:i + batch]
-        request = urllib.request.Request(
-            f"{host}/api/embed",
-            data=json.dumps({"model": model, "input": chunk, "keep_alive": "15m"}).encode(),
-            headers={"Content-Type": "application/json"},
-        )
-        with urllib.request.urlopen(request, timeout=timeout) as response:
-            out.append(np.asarray(json.loads(response.read().decode())["embeddings"],
-                                  dtype=np.float64))
+        out.append(np.asarray(ollama_client.embed(host, model, texts[i:i + batch], timeout),
+                              dtype=np.float64))
     vectors = np.vstack(out)
     norms = np.linalg.norm(vectors, axis=1, keepdims=True)
     return vectors / np.where(norms == 0, 1, norms)

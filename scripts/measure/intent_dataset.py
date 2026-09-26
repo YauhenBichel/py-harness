@@ -47,6 +47,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "data" / "intent"
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import ollama_client  # noqa: E402
 
 # The intents, each with what it means and two honest examples. These
 # mirror the decisions in src/harness/task.py; the mapping to its
@@ -151,24 +153,8 @@ Which ONE of these kinds is it? Answer with the kind's name only.
 Answer with exactly one name from the list, nothing else."""
 
 
-def _post(host: str, path: str, body: dict, timeout: int) -> dict:
-    request = urllib.request.Request(
-        f"{host}{path}", data=json.dumps(body).encode(),
-        headers={"Content-Type": "application/json"},
-    )
-    with urllib.request.urlopen(request, timeout=timeout) as response:
-        return json.loads(response.read().decode())
-
-
 def chat(model: str, prompt: str, host: str, timeout: int, temperature: float) -> str:
-    payload = _post(host, "/api/chat", {
-        "model": model,
-        "messages": [{"role": "user", "content": prompt}],
-        "stream": False,
-        "options": {"temperature": temperature},
-        "keep_alive": "15m",
-    }, timeout)
-    text = str((payload.get("message") or {}).get("content", ""))
+    text = ollama_client.chat(host, model, prompt, timeout, temperature, label="gen")
     return re.sub(r"<think>.*?</think>", " ", text, flags=re.DOTALL | re.IGNORECASE)
 
 
@@ -249,7 +235,7 @@ def main() -> int:
     parser.add_argument("--host",
                         default=os.environ.get("OLLAMA_HOST") or "http://127.0.0.1:11434")
     parser.add_argument("--per-style", type=int, default=20)
-    parser.add_argument("--timeout", type=int, default=600)
+    parser.add_argument("--timeout", type=int, default=180)
     parser.add_argument("--seed", type=int, default=7)
     parser.add_argument("--skip-blind", action="store_true",
                         help="keep everything generated; no agreement gate")

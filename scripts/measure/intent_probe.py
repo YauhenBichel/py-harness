@@ -50,6 +50,8 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "src"))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import ollama_client  # noqa: E402
 LEDGER = ROOT / "docs" / "experiments"
 
 from harness.task import looks_like_bugfix  # noqa: E402
@@ -160,38 +162,12 @@ def read_answer(text: str) -> bool | None:
     return yes
 
 
-def _post(host: str, path: str, body: dict, timeout: int) -> dict:
-    request = urllib.request.Request(
-        f"{host}{path}",
-        data=json.dumps(body).encode(),
-        headers={"Content-Type": "application/json"},
-    )
-    with urllib.request.urlopen(request, timeout=timeout) as response:
-        return json.loads(response.read().decode())
-
-
 def ask(model: str, prompt: str, host: str, timeout: int) -> str:
-    payload = _post(
-        host,
-        "/api/chat",
-        {
-            "model": model,
-            "messages": [{"role": "user", "content": prompt}],
-            "stream": False,
-            "options": {"temperature": 0},
-            "keep_alive": "10m",
-        },
-        timeout,
-    )
-    return str((payload.get("message") or {}).get("content", ""))
+    return ollama_client.chat(host, model, prompt, timeout, label="ask")
 
 
 def embed(model: str, texts: list[str], host: str, timeout: int) -> np.ndarray:
-    payload = _post(
-        host, "/api/embed",
-        {"model": model, "input": texts, "keep_alive": "10m"}, timeout,
-    )
-    vectors = np.asarray(payload["embeddings"], dtype=np.float64)
+    vectors = np.asarray(ollama_client.embed(host, model, texts, timeout), dtype=np.float64)
     norms = np.linalg.norm(vectors, axis=1, keepdims=True)
     return vectors / np.where(norms == 0, 1, norms)
 
@@ -347,7 +323,7 @@ def main() -> int:
         "--host", default=os.environ.get("OLLAMA_HOST") or "http://127.0.0.1:11434"
     )
     parser.add_argument("--repeat", type=int, default=3)
-    parser.add_argument("--timeout", type=int, default=300)
+    parser.add_argument("--timeout", type=int, default=90)
     parser.add_argument("--name", default="")
     args = parser.parse_args()
 

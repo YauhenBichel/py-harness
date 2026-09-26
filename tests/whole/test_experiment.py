@@ -65,6 +65,8 @@ def _result(mod, name: str, verdicts: dict[str, str], **kw):
         dirty=kw.pop("dirty", False),
         when="2026-09-24",
         machine="Darwin arm64",
+        decide=kw.pop("decide", "regex"),
+        drafts=kw.pop("drafts", 1),
     )
 
 
@@ -188,8 +190,25 @@ class ComparingLikeWithLikeTest(unittest.TestCase):
         a = _result(self.mod, "a", {"x": "YNYNY"})
         b = _result(self.mod, "b", {"x": "YYNYN"})
         said = self.mod.compare(a, b)
-        for warning in ("different models", "not the same cases", "dirty tree"):
+        for warning in ("different models", "not the same cases", "dirty tree",
+                        "two settings"):
             self.assertNotIn(warning, said)
+
+    def test_one_setting_changed_is_a_fair_comparison(self) -> None:
+        a = _result(self.mod, "a", {"x": "YNYNY"}, decide="regex")
+        b = _result(self.mod, "b", {"x": "YYNYN"}, decide="model")
+        self.assertNotIn("two settings", self.mod.compare(a, b))
+
+    def test_two_settings_changed_at_once_is_flagged(self) -> None:
+        """An arm with the model deciding *and* three drafts against the
+        baseline can move, and nothing in the result says which change
+        moved it."""
+        a = _result(self.mod, "a", {"x": "YNYNY"})
+        b = _result(self.mod, "b", {"x": "YYYYY"}, decide="model", drafts=3)
+        said = self.mod.compare(a, b)
+        self.assertIn("two settings changed", said)
+        self.assertIn("decide", said)
+        self.assertIn("drafts", said)
 
 
 class ARunThatNeverRanTest(unittest.TestCase):
@@ -236,7 +255,8 @@ class TheRecordTest(unittest.TestCase):
 
     def test_the_record_keeps_what_a_replay_needs(self) -> None:
         stored = _result(self.mod, "x", {"a": "YNYNY"}).as_dict()
-        for key in ("commit", "model", "engine", "tiers", "passes", "when", "dirty"):
+        for key in ("commit", "model", "engine", "tiers", "passes", "when", "dirty",
+                    "decide", "drafts"):
             self.assertIn(key, stored, f"{key} is not recorded, so this cannot be replayed")
 
     def test_the_raw_rows_are_kept_not_just_the_summary(self) -> None:

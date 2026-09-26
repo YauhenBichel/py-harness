@@ -248,7 +248,7 @@ def why_from(output: str) -> str:
 
 
 def run(case: Case, model: str, steps: int, engine: str = "ollama",
-        traces: Path | None = None, decide: str = "regex") -> dict:
+        traces: Path | None = None, decide: str = "regex", drafts: int = 1) -> dict:
     """Measure one case, and keep the turns it produced.
 
     The project is a temporary directory, so a run that records into it
@@ -278,6 +278,7 @@ def run(case: Case, model: str, steps: int, engine: str = "ollama",
                     engine=engine,
                     record=traces,
                     decide=decide,
+                    drafts=drafts,
                     on_question=lambda _question: NO_HELP,
                 )
             ).run()
@@ -436,6 +437,11 @@ def main() -> int:
         help="how the kind of task is decided: the regex (default) or the fitted model",
     )
     parser.add_argument(
+        "--drafts", type=int, default=1, metavar="N",
+        help="ask up to N times for a reply that parses before spending the step "
+        "(default 1: one reply, parse or not)",
+    )
+    parser.add_argument(
         "--traces",
         default=str(DEFAULT_TRACES),
         metavar="PATH",
@@ -461,7 +467,8 @@ def main() -> int:
     rows: list[dict] = []
     for number in range(1, args.repeat + 1):
         for case in cases:
-            row = run(case, args.model, args.steps, args.engine, traces, args.decide)
+            row = run(case, args.model, args.steps, args.engine, traces, args.decide,
+                      args.drafts)
             row["pass"] = number
             rows.append(row)
             print(json.dumps(row), flush=True)

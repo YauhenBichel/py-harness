@@ -107,6 +107,7 @@ class Result:
     when: str = ""
     machine: str = ""
     seconds: float = 0.0
+    decide: str = "regex"
 
     @property
     def worked(self) -> int:
@@ -170,6 +171,7 @@ class Result:
             "tiers": self.tiers,
             "passes": self.passes,
             "seconds": round(self.seconds, 1),
+            "decide": self.decide,
             "worked": self.worked,
             "runs": len(self.rows),
             "totals_per_pass": self.totals,
@@ -193,6 +195,7 @@ class Result:
             when=data.get("when", ""),
             machine=data.get("machine", ""),
             seconds=data.get("seconds", 0.0),
+            decide=data.get("decide", "regex"),
         )
 
 
@@ -226,7 +229,7 @@ def filed() -> list[str]:
 
 
 def measure(name: str, tiers: list[int], model: str, engine: str,
-            passes: int, steps: int) -> Result:
+            passes: int, steps: int, decide: str = "regex") -> Result:
     bench = _bench()
     cases = [c for c in bench.CASES if not tiers or c.tier in tiers]
     if not cases:
@@ -235,7 +238,7 @@ def measure(name: str, tiers: list[int], model: str, engine: str,
     rows: list[dict] = []
     for number in range(1, passes + 1):
         for case in cases:
-            row = bench.run(case, model, steps, engine)
+            row = bench.run(case, model, steps, engine, decide=decide)
             row["pass"] = number
             rows.append(row)
             print(json.dumps(row), flush=True)
@@ -251,6 +254,7 @@ def measure(name: str, tiers: list[int], model: str, engine: str,
         when=date.today().isoformat(),
         machine=f"{platform.system()} {platform.machine()}",
         seconds=time.time() - started,
+        decide=decide,
     )
 
 
@@ -273,7 +277,7 @@ def describe(result: Result) -> str:
     lines = [
         f"{result.name}: {result.worked}/{len(result.rows)}"
         f"   {result.model} via {result.engine}"
-        f"   tiers {result.tiers or 'all'}   {result.passes} passes",
+        f"   tiers {result.tiers or 'all'}   {result.passes} passes   decide={result.decide}",
         f"  commit {result.commit}{' (DIRTY TREE)' if result.dirty else ''}"
         f"   {result.when}   {result.seconds / 60:.1f} min",
         f"  per pass {result.totals}",
@@ -369,6 +373,7 @@ def main() -> int:
     run.add_argument("--engine", default="ollama")
     run.add_argument("--repeat", type=int, default=5, metavar="N")
     run.add_argument("--steps", type=int, default=10)
+    run.add_argument("--decide", default="regex", choices=("regex", "model"))
 
     cmp_ = sub.add_parser("compare", help="two filed arms, side by side")
     cmp_.add_argument("baseline")
@@ -387,7 +392,8 @@ def main() -> int:
             )
             return 2
         result = measure(
-            args.name, args.tier, args.model, args.engine, args.repeat, args.steps
+            args.name, args.tier, args.model, args.engine, args.repeat, args.steps,
+            args.decide,
         )
         if result.errored == len(result.rows):
             why = next((r.get("why", "") for r in result.rows if r.get("why")), "")

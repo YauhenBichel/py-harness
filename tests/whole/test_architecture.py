@@ -18,6 +18,9 @@ DEPTH = {
     # `paths` and `task` are the bottom: they import nothing of their own.
     "paths": 0,
     "task": 0,
+    # A fitted decision about the task. Imports nothing of the harness,
+    # like `task`; the agent layer asks it and hands the answer down.
+    "decide": 0,
     # The shapes that are a secret whoever is looking. Both the guard
     # that reads what arrives and the check on what leaves need them,
     # and neither may import the other, so they sit under both.

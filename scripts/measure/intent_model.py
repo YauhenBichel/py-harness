@@ -156,6 +156,11 @@ def main() -> int:
     parser.add_argument("--host",
                         default=os.environ.get("OLLAMA_HOST") or "http://127.0.0.1:11434")
     parser.add_argument("--timeout", type=int, default=600)
+    parser.add_argument(
+        "--export", default="",
+        help="also write the fitted weights here as JSON, for the harness to "
+             "score with in pure Python (default: not written)",
+    )
     args = parser.parse_args()
 
     train, test, gold = read("train"), read("test"), read("gold")
@@ -171,6 +176,22 @@ def main() -> int:
     for intent in intents:
         y = np.array([r["intent"] == intent for r in train], dtype=np.float64)
         models[intent] = fit(x_train, y)
+
+    if args.export:
+        # Five decimals is plenty for a decision and keeps the file small.
+        export = {
+            "embed_model": args.embed_model,
+            "dims": int(x_train.shape[1]),
+            "trained_on": len(train),
+            "intents": {
+                intent: {"weights": [round(float(v), 5) for v in w], "bias": round(float(b), 5)}
+                for intent, (w, b) in models.items()
+            },
+        }
+        target = Path(args.export)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(json.dumps(export, separators=(",", ":")) + "\n", encoding="utf-8")
+        print(f"weights exported to {target} ({target.stat().st_size // 1024} KB)", file=sys.stderr)
 
     out = {"embed_model": args.embed_model, "intents": intents,
            "train": len(train), "splits": {}}

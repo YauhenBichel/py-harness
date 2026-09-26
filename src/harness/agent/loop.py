@@ -44,6 +44,7 @@ from harness.model.ollama_generate import CONTEXT_TOKENS
 from harness.observe.trace_record import append_turn, default_trace_path
 from harness.scan.design import render_design_review
 from harness.task import (
+    set_decided_intent,
     looks_like_add_feature,
     looks_like_app_loop,
     looks_like_bugfix,
@@ -220,6 +221,39 @@ class Agent:
         options = self.options if task is None else _with_task(self.options, task)
         if not options.task.strip():
             raise ValueError("task required")
+        self._decide_intent(options)
+        try:
+            return self._after_deciding(options)
+        finally:
+            # Forget it, so a later run in this process — a benchmark
+            # arm measured with the regex — cannot inherit this decision.
+            set_decided_intent(options.task, None)
+
+    def _decide_intent(self, options: AgentOptions) -> None:
+        """Ask the fitted model what kind of task this is, if asked to.
+
+        One embedding call per run, before any model turn. The answer is
+        registered against the task text so every `looks_like_*` reader
+        sees it without being changed. If nothing can embed, nothing is
+        registered and the regexes answer as they always have.
+        """
+        if options.decide != "model":
+            return
+        from harness.decide.intent import intent_of
+
+        decision = intent_of(options.task)
+        if decision is None:
+            options.emit("decide", "no embedding model reachable; the regex decides")
+            return
+        set_decided_intent(options.task, decision.intent)
+        options.emit(
+            "decide",
+            f"intent {decision.intent} (margin {decision.margin:.2f}, "
+            f"runner-up {decision.runner_up})",
+        )
+
+    def _after_deciding(self, options: AgentOptions) -> AgentResult:
+        """The four questions, and then the model. See `run`."""
         run = RunState(options=options, preamble=build_preamble(options))
         run.options.emit("preamble", run.preamble.pre_text or "")
 

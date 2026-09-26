@@ -162,6 +162,27 @@ already built, at the size of a script. What remains is wiring it in
 where the regexes are, one decision at a time, and measuring each swap
 through `experiment.py`.
 
+### Where it lives
+
+The sample, the rejects, and every measurement are published as
+[YauhenBichel/py-harness-intents](https://huggingface.co/datasets/YauhenBichel/py-harness-intents)
+on the Hub, with a card that says how the sample was made and what it
+cannot show.
+
+The model is in the harness as `harness.decide.intent`: the fitted
+weights as a 101 KB JSON file, and scoring as one dot product per intent
+in plain Python. It is behind a switch — `AgentOptions.decide`, `--decide
+model` on the benchmark and the experiment pipeline — that defaults to
+the regex, so nothing already measured moves. With the switch on, the
+intent is decided once at the start of a run and registered against the
+task text, so the twelve places that ask `looks_like_bugfix` see it
+without being changed, and it is forgotten when the run ends so a later
+arm measured with the regex cannot inherit it. If no embedding model is
+reachable, nothing is registered and the regex answers as before.
+
+Whether the swap helps the *benchmark* — not just the decision — is a
+separate measurement, and the next one.
+
 ## The order of work
 
 1. **Change the default model.** Free, measured, done in four minutes.

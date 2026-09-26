@@ -117,7 +117,13 @@ def evaluate(split_name: str, rows: list[dict], x: np.ndarray,
         truth = (truth_intent == intent).astype(int)
         if truth.sum() == 0 and split_name != "gold":
             continue
-        model_pred = (logit[intent] > 0).astype(int)
+        # The router's real decision is the argmax over intents, not a
+        # separate threshold per intent. With one positive in twelve the
+        # per-intent fit leans negative and "accuracy" is mostly the
+        # negatives — the first run showed F1 of 0.00 beside 91%
+        # accuracy for exactly that reason. Compare the decision a router
+        # would actually make.
+        model_pred = (argmax == intent).astype(int)
         entry = {"support": int(truth.sum()), "model": prf(model_pred, truth)}
         regex = REGEX_FOR.get(intent)
         if regex is not None:

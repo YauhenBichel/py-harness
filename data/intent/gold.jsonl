@@ -1,0 +1,55 @@
+{"task": "fix the bug in last_price in src/orders.py", "intent": "bugfix", "source": "hand"}
+{"task": "fix the NameError in src/orders.py", "intent": "bugfix", "source": "hand"}
+{"task": "there is a crash in the report writer, sort it out", "intent": "bugfix", "source": "hand"}
+{"task": "the totals come out one too low", "intent": "bugfix", "source": "hand"}
+{"task": "last_price raises IndexError on a full list", "intent": "bugfix", "source": "hand"}
+{"task": "average() divides by zero when the list is empty", "intent": "bugfix", "source": "hand"}
+{"task": "the config loader returns True for FLAG=false", "intent": "bugfix", "source": "hand"}
+{"task": "slugify leaves spaces in the output when it should use hyphens", "intent": "bugfix", "source": "hand"}
+{"task": "retry gives up after the first failure instead of trying again", "intent": "bugfix", "source": "hand"}
+{"task": "add a function average(values) that returns the mean", "intent": "other", "source": "hand"}
+{"task": "write a unit test for apply_discount", "intent": "other", "source": "hand"}
+{"task": "create a new module with a function slugify(text)", "intent": "other", "source": "hand"}
+{"task": "rename calc to compute_total across the project", "intent": "other", "source": "hand"}
+{"task": "what does apply_source refuse?", "intent": "other", "source": "hand"}
+{"task": "add a docstring to read_env_file", "intent": "other", "source": "hand"}
+{"task": "add a function fix_encoding(text) that repairs mojibake", "intent": "other", "source": "hand"}
+{"task": "write a test that reproduces the crash in last_price", "intent": "other", "source": "hand"}
+{"task": "document how we fix flaky tests in CONTRIBUTING", "intent": "other", "source": "hand"}
+{"task": "rename the bug_report module to issue_report", "intent": "other", "source": "hand"}
+{"task": "fix the off-by-one in paginate", "intent": "bugfix", "source": "hand"}
+{"task": "the parser crashes on an empty file", "intent": "bugfix", "source": "hand"}
+{"task": "compute_total returns 0 for a non-empty list", "intent": "bugfix", "source": "hand"}
+{"task": "format_date raises ValueError on valid input", "intent": "bugfix", "source": "hand"}
+{"task": "the login form accepts an empty password", "intent": "bugfix", "source": "hand"}
+{"task": "sort_items puts None before every other value and it should not", "intent": "bugfix", "source": "hand"}
+{"task": "the cache is never invalidated after a write", "intent": "bugfix", "source": "hand"}
+{"task": "read_env_file drops the last line of the file", "intent": "bugfix", "source": "hand"}
+{"task": "the CLI exits 0 even when a step failed", "intent": "bugfix", "source": "hand"}
+{"task": "the discount is applied twice on a repeated order", "intent": "bugfix", "source": "hand"}
+{"task": "the wrong file gets deleted when the path has a space in it", "intent": "bugfix", "source": "hand"}
+{"task": "timestamps are printed in the wrong time zone", "intent": "bugfix", "source": "hand"}
+{"task": "this KeyError should not happen when the key is present", "intent": "bugfix", "source": "hand"}
+{"task": "the retry counter never decrements", "intent": "bugfix", "source": "hand"}
+{"task": "the totals page shows yesterday's figures", "intent": "bugfix", "source": "hand"}
+{"task": "negative quantities are accepted by the order form", "intent": "bugfix", "source": "hand"}
+{"task": "the tests pass locally and fail in CI because of the temp dir", "intent": "bugfix", "source": "hand"}
+{"task": "clamp returns the low bound when the value is above the high bound", "intent": "bugfix", "source": "hand"}
+{"task": "add a function median(values)", "intent": "other", "source": "hand"}
+{"task": "write tests for the report writer", "intent": "other", "source": "hand"}
+{"task": "create a package for the billing code", "intent": "other", "source": "hand"}
+{"task": "rename total to grand_total everywhere", "intent": "other", "source": "hand"}
+{"task": "how does the loader pick a module?", "intent": "other", "source": "hand"}
+{"task": "move the helpers into their own file", "intent": "other", "source": "hand"}
+{"task": "add type hints to the orders module", "intent": "other", "source": "hand"}
+{"task": "write a README section for the CLI", "intent": "other", "source": "hand"}
+{"task": "add a --verbose flag to the command", "intent": "other", "source": "hand"}
+{"task": "what is the difference between edit and patch?", "intent": "other", "source": "hand"}
+{"task": "split orders.py into orders and pricing", "intent": "other", "source": "hand"}
+{"task": "add a function that fixes up whitespace in a string", "intent": "other", "source": "hand"}
+{"task": "write a regression test for the crash we saw last week", "intent": "other", "source": "hand"}
+{"task": "explain why the bug tracker uses that schema", "intent": "other", "source": "hand"}
+{"task": "refactor the crash handler into smaller functions", "intent": "other", "source": "hand"}
+{"task": "review the fix in the open pull request", "intent": "other", "source": "hand"}
+{"task": "add a script that reports open bugs from the tracker", "intent": "other", "source": "hand"}
+{"task": "document the known defects in the release notes", "intent": "other", "source": "hand"}

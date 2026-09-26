@@ -1,0 +1,326 @@
+{
+  "name": "tier6-qwen35-9b",
+  "when": "2026-09-24",
+  "commit": "f136d28",
+  "dirty": true,
+  "machine": "Darwin arm64",
+  "model": "factory-qwen3.5-9b:q4_K_M",
+  "engine": "ollama",
+  "tiers": [
+    6
+  ],
+  "passes": 5,
+  "seconds": 1711.4,
+  "worked": 16,
+  "runs": 20,
+  "totals_per_pass": [
+    3,
+    2,
+    4,
+    4,
+    3
+  ],
+  "errored_runs": 2,
+  "zero_step_runs": 0,
+  "runs_that_asked": 0,
+  "rows": [
+    {
+      "case": "env-flag",
+      "tier": 6,
+      "worked": "no",
+      "why": "AssertionError: 0",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 3,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 19.1,
+      "pass": 1
+    },
+    {
+      "case": "venv-python",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 2,
+      "writes": [
+        "pkg/paths.py"
+      ],
+      "seconds": 33.6,
+      "pass": 1
+    },
+    {
+      "case": "read-env-file",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 45.5,
+      "pass": 1
+    },
+    {
+      "case": "retry",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 3,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 31.3,
+      "pass": 1
+    },
+    {
+      "case": "env-flag",
+      "tier": 6,
+      "worked": "no",
+      "why": "AssertionError: default",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 3,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 22.3,
+      "pass": 2
+    },
+    {
+      "case": "venv-python",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "pkg/paths.py"
+      ],
+      "seconds": 41.6,
+      "pass": 2
+    },
+    {
+      "case": "read-env-file",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 6,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 170.2,
+      "pass": 2
+    },
+    {
+      "case": "retry",
+      "tier": 6,
+      "worked": "error",
+      "why": "TimeoutError: timed out",
+      "pass": 2
+    },
+    {
+      "case": "env-flag",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 2,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 41.7,
+      "pass": 3
+    },
+    {
+      "case": "venv-python",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 3,
+      "writes": [
+        "pkg/paths.py"
+      ],
+      "seconds": 118.3,
+      "pass": 3
+    },
+    {
+      "case": "read-env-file",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 6,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 68.1,
+      "pass": 3
+    },
+    {
+      "case": "retry",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 50.9,
+      "pass": 3
+    },
+    {
+      "case": "env-flag",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 2,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 115.1,
+      "pass": 4
+    },
+    {
+      "case": "venv-python",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 2,
+      "writes": [
+        "pkg/paths.py"
+      ],
+      "seconds": 35.6,
+      "pass": 4
+    },
+    {
+      "case": "read-env-file",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 48.0,
+      "pass": 4
+    },
+    {
+      "case": "retry",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 3,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 115.2,
+      "pass": 4
+    },
+    {
+      "case": "env-flag",
+      "tier": 6,
+      "worked": "error",
+      "why": "TimeoutError: timed out",
+      "pass": 5
+    },
+    {
+      "case": "venv-python",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 2,
+      "writes": [
+        "pkg/paths.py"
+      ],
+      "seconds": 44.7,
+      "pass": 5
+    },
+    {
+      "case": "read-env-file",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 8,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 260.4,
+      "pass": 5
+    },
+    {
+      "case": "retry",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 89.5,
+      "pass": 5
+    }
+  ]
+}

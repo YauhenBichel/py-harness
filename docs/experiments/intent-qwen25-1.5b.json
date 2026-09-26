@@ -1,0 +1,187 @@
+{
+  "model": "qwen2.5:1.5b-instruct",
+  "embed_model": "bge-m3:latest",
+  "repeat": 3,
+  "cases": 19,
+  "training_examples": 36,
+  "arms": {
+    "regex": {
+      "right": 11,
+      "answered": 19,
+      "accuracy": 0.579,
+      "false_positives": 2,
+      "false_negatives": 6
+    },
+    "trained": {
+      "right": 17,
+      "answered": 19,
+      "accuracy": 0.895,
+      "false_positives": 1,
+      "false_negatives": 1
+    },
+    "prompted": {
+      "right": 12,
+      "answered": 19,
+      "accuracy": 0.632,
+      "false_positives": 5,
+      "false_negatives": 2
+    }
+  },
+  "prompted_unsteady": 1,
+  "trained_error": "",
+  "seconds": 9.9,
+  "rows": [
+    {
+      "task": "fix the bug in last_price in src/orders.py",
+      "truth": true,
+      "note": "keyword: fix, bug",
+      "regex": true,
+      "trained": true,
+      "prompted": true
+    },
+    {
+      "task": "fix the NameError in src/orders.py",
+      "truth": true,
+      "note": "keyword: fix, nameerror",
+      "regex": true,
+      "trained": true,
+      "prompted": true
+    },
+    {
+      "task": "there is a crash in the report writer, sort it out",
+      "truth": true,
+      "note": "keyword: crash",
+      "regex": true,
+      "trained": false,
+      "prompted": true
+    },
+    {
+      "task": "the totals come out one too low",
+      "truth": true,
+      "note": "off-by-one, no keyword",
+      "regex": false,
+      "trained": true,
+      "prompted": true
+    },
+    {
+      "task": "last_price raises IndexError on a full list",
+      "truth": true,
+      "note": "names the exception",
+      "regex": false,
+      "trained": true,
+      "prompted": true
+    },
+    {
+      "task": "average() divides by zero when the list is empty",
+      "truth": true,
+      "note": "states the fault",
+      "regex": false,
+      "trained": true,
+      "prompted": true
+    },
+    {
+      "task": "the config loader returns True for FLAG=false",
+      "truth": true,
+      "note": "wrong behaviour",
+      "regex": false,
+      "trained": true,
+      "prompted": true
+    },
+    {
+      "task": "slugify leaves spaces in the output when it should use hyphens",
+      "truth": true,
+      "note": "wrong output",
+      "regex": false,
+      "trained": true,
+      "prompted": false
+    },
+    {
+      "task": "retry gives up after the first failure instead of trying again",
+      "truth": true,
+      "note": "wrong behaviour",
+      "regex": false,
+      "trained": true,
+      "prompted": false
+    },
+    {
+      "task": "add a function average(values) that returns the mean",
+      "truth": false,
+      "note": "new feature",
+      "regex": false,
+      "trained": false,
+      "prompted": false
+    },
+    {
+      "task": "write a unit test for apply_discount",
+      "truth": false,
+      "note": "test writing",
+      "regex": false,
+      "trained": false,
+      "prompted": false
+    },
+    {
+      "task": "create a new module with a function slugify(text)",
+      "truth": false,
+      "note": "new module",
+      "regex": false,
+      "trained": false,
+      "prompted": false
+    },
+    {
+      "task": "rename calc to compute_total across the project",
+      "truth": false,
+      "note": "a rename",
+      "regex": false,
+      "trained": false,
+      "prompted": true
+    },
+    {
+      "task": "what does apply_source refuse?",
+      "truth": false,
+      "note": "a question",
+      "regex": false,
+      "trained": true,
+      "prompted": false
+    },
+    {
+      "task": "add a docstring to read_env_file",
+      "truth": false,
+      "note": "documentation",
+      "regex": false,
+      "trained": false,
+      "prompted": false
+    },
+    {
+      "task": "add a function fix_encoding(text) that repairs mojibake",
+      "truth": false,
+      "note": "contains \"fix\", asks for a new function",
+      "regex": false,
+      "trained": false,
+      "prompted": true
+    },
+    {
+      "task": "write a test that reproduces the crash in last_price",
+      "truth": false,
+      "note": "contains \"crash\", asks for a test",
+      "regex": true,
+      "trained": false,
+      "prompted": true
+    },
+    {
+      "task": "document how we fix flaky tests in CONTRIBUTING",
+      "truth": false,
+      "note": "contains \"fix\", asks for documentation",
+      "regex": true,
+      "trained": false,
+      "prompted": true
+    },
+    {
+      "task": "rename the bug_report module to issue_report",
+      "truth": false,
+      "note": "contains \"bug\", is a rename",
+      "regex": false,
+      "trained": false,
+      "prompted": true
+    }
+  ]
+}

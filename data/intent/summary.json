@@ -1,0 +1,26 @@
+{
+  "model": "qwen3-coder:30b",
+  "per_style": 20,
+  "written": 1201,
+  "unique": 1200,
+  "kept": 1044,
+  "rejected": 156,
+  "train": 841,
+  "test": 203,
+  "gold": 55,
+  "minutes": 19.7,
+  "per_intent": {
+    "bugfix": 87,
+    "add_feature": 94,
+    "write_tests": 89,
+    "rename_or_move": 91,
+    "new_package": 74,
+    "question": 93,
+    "refactor": 97,
+    "docs": 91,
+    "review": 68,
+    "ship": 91,
+    "platform_ops": 94,
+    "script_cli": 75
+  }
+}

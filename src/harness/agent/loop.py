@@ -44,6 +44,7 @@ from harness.model.ollama_generate import CONTEXT_TOKENS
 from harness.observe.trace_record import append_turn, default_trace_path
 from harness.scan.design import render_design_review
 from harness.task import (
+    set_decided_intent,
     looks_like_add_feature,
     looks_like_app_loop,
     looks_like_bugfix,
@@ -220,6 +221,39 @@ class Agent:
         options = self.options if task is None else _with_task(self.options, task)
         if not options.task.strip():
             raise ValueError("task required")
+        self._decide_intent(options)
+        try:
+            return self._after_deciding(options)
+        finally:
+            # Forget it, so a later run in this process — a benchmark
+            # arm measured with the regex — cannot inherit this decision.
+            set_decided_intent(options.task, None)
+
+    def _decide_intent(self, options: AgentOptions) -> None:
+        """Ask the fitted model what kind of task this is, if asked to.
+
+        One embedding call per run, before any model turn. The answer is
+        registered against the task text so every `looks_like_*` reader
+        sees it without being changed. If nothing can embed, nothing is
+        registered and the regexes answer as they always have.
+        """
+        if options.decide != "model":
+            return
+        from harness.decide.intent import intent_of
+
+        decision = intent_of(options.task)
+        if decision is None:
+            options.emit("decide", "no embedding model reachable; the regex decides")
+            return
+        set_decided_intent(options.task, decision.intent)
+        options.emit(
+            "decide",
+            f"intent {decision.intent} (margin {decision.margin:.2f}, "
+            f"runner-up {decision.runner_up})",
+        )
+
+    def _after_deciding(self, options: AgentOptions) -> AgentResult:
+        """The four questions, and then the model. See `run`."""
         run = RunState(options=options, preamble=build_preamble(options))
         run.options.emit("preamble", run.preamble.pre_text or "")
 
@@ -407,13 +441,18 @@ class Agent:
         steps: list[Step] = []
 
         for number in range(1, options.steps + 1):
-            draft = generate(prompt)
-            _remember(generate, prompt, draft)
-            options.emit("draft", f"--- step {number} ---\n{draft}")
-            turn = parse_turn_smart(
-                draft,
+            draft, turn, tried = _first_that_parses(
+                generate,
+                prompt,
+                options.drafts,
                 question=looks_like_question(options.task),
                 ship=looks_like_ship(options.task),
+            )
+            _remember(generate, prompt, draft)
+            options.emit(
+                "draft",
+                f"--- step {number} ---\n{draft}"
+                + (f"\n[draft {tried} of {options.drafts}]" if tried > 1 else ""),
             )
             trace = trace_path(options)
             if trace is not None:
@@ -695,6 +734,33 @@ def _with_task(options: AgentOptions, task: str) -> AgentOptions:
     from dataclasses import replace
 
     return replace(options, task=task)
+
+
+def _first_that_parses(generate, prompt: str, drafts: int, *, question: bool,
+                       ship: bool):
+    """Ask up to `drafts` times, and keep the first reply that parses.
+
+    A reply the loop cannot read costs a whole step: it is answered with
+    "Could not parse" and the budget is one shorter. Asking again is the
+    cheapest repair there is, because the model is not being argued with
+    — it is simply being asked again, which measures better than feeding
+    a small model its own mistake.
+
+    The check is deliberately only "does this parse into an action".
+    Anything further would need the action carried out, and a draft that
+    has been carried out cannot be taken back.
+
+    Returns the draft kept, its parsed turn, and how many were asked for,
+    so a run can be read afterwards for how often this fired.
+    """
+    draft = generate(prompt)
+    turn = parse_turn_smart(draft, question=question, ship=ship)
+    tried = 1
+    while turn is None and tried < drafts:
+        tried += 1
+        draft = generate(prompt)
+        turn = parse_turn_smart(draft, question=question, ship=ship)
+    return draft, turn, tried
 
 
 def _remember(generate, prompt: str, draft: str) -> None:

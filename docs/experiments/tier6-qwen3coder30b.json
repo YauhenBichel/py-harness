@@ -1,0 +1,343 @@
+{
+  "name": "tier6-qwen3coder30b",
+  "when": "2026-09-24",
+  "commit": "bcb1f88",
+  "dirty": true,
+  "machine": "Darwin arm64",
+  "model": "qwen3-coder:30b",
+  "engine": "ollama",
+  "tiers": [
+    6
+  ],
+  "passes": 5,
+  "seconds": 238.2,
+  "worked": 20,
+  "runs": 20,
+  "totals_per_pass": [
+    4,
+    4,
+    4,
+    4,
+    4
+  ],
+  "errored_runs": 0,
+  "zero_step_runs": 0,
+  "runs_that_asked": 0,
+  "rows": [
+    {
+      "case": "env-flag",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 5.2,
+      "pass": 1
+    },
+    {
+      "case": "venv-python",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 3,
+      "writes": [
+        "pkg/paths.py"
+      ],
+      "seconds": 6.9,
+      "pass": 1
+    },
+    {
+      "case": "read-env-file",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 5,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 14.4,
+      "pass": 1
+    },
+    {
+      "case": "retry",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 5,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 8.5,
+      "pass": 1
+    },
+    {
+      "case": "env-flag",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 5.6,
+      "pass": 2
+    },
+    {
+      "case": "venv-python",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 3,
+      "writes": [
+        "pkg/paths.py"
+      ],
+      "seconds": 8.7,
+      "pass": 2
+    },
+    {
+      "case": "read-env-file",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 32.8,
+      "pass": 2
+    },
+    {
+      "case": "retry",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 7.8,
+      "pass": 2
+    },
+    {
+      "case": "env-flag",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 5.5,
+      "pass": 3
+    },
+    {
+      "case": "venv-python",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 3,
+      "writes": [
+        "pkg/paths.py"
+      ],
+      "seconds": 11.9,
+      "pass": 3
+    },
+    {
+      "case": "read-env-file",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 5,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 9.8,
+      "pass": 3
+    },
+    {
+      "case": "retry",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 5,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 8.1,
+      "pass": 3
+    },
+    {
+      "case": "env-flag",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 5.9,
+      "pass": 4
+    },
+    {
+      "case": "venv-python",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 3,
+      "writes": [
+        "pkg/paths.py"
+      ],
+      "seconds": 8.7,
+      "pass": 4
+    },
+    {
+      "case": "read-env-file",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 33.5,
+      "pass": 4
+    },
+    {
+      "case": "retry",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 6,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 16.2,
+      "pass": 4
+    },
+    {
+      "case": "env-flag",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 5.8,
+      "pass": 5
+    },
+    {
+      "case": "venv-python",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 3,
+      "writes": [
+        "pkg/paths.py"
+      ],
+      "seconds": 11.8,
+      "pass": 5
+    },
+    {
+      "case": "read-env-file",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 10,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 24.0,
+      "pass": 5
+    },
+    {
+      "case": "retry",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 6.8,
+      "pass": 5
+    }
+  ]
+}

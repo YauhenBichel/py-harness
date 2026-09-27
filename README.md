@@ -87,6 +87,18 @@ The long table: [Experiments](https://yauhenbichel.github.io/py-harness/investig
 Every score: [Results](https://yauhenbichel.github.io/py-harness/investigations/).
 Which tags timed out: [Hub models](https://yauhenbichel.github.io/py-harness/investigations/hub-models/).
 
+## Experiments
+
+Every run since 24 September is filed by `scripts/measure/experiment.py` with its noise floor. All 14, every record: [docs/experiments](docs/experiments/) · [Hugging Face](https://huggingface.co/datasets/YauhenBichel/py-harness-intents/tree/main/experiments).
+
+| Measured | Result |
+| --- | --- |
+| A local 30B on tiers 1–6 | **72 / 75** |
+| Decision model vs regex, 30B, bug tiers | 30 / 30 both; it exposed three bug-fix faults, runs that never said done **16 → 0** |
+| Decision model vs regex, 7B, bug tiers | **11 vs 6 / 30**, real; all of it one repair |
+| Reading the 7B's diffs and JSON as turns | **15 / 30**, real +4; the next reading noise, floor 3 |
+| `llama3.1:8b` on the GPU host | not measurable: word salad past ~500 prompt tokens |
+
 ## More
 
 | If you want | Go here |

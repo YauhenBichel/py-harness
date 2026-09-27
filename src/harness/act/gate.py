@@ -29,6 +29,7 @@ from harness.skillkit.refuse_change import (
     refuse_shell_fetch,
     refuse_stdlib_shadow,
     refuse_stub_body,
+    refuse_self_at_module_level,
     refuse_test_in_impl,
     refuse_undefined_draft,
     refuse_weak_test,
@@ -234,6 +235,10 @@ CHANGE_RULES: tuple[tuple[str, Callable[[ProposedChange], str]], ...] = (
     ("platform draft", lambda c: refuse_platform_draft(c.rel, c.draft)),
     ("operations draft", lambda c: refuse_ops_draft(c.rel, c.draft)),
     ("test in implementation", lambda c: refuse_test_in_impl(c.rel, c.draft)),
+    (
+        "self outside a class",
+        lambda c: refuse_self_at_module_level(c.rel, c.fragment or c.draft),
+    ),
     ("stub body", lambda c: refuse_stub_body(c.task, c.rel, c.draft)),
     (
         "undefined name",

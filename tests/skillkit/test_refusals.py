@@ -435,7 +435,7 @@ class EveryRuleIsInTheTableTest(unittest.TestCase):
             f"written but never run: {missing}. Add it to CHANGE_RULES, "
             "or to NOT_ABOUT_A_DRAFT with the reason.",
         )
-        self.assertEqual(len(CHANGE_RULES), 14)
+        self.assertEqual(len(CHANGE_RULES), 15)
 
     def test_each_entry_is_named_and_callable(self) -> None:
         from harness.act.gate import CHANGE_RULES
@@ -722,6 +722,59 @@ class ADrawerIsNotAConcernTest(unittest.TestCase):
             "add a helper", "pkg/helpers.py", "", "def total():\n    return 1\n"
         )
         self.assertIn("opaque module", refused)
+
+
+class SelfOutsideAClassTest(unittest.TestCase):
+    """Issues #173 and #174 are one shape: a class method with no class.
+    `def total_lines(self)` at module level cannot be called, and
+    `def test_apply_discount(self)` at module level is never collected."""
+
+    def test_a_module_level_def_taking_self_is_refused(self) -> None:
+        from harness.skillkit.refuse_change import refuse_self_at_module_level
+
+        refused = refuse_self_at_module_level(
+            "broken.py", "def total_lines(self) -> int:\n    return self.total_price\n"
+        )
+        self.assertIn("def total_lines(self, ...)", refused)
+        self.assertIn("nothing can call it", refused)
+        self.assertIn("without `self`", refused)
+
+    def test_a_module_level_test_method_is_told_about_testcase(self) -> None:
+        from harness.skillkit.refuse_change import refuse_self_at_module_level
+
+        refused = refuse_self_at_module_level(
+            "tests/test_pricing.py",
+            "def test_apply_discount(self) -> None:\n    self.assertEqual(1, 1)\n",
+        )
+        self.assertIn("never collects it", refused)
+        self.assertIn("unittest.TestCase", refused)
+
+    def test_cls_counts_too(self) -> None:
+        from harness.skillkit.refuse_change import refuse_self_at_module_level
+
+        self.assertIn("cls", refuse_self_at_module_level("pkg/a.py", "def make(cls):\n    return cls()\n"))
+
+    def test_a_method_inside_a_class_is_fine(self) -> None:
+        from harness.skillkit.refuse_change import refuse_self_at_module_level
+
+        draft = "class Order:\n    def total(self) -> int:\n        return 1\n"
+        self.assertEqual(refuse_self_at_module_level("pkg/orders.py", draft), "")
+
+    def test_a_plain_function_is_fine(self) -> None:
+        from harness.skillkit.refuse_change import refuse_self_at_module_level
+
+        self.assertEqual(
+            refuse_self_at_module_level("pkg/a.py", "def total_lines(path):\n    return 1\n"), ""
+        )
+
+    def test_the_gate_runs_it(self) -> None:
+        from harness.act.gate import first_refusal
+
+        refused = first_refusal(
+            "add a function total_lines and a test", "pkg/lines.py", "",
+            "def total_lines(self) -> int:\n    return 1\n",
+        )
+        self.assertIn("no class around it", refused)
 
 
 if __name__ == "__main__":

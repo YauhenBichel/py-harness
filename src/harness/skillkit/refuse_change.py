@@ -449,6 +449,36 @@ def refuse_test_in_impl(rel: str, draft: str) -> str:
     return ""
 
 
+_SELF_AT_TOP = re.compile(r"^def\s+(\w+)\s*\(\s*(self|cls)\b", re.MULTILINE)
+
+
+def refuse_self_at_module_level(rel: str, draft: str) -> str:
+    """Refuse a def at column 0 whose first parameter is self or cls.
+
+    A class method emitted with no class around it. Live 8B wrote
+    `def total_lines(self) -> int` at module level, which nothing can
+    call, and `def test_apply_discount(self)` with no TestCase, which
+    discovery never collects. Issues #173 and #174 are the same shape
+    twice; this is the one check both asked for.
+    """
+    match = _SELF_AT_TOP.search(draft or "")
+    if not match:
+        return ""
+    name, first = match.group(1), match.group(2)
+    posix = (rel or "").replace("\\", "/").lower()
+    if name.startswith("test_") or "test" in posix:
+        return (
+            f"def {name}({first}, ...) is at module level with no class around it, "
+            "so unittest never collects it. Put it, indented, inside "
+            "`class Test...(unittest.TestCase):`."
+        )
+    return (
+        f"def {name}({first}, ...) is at module level with no class around it, "
+        f"so nothing can call it. Write def {name}(...) without `{first}`, "
+        "taking what it needs as arguments."
+    )
+
+
 def _undefined_message(rel: str, name: str) -> str:
     """Say how to bind the name, not just that it is unbound.
 

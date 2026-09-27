@@ -216,3 +216,56 @@ class SayingWhatTheSampleResolvesTest(unittest.TestCase):
         with redirect_stderr(out):
             self.bench.report(rows, 3)
         self.assertIn("gap of 3 case(s) or more", " ".join(out.getvalue().split()))
+
+
+class TierSevenSaysItLikeAPersonTest(unittest.TestCase):
+    """Tier 7 exists so a decider that reads meaning can be told apart
+    from one that reads keywords. That only holds if its tasks carry no
+    keyword, and if the fixture really is broken the way the task says."""
+
+    def setUp(self) -> None:
+        self.bench = _bench()
+        self.seven = [c for c in self.bench.CASES if c.tier == 7]
+        self.assertTrue(self.seven, "tier 7 has no cases")
+
+    def test_no_tier_seven_task_uses_a_word_the_regex_keys_on(self) -> None:
+        sys.path.insert(0, str(ROOT / "src"))
+        from harness import task as T
+
+        for case in self.seven:
+            T.set_decided_intent(case.task, None)
+            self.assertFalse(
+                T.looks_like_bugfix(case.task),
+                f"{case.key}: the regex already sees a fix in {case.task!r}, "
+                "so this case cannot separate the two deciders",
+            )
+
+    def test_every_tier_seven_fixture_fails_its_own_check_before_any_fix(self) -> None:
+        import subprocess
+        import tempfile
+
+        for case in self.seven:
+            with tempfile.TemporaryDirectory() as tmp:
+                project = Path(tmp)
+                for rel, body in {**self.bench.BASE, **case.files}.items():
+                    (project / rel).parent.mkdir(parents=True, exist_ok=True)
+                    (project / rel).write_text(body, encoding="utf-8")
+                proc = subprocess.run(
+                    [sys.executable, "-c", self.bench.LOADER + case.check],
+                    cwd=project, capture_output=True, text=True, timeout=60, check=False,
+                )
+                self.assertNotEqual(
+                    proc.returncode, 0,
+                    f"{case.key}: the check passes on the unfixed fixture, so the "
+                    "case measures nothing",
+                )
+
+    def test_tier_seven_is_the_same_bugs_as_tier_five(self) -> None:
+        """A symptom-phrased case must be answerable by the same fix as a
+        keyword-phrased one, or a gap between tiers is a gap in difficulty."""
+        five = {c.key: c for c in self.bench.CASES if c.tier == 5}
+        pairs = {"said-nameerror": "fix-nameerror", "said-offbyone": "fix-offbyone"}
+        for seven_key, five_key in pairs.items():
+            seven = next(c for c in self.seven if c.key == seven_key)
+            self.assertEqual(seven.files, five[five_key].files, f"{seven_key} fixture drifted")
+            self.assertEqual(seven.check, five[five_key].check, f"{seven_key} check drifted")

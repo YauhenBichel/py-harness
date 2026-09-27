@@ -1,0 +1,841 @@
+{"task": "The write_to_database function in database_handler.py produces incorrect auto-increment values when inserting records with explicit IDs", "intent": "bugfix", "style": "with_paths", "blind": "bugfix", "source": "generated", "id": "d5bfd84733"}
+{"task": "The API endpoint for retrieving user profiles returns an empty response instead of the expected JSON object", "intent": "bugfix", "style": "descriptive", "blind": "bugfix", "source": "generated", "id": "0c27fbb69b"}
+{"task": "fix KeyError in user data fetcher", "intent": "bugfix", "style": "terse", "blind": "bugfix", "source": "generated", "id": "d4463de7ff"}
+{"task": "my parser breaks on unicode characters", "intent": "bugfix", "style": "casual", "blind": "bugfix", "source": "generated", "id": "3e8b10dcae"}
+{"task": "cache invalidation doesn't work properly for nested object updates", "intent": "bugfix", "style": "symptom", "blind": "bugfix", "source": "generated", "id": "970106181e"}
+{"task": "inventory counts don't update properly after item transfers", "intent": "bugfix", "style": "symptom", "blind": "bugfix", "source": "generated", "id": "4aef9bbb64"}
+{"task": "Fix the AttributeError in config_loader.py where 'NoneType' object has no attribute 'get' for missing environment variables", "intent": "bugfix", "style": "with_paths", "blind": "bugfix", "source": "generated", "id": "3bc64decf1"}
+{"task": "the payment processor rejects valid cards", "intent": "bugfix", "style": "casual", "blind": "bugfix", "source": "generated", "id": "481fa6a828"}
+{"task": "The merge_user_data function in data_processor.py duplicates records when merging users with same email addresses", "intent": "bugfix", "style": "with_paths", "blind": "bugfix", "source": "generated", "id": "fdf18f56e0"}
+{"task": "resolve syntax error in yaml reader", "intent": "bugfix", "style": "terse", "blind": "bugfix", "source": "generated", "id": "a1dc726e77"}
+{"task": "The caching mechanism causes a race condition that results in stale data being returned to multiple concurrent requests", "intent": "bugfix", "style": "descriptive", "blind": "bugfix", "source": "generated", "id": "9ee8471e86"}
+{"task": "The data export tool generates malformed XML when processing records containing special characters", "intent": "bugfix", "style": "descriptive", "blind": "bugfix", "source": "generated", "id": "9ee42dc6c1"}
+{"task": "The user authentication function throws a KeyError when trying to access the 'role' field in the session dictionary", "intent": "bugfix", "style": "descriptive", "blind": "bugfix", "source": "generated", "id": "0d8b17559e"}
+{"task": "The inventory management system has a bug where item quantities are reduced by twice the amount when processing orders", "intent": "bugfix", "style": "descriptive", "blind": "bugfix", "source": "generated", "id": "5b0fc49e09"}
+{"task": "The task scheduler module has a bug where scheduled jobs run twice instead of once per interval", "intent": "bugfix", "style": "descriptive", "blind": "bugfix", "source": "generated", "id": "59f127a7d8"}
+{"task": "correct encoding issue in csv writer", "intent": "bugfix", "style": "terse", "blind": "bugfix", "source": "generated", "id": "36d2ce3eea"}
+{"task": "the user id is not getting saved to the db after registration", "intent": "bugfix", "style": "casual", "blind": "bugfix", "source": "generated", "id": "b02577acc4"}
+{"task": "why is my json parser returning null values", "intent": "bugfix", "style": "casual", "blind": "bugfix", "source": "generated", "id": "41bedba776"}
+{"task": "the sorting algorithm produces wrong order for numeric values", "intent": "bugfix", "style": "symptom", "blind": "bugfix", "source": "generated", "id": "2a384987f8"}
+{"task": "the user profile page crashes on load", "intent": "bugfix", "style": "casual", "blind": "bugfix", "source": "generated", "id": "a7bd985be9"}
+{"task": "The payment processing module doesn't properly validate credit card numbers using the Luhn algorithm", "intent": "bugfix", "style": "descriptive", "blind": "bugfix", "source": "generated", "id": "f871750d8d"}
+{"task": "why does the caching layer not invalidate properly", "intent": "bugfix", "style": "casual", "blind": "bugfix", "source": "generated", "id": "0331486e55"}
+{"task": "the error handling swallows stack traces in production logs", "intent": "bugfix", "style": "symptom", "blind": "bugfix", "source": "generated", "id": "cce6b4769c"}
+{"task": "The file_upload_handler in media_service.py raises an IndexError when processing files with filenames containing special characters", "intent": "bugfix", "style": "with_paths", "blind": "bugfix", "source": "generated", "id": "12dc7fc618"}
+{"task": "the notification service sends duplicates", "intent": "bugfix", "style": "casual", "blind": "bugfix", "source": "generated", "id": "b8fbe2f806"}
+{"task": "The process_payment_transactions function in payment_gateway.py fails to rollback database changes on partial failures", "intent": "bugfix", "style": "with_paths", "blind": "bugfix", "source": "generated", "id": "d6db2dfa3c"}
+{"task": "The calculate_total function in payment_processor.py returns 0 instead of the expected amount when processing orders with zero quantity items", "intent": "bugfix", "style": "with_paths", "blind": "bugfix", "source": "generated", "id": "2979ee0e78"}
+{"task": "my unit tests fail with no error message", "intent": "bugfix", "style": "casual", "blind": "bugfix", "source": "generated", "id": "0102ddc6fb"}
+{"task": "The validate_email function in user_validation.py returns True for invalid email addresses like 'test@'", "intent": "bugfix", "style": "with_paths", "blind": "bugfix", "source": "generated", "id": "9bf2fa4dbc"}
+{"task": "The send_notification function in messaging_service.py ignores message priority settings due to incorrect parameter passing", "intent": "bugfix", "style": "with_paths", "blind": "bugfix", "source": "generated", "id": "6b8ce74a0d"}
+{"task": "the validation logic fails when checking email addresses with underscores", "intent": "bugfix", "style": "symptom", "blind": "bugfix", "source": "generated", "id": "344b25ac49"}
+{"task": "my database query returns empty results", "intent": "bugfix", "style": "casual", "blind": "bugfix", "source": "generated", "id": "acbb0888f1"}
+{"task": "The logging function doesn't properly handle Unicode characters and crashes with a UnicodeEncodeError", "intent": "bugfix", "style": "descriptive", "blind": "bugfix", "source": "generated", "id": "05908ba250"}
+{"task": "The monthly sales report generator crashes with a TypeError when processing null values in the revenue column", "intent": "bugfix", "style": "descriptive", "blind": "bugfix", "source": "generated", "id": "3fc15de22c"}
+{"task": "The validate_password_strength method in security_module.py doesn't properly check minimum length requirement for empty passwords", "intent": "bugfix", "style": "with_paths", "blind": "bugfix", "source": "generated", "id": "177def0fd1"}
+{"task": "when processing payments, the amount gets rounded incorrectly in the final calculation", "intent": "bugfix", "style": "symptom", "blind": "bugfix", "source": "generated", "id": "0d95f1d901"}
+{"task": "resolve division by zero in billing", "intent": "bugfix", "style": "terse", "blind": "bugfix", "source": "generated", "id": "6046fff4f7"}
+{"task": "debug stale data in session manager", "intent": "bugfix", "style": "terse", "blind": "bugfix", "source": "generated", "id": "f80745d590"}
+{"task": "The process_order_queue function in order_management.py crashes with a KeyError when handling orders without shipping_address", "intent": "bugfix", "style": "with_paths", "blind": "bugfix", "source": "generated", "id": "9c06aa8343"}
+{"task": "The database migration script throws an OperationalError when trying to create indexes on large tables", "intent": "bugfix", "style": "descriptive", "blind": "bugfix", "source": "generated", "id": "8ec486e8c6"}
+{"task": "Fix the datetime parsing error in log_parser.py where '2023-12-32' causes ValueError instead of returning None", "intent": "bugfix", "style": "with_paths", "blind": "bugfix", "source": "generated", "id": "23defbe5fc"}
+{"task": "the API endpoint returns empty results for queries with special characters", "intent": "bugfix", "style": "symptom", "blind": "bugfix", "source": "generated", "id": "838f2518b9"}
+{"task": "debug IndexError in invoice processor", "intent": "bugfix", "style": "terse", "blind": "bugfix", "source": "generated", "id": "ffa29f0e51"}
+{"task": "user profile updates don't persist after the save operation completes", "intent": "bugfix", "style": "symptom", "blind": "bugfix", "source": "generated", "id": "7d20697eb1"}
+{"task": "The calculate_tax_amount function in tax_calculator.py gives wrong results when applied to orders with multiple tax rates", "intent": "bugfix", "style": "with_paths", "blind": "bugfix", "source": "generated", "id": "ff1a6cff22"}
+{"task": "the file upload handler crashes on large binary files over 10MB", "intent": "bugfix", "style": "symptom", "blind": "bugfix", "source": "generated", "id": "5c79e2bacb"}
+{"task": "The CSV parser fails to correctly interpret quoted fields that contain commas within the data", "intent": "bugfix", "style": "descriptive", "blind": "bugfix", "source": "generated", "id": "680b1e0790"}
+{"task": "fix wrong parameter order in logger", "intent": "bugfix", "style": "terse", "blind": "bugfix", "source": "generated", "id": "3cf20131d7"}
+{"task": "fix the typo in the email template variable", "intent": "bugfix", "style": "casual", "blind": "bugfix", "source": "generated", "id": "ec53d30dba"}
+{"task": "The parse_csv_data function in data_importer.py throws a TypeError when encountering empty cells in the third column", "intent": "bugfix", "style": "with_paths", "blind": "bugfix", "source": "generated", "id": "772f988e4a"}
+{"task": "fix the division by zero in calculate_average", "intent": "bugfix", "style": "casual", "blind": "bugfix", "source": "generated", "id": "44399b1c47"}
+{"task": "The image resizing function produces corrupted output files with incorrect dimensions", "intent": "bugfix", "style": "descriptive", "blind": "bugfix", "source": "generated", "id": "3573aef464"}
+{"task": "debug None value in payment gateway", "intent": "bugfix", "style": "terse", "blind": "bugfix", "source": "generated", "id": "8e101b6a4e"}
+{"task": "Fix the KeyError in user_auth.py that occurs when accessing session['user_id'] for new users who haven't logged in yet", "intent": "bugfix", "style": "with_paths", "blind": "bugfix", "source": "generated", "id": "175ca7d839"}
+{"task": "The generate_invoice_report method in accounting_module.py produces incorrect tax calculations due to missing decimal rounding", "intent": "bugfix", "style": "with_paths", "blind": "bugfix", "source": "generated", "id": "a34987bab8"}
+{"task": "correct overflow in inventory calculator", "intent": "bugfix", "style": "terse", "blind": "bugfix", "source": "generated", "id": "635441dbe3"}
+{"task": "correct off-by-one in order counter", "intent": "bugfix", "style": "terse", "blind": "bugfix", "source": "generated", "id": "d6118055c1"}
+{"task": "The REST API endpoint for updating user settings ignores the 'email' parameter and always returns the old value", "intent": "bugfix", "style": "descriptive", "blind": "bugfix", "source": "generated", "id": "81238d600b"}
+{"task": "Fix the IndexError in report_generator.py when calling get_row(100) on a list that only contains 50 rows", "intent": "bugfix", "style": "with_paths", "blind": "bugfix", "source": "generated", "id": "0cee485885"}
+{"task": "correct type mismatch in api handler", "intent": "bugfix", "style": "terse", "blind": "bugfix", "source": "generated", "id": "771f471aca"}
+{"task": "the inventory count shows wrong numbers in reports", "intent": "bugfix", "style": "casual", "blind": "bugfix", "source": "generated", "id": "d6a579f634"}
+{"task": "payment processing returns wrong status codes for failed transactions", "intent": "bugfix", "style": "symptom", "blind": "bugfix", "source": "generated", "id": "938ca529c6"}
+{"task": "fix race condition in cache update", "intent": "bugfix", "style": "terse", "blind": "bugfix", "source": "generated", "id": "93cba43941"}
+{"task": "Fix the ValueError in date_formatter.py where 'invalid-date' string causes application crash instead of logging warning", "intent": "bugfix", "style": "with_paths", "blind": "bugfix", "source": "generated", "id": "b901fde09c"}
+{"task": "fix infinite loop in data validator", "intent": "bugfix", "style": "terse", "blind": "bugfix", "source": "generated", "id": "4a65a34c7f"}
+{"task": "resolve memory leak in file parser", "intent": "bugfix", "style": "terse", "blind": "bugfix", "source": "generated", "id": "14197da56d"}
+{"task": "fix the missing import in the auth module", "intent": "bugfix", "style": "casual", "blind": "bugfix", "source": "generated", "id": "d5cbb9337e"}
+{"task": "data migration scripts fail on records with empty foreign keys", "intent": "bugfix", "style": "symptom", "blind": "bugfix", "source": "generated", "id": "e9dafd6295"}
+{"task": "The file upload handler fails to validate MIME types properly and accepts invalid file extensions", "intent": "bugfix", "style": "descriptive", "blind": "bugfix", "source": "generated", "id": "ba4eb92cef"}
+{"task": "the authentication token expires too quickly for mobile clients", "intent": "bugfix", "style": "symptom", "blind": "bugfix", "source": "generated", "id": "618a77433d"}
+{"task": "build a function that calculates tax amounts based on progressive rates", "intent": "add_feature", "style": "symptom", "blind": "add_feature", "source": "generated", "id": "0b6aa128c7"}
+{"task": "Implement a method that parses command line arguments into a structured object", "intent": "add_feature", "style": "descriptive", "blind": "add_feature", "source": "generated", "id": "94684595f0"}
+{"task": "Add a function that validates email addresses using regex patterns", "intent": "add_feature", "style": "descriptive", "blind": "add_feature", "source": "generated", "id": "767cc35aeb"}
+{"task": "please add a method to generate random hex colors", "intent": "add_feature", "style": "casual", "blind": "add_feature", "source": "generated", "id": "9f9b6eb79c"}
+{"task": "could we get a helper to encode urls properly?", "intent": "add_feature", "style": "casual", "blind": "add_feature", "source": "generated", "id": "5445e93738"}
+{"task": "Implement a function process_user_registration(data) in src/auth/register.py that validates input fields", "intent": "add_feature", "style": "with_paths", "blind": "add_feature", "source": "generated", "id": "ebc0e9e82d"}
+{"task": "write a function to calculate invoice totals", "intent": "add_feature", "style": "terse", "blind": "add_feature", "source": "generated", "id": "76b939258b"}
+{"task": "Add a function that calculates the median value from an array of numbers", "intent": "add_feature", "style": "descriptive", "blind": "add_feature", "source": "generated", "id": "0833925966"}
+{"task": "Add a function calculate_tax_amount(subtotal, rate) in src/tax_calculator.py that rounds to nearest cent", "intent": "add_feature", "style": "with_paths", "blind": "add_feature", "source": "generated", "id": "db4f469a0e"}
+{"task": "implement a function that sorts user profiles by registration date", "intent": "add_feature", "style": "symptom", "blind": "add_feature", "source": "generated", "id": "da7b605c8f"}
+{"task": "create a utility that converts timestamp strings to readable date formats", "intent": "add_feature", "style": "symptom", "blind": "add_feature", "source": "generated", "id": "996db9db90"}
+{"task": "Create a helper validate_json_schema(data, schema_file) in src/utils/schema_validator.py with detailed error messages", "intent": "add_feature", "style": "with_paths", "blind": "add_feature", "source": "generated", "id": "4b25be7b9d"}
+{"task": "construct a helper that formats currency values according to locale settings", "intent": "add_feature", "style": "symptom", "blind": "add_feature", "source": "generated", "id": "3ac63456bb"}
+{"task": "please add a utility to count words in a text file", "intent": "add_feature", "style": "casual", "blind": "add_feature", "source": "generated", "id": "a22d79d4be"}
+{"task": "add a function to validate email addresses", "intent": "add_feature", "style": "terse", "blind": "add_feature", "source": "generated", "id": "78edafe027"}
+{"task": "please add a tool to generate random passwords with specific requirements", "intent": "add_feature", "style": "casual", "blind": "add_feature", "source": "generated", "id": "04651ef36f"}
+{"task": "can you make a function that checks if two lists have common elements?", "intent": "add_feature", "style": "casual", "blind": "add_feature", "source": "generated", "id": "0525ff7c9e"}
+{"task": "build a function that validates email addresses using regex patterns", "intent": "add_feature", "style": "symptom", "blind": "add_feature", "source": "generated", "id": "cf1c583ff0"}
+{"task": "need a function that converts unix timestamps to readable dates", "intent": "add_feature", "style": "casual", "blind": "add_feature", "source": "generated", "id": "6adbb8a7d0"}
+{"task": "implement a tool that converts markdown files to HTML documents", "intent": "add_feature", "style": "symptom", "blind": "add_feature", "source": "generated", "id": "0a25fe6080"}
+{"task": "can you make a tool to split strings by multiple delimiters?", "intent": "add_feature", "style": "casual", "blind": "add_feature", "source": "generated", "id": "3e88c1c9ea"}
+{"task": "Write a helper function get_user_permissions(user_id) in src/auth/permissions.py that queries database", "intent": "add_feature", "style": "with_paths", "blind": "add_feature", "source": "generated", "id": "1f9ffdfd85"}
+{"task": "Create a function that checks if a string contains only alphanumeric characters", "intent": "add_feature", "style": "descriptive", "blind": "add_feature", "source": "generated", "id": "a4ae7e75bc"}
+{"task": "Build a helper function that generates random passwords with specified criteria", "intent": "add_feature", "style": "descriptive", "blind": "add_feature", "source": "generated", "id": "190eba304d"}
+{"task": "Build a utility that reads configuration files and merges them with defaults", "intent": "add_feature", "style": "descriptive", "blind": "add_feature", "source": "generated", "id": "fff16baf1d"}
+{"task": "Add a function process_payment_request(request_data) in src/payment/processor.py that handles webhook notifications", "intent": "add_feature", "style": "with_paths", "blind": "add_feature", "source": "generated", "id": "d9ca36b5ef"}
+{"task": "write a component for parsing command line arguments into structured data", "intent": "add_feature", "style": "symptom", "blind": "add_feature", "source": "generated", "id": "e727d985e2"}
+{"task": "Create a function that sorts a list of user objects by their registration date", "intent": "add_feature", "style": "descriptive", "blind": "add_feature", "source": "generated", "id": "9853d479ba"}
+{"task": "we want a helper that sorts user data by registration date", "intent": "add_feature", "style": "casual", "blind": "add_feature", "source": "generated", "id": "1d03dfe37e"}
+{"task": "add a utility for validating form inputs", "intent": "add_feature", "style": "terse", "blind": "add_feature", "source": "generated", "id": "3b100f4c9c"}
+{"task": "Add a function that generates PDF reports from template data", "intent": "add_feature", "style": "descriptive", "blind": "add_feature", "source": "generated", "id": "ef82bc495f"}
+{"task": "Add a function parse_invoice_date(date_string) in src/invoice_parser.py that converts 'YYYY-MM-DD' format to datetime objects", "intent": "add_feature", "style": "with_paths", "blind": "add_feature", "source": "generated", "id": "e98822830e"}
+{"task": "Add a helper that generates unique IDs for database records", "intent": "add_feature", "style": "descriptive", "blind": "add_feature", "source": "generated", "id": "7d49fb2d40"}
+{"task": "add a method to sort orders by date", "intent": "add_feature", "style": "terse", "blind": "add_feature", "source": "generated", "id": "3889fbf0e1"}
+{"task": "need a function to validate credit card numbers using luhn algorithm", "intent": "add_feature", "style": "casual", "blind": "add_feature", "source": "generated", "id": "25e7309506"}
+{"task": "Create a utility that converts Unix timestamps to readable date strings", "intent": "add_feature", "style": "descriptive", "blind": "add_feature", "source": "generated", "id": "98016a5b41"}
+{"task": "Create a method validate_user_email(email) in models/user.py to check email format using regex", "intent": "add_feature", "style": "with_paths", "blind": "add_feature", "source": "generated", "id": "9f80295ef9"}
+{"task": "Implement a tool that converts JSON data into YAML format", "intent": "add_feature", "style": "descriptive", "blind": "add_feature", "source": "generated", "id": "70f4446b4c"}
+{"task": "write a function to calculate tax amounts", "intent": "add_feature", "style": "terse", "blind": "add_feature", "source": "generated", "id": "95a32c9e8d"}
+{"task": "develop a utility that checks if URLs are accessible and returns status codes", "intent": "add_feature", "style": "symptom", "blind": "add_feature", "source": "generated", "id": "8b9b6a5d97"}
+{"task": "add a tool to format currency values for different locales", "intent": "add_feature", "style": "casual", "blind": "add_feature", "source": "generated", "id": "b7196a41fb"}
+{"task": "implement a parser for XML documents", "intent": "add_feature", "style": "terse", "blind": "add_feature", "source": "generated", "id": "42f7fc7252"}
+{"task": "Implement a helper function is_valid_file_path(path) in src/utils/path_validator.py that checks file system access", "intent": "add_feature", "style": "with_paths", "blind": "add_feature", "source": "generated", "id": "bd08cf69d9"}
+{"task": "create a function for converting temperatures", "intent": "add_feature", "style": "terse", "blind": "add_feature", "source": "generated", "id": "63a3205f3b"}
+{"task": "add a utility for generating random passwords", "intent": "add_feature", "style": "terse", "blind": "add_feature", "source": "generated", "id": "814f291db9"}
+{"task": "please add a method to calculate fibonacci numbers efficiently", "intent": "add_feature", "style": "casual", "blind": "add_feature", "source": "generated", "id": "9dd0e34ada"}
+{"task": "implement a helper for encrypting strings", "intent": "add_feature", "style": "terse", "blind": "add_feature", "source": "generated", "id": "c95c27b2b3"}
+{"task": "Implement a method that calculates the total price including tax for shopping cart items", "intent": "add_feature", "style": "descriptive", "blind": "add_feature", "source": "generated", "id": "f243011e93"}
+{"task": "build a tool that generates HTML reports from JSON data structures", "intent": "add_feature", "style": "symptom", "blind": "add_feature", "source": "generated", "id": "edb20d593a"}
+{"task": "Create a function load_config_file(config_path) in config/loader.py that reads YAML files with error handling", "intent": "add_feature", "style": "with_paths", "blind": "add_feature", "source": "generated", "id": "785b50ddbe"}
+{"task": "implement a helper to format currency amounts", "intent": "add_feature", "style": "terse", "blind": "add_feature", "source": "generated", "id": "fa175eb209"}
+{"task": "add a helper that converts celsius to fahrenheit temperatures", "intent": "add_feature", "style": "casual", "blind": "add_feature", "source": "generated", "id": "bff4d769c5"}
+{"task": "construct a helper that encrypts sensitive information using AES", "intent": "add_feature", "style": "symptom", "blind": "add_feature", "source": "generated", "id": "185a275d2a"}
+{"task": "Implement a method that caches API responses with expiration times", "intent": "add_feature", "style": "descriptive", "blind": "add_feature", "source": "generated", "id": "7ab6cb97f5"}
+{"task": "Add a function calculate_order_total(items, tax_rate) in src/order_calculator.py that handles nested item structures", "intent": "add_feature", "style": "with_paths", "blind": "add_feature", "source": "generated", "id": "4f7b390b54"}
+{"task": "we need a function that calculates age from birth date", "intent": "add_feature", "style": "casual", "blind": "add_feature", "source": "generated", "id": "f6f2c59d06"}
+{"task": "implement a tool for generating unique identifiers for database records", "intent": "add_feature", "style": "symptom", "blind": "add_feature", "source": "generated", "id": "9e82bebc17"}
+{"task": "implement a parser for CSV data", "intent": "add_feature", "style": "terse", "blind": "add_feature", "source": "generated", "id": "aa6e39b2f1"}
+{"task": "add a utility to strip html tags from text content", "intent": "add_feature", "style": "casual", "blind": "add_feature", "source": "generated", "id": "2b901e334e"}
+{"task": "Add a helper send_http_request(url, method='GET') in src/http/client.py that supports custom headers", "intent": "add_feature", "style": "with_paths", "blind": "add_feature", "source": "generated", "id": "8545f8f160"}
+{"task": "Build a helper that sanitizes user input to prevent XSS attacks", "intent": "add_feature", "style": "descriptive", "blind": "add_feature", "source": "generated", "id": "e853d3d774"}
+{"task": "implement a config loader for JSON files", "intent": "add_feature", "style": "terse", "blind": "add_feature", "source": "generated", "id": "4988d763da"}
+{"task": "write a function to check file permissions", "intent": "add_feature", "style": "terse", "blind": "add_feature", "source": "generated", "id": "59c7ab8112"}
+{"task": "Write a method slugify_title(title) in src/utils/string_helpers.py for URL-safe title generation", "intent": "add_feature", "style": "with_paths", "blind": "add_feature", "source": "generated", "id": "3248edbb02"}
+{"task": "can you add a function to check if a string is a valid email address?", "intent": "add_feature", "style": "casual", "blind": "add_feature", "source": "generated", "id": "f35871932e"}
+{"task": "Add a function parse_log_entry(entry) in src/logs/parser.py that extracts timestamp and message from log lines", "intent": "add_feature", "style": "with_paths", "blind": "add_feature", "source": "generated", "id": "925d551e0f"}
+{"task": "add a method that calculates compound interest for our finance app", "intent": "add_feature", "style": "casual", "blind": "add_feature", "source": "generated", "id": "ebcff8f769"}
+{"task": "create a service that fetches weather data from external APIs", "intent": "add_feature", "style": "symptom", "blind": "add_feature", "source": "generated", "id": "019437a38a"}
+{"task": "add functionality to calculate compound interest over time periods", "intent": "add_feature", "style": "symptom", "blind": "add_feature", "source": "generated", "id": "f023e3b75e"}
+{"task": "develop a parser that extracts metadata from PDF documents", "intent": "add_feature", "style": "symptom", "blind": "add_feature", "source": "generated", "id": "29f4a4a96c"}
+{"task": "Write a helper send_email_notification(recipient, subject, template) in src/notifications/email_sender.py with template rendering", "intent": "add_feature", "style": "with_paths", "blind": "add_feature", "source": "generated", "id": "91babfea35"}
+{"task": "Create a method get_next_invoice_number() in src/invoice_generator.py that increments sequence number", "intent": "add_feature", "style": "with_paths", "blind": "add_feature", "source": "generated", "id": "eed7567e0c"}
+{"task": "create a helper for sending HTTP requests", "intent": "add_feature", "style": "terse", "blind": "add_feature", "source": "generated", "id": "b68d1e1d0d"}
+{"task": "need a function that returns the nth prime number", "intent": "add_feature", "style": "casual", "blind": "add_feature", "source": "generated", "id": "b88c4ecf5e"}
+{"task": "create a class for managing user sessions", "intent": "add_feature", "style": "terse", "blind": "add_feature", "source": "generated", "id": "0bfb266c63"}
+{"task": "write a utility that tracks and logs application performance metrics", "intent": "add_feature", "style": "symptom", "blind": "add_feature", "source": "generated", "id": "c70b4fbfc3"}
+{"task": "Write tests for the calculate_total function in billing/models.py", "intent": "write_tests", "style": "with_paths", "blind": "write_tests", "source": "generated", "id": "62d1b63054"}
+{"task": "mock up some unit tests for config loading", "intent": "write_tests", "style": "casual", "blind": "write_tests", "source": "generated", "id": "e2b4e67773"}
+{"task": "Write test coverage for calculate_tax_amount in tax/calculator.py", "intent": "write_tests", "style": "with_paths", "blind": "write_tests", "source": "generated", "id": "ebc843d99c"}
+{"task": "Test the user_registration_handler function in auth/handlers.py", "intent": "write_tests", "style": "with_paths", "blind": "write_tests", "source": "generated", "id": "6e8a1442b6"}
+{"task": "Craft test scenarios for the data export function with different formats", "intent": "write_tests", "style": "symptom", "blind": "write_tests", "source": "generated", "id": "795de77217"}
+{"task": "Write tests for compute_monthly_totals in accounting/reports.py", "intent": "write_tests", "style": "with_paths", "blind": "write_tests", "source": "generated", "id": "96c2331080"}
+{"task": "write test cases for the logger", "intent": "write_tests", "style": "casual", "blind": "write_tests", "source": "generated", "id": "3abebc9939"}
+{"task": "add tests for the data exporter", "intent": "write_tests", "style": "casual", "blind": "write_tests", "source": "generated", "id": "82e67d9eaf"}
+{"task": "Develop unit tests for the configuration loader with various input types", "intent": "write_tests", "style": "symptom", "blind": "write_tests", "source": "generated", "id": "2635b97bf2"}
+{"task": "Create mock objects for testing the API client integration", "intent": "write_tests", "style": "symptom", "blind": "write_tests", "source": "generated", "id": "d6ae9fb519"}
+{"task": "Develop integration tests for the user registration flow including email verification and account activation", "intent": "write_tests", "style": "descriptive", "blind": "write_tests", "source": "generated", "id": "d4f52463e6"}
+{"task": "Generate test coverage for the email notification system to ensure proper formatting and delivery of different message types", "intent": "write_tests", "style": "descriptive", "blind": "write_tests", "source": "generated", "id": "d4391a7340"}
+{"task": "test data serialization", "intent": "write_tests", "style": "terse", "blind": "write_tests", "source": "generated", "id": "a86086f732"}
+{"task": "Write test cases for the order fulfillment workflow that covers different shipping methods and status transitions", "intent": "write_tests", "style": "descriptive", "blind": "write_tests", "source": "generated", "id": "6055444138"}
+{"task": "Develop unit tests for the user profile update service including validation rules and permission checks", "intent": "write_tests", "style": "descriptive", "blind": "write_tests", "source": "generated", "id": "a62da99da4"}
+{"task": "Implement end-to-end tests for the checkout workflow", "intent": "write_tests", "style": "symptom", "blind": "write_tests", "source": "generated", "id": "9e77fdd52a"}
+{"task": "Write test functions for the HTTP request builder component", "intent": "write_tests", "style": "symptom", "blind": "write_tests", "source": "generated", "id": "177ffe8cc8"}
+{"task": "Generate test cases for the date range filtering utility", "intent": "write_tests", "style": "symptom", "blind": "write_tests", "source": "generated", "id": "183e76c10a"}
+{"task": "Generate test data for the shipping cost calculation module", "intent": "write_tests", "style": "symptom", "blind": "write_tests", "source": "generated", "id": "1ea0b433c8"}
+{"task": "coverage for the database connector", "intent": "write_tests", "style": "casual", "blind": "write_tests", "source": "generated", "id": "09a03dda48"}
+{"task": "Test the date_range_parser function in utils/date_helpers.py", "intent": "write_tests", "style": "with_paths", "blind": "write_tests", "source": "generated", "id": "ec5170bfc8"}
+{"task": "verify the auth middleware behavior", "intent": "write_tests", "style": "casual", "blind": "write_tests", "source": "generated", "id": "d79254c9df"}
+{"task": "Create stress test scenarios for the database connection pool", "intent": "write_tests", "style": "symptom", "blind": "write_tests", "source": "generated", "id": "b4aa1ae40f"}
+{"task": "Implement comprehensive test suite for the order processing pipeline", "intent": "write_tests", "style": "symptom", "blind": "write_tests", "source": "generated", "id": "2e5c1e0599"}
+{"task": "Write integration tests for process_payment in payments/processor.py", "intent": "write_tests", "style": "with_paths", "blind": "write_tests", "source": "generated", "id": "8818732d38"}
+{"task": "Add comprehensive tests for the file upload handler to verify size limits, type restrictions, and storage paths", "intent": "write_tests", "style": "descriptive", "blind": "write_tests", "source": "generated", "id": "1f127c4ead"}
+{"task": "Create test fixtures for mock_api_response in http/mocks.py", "intent": "write_tests", "style": "with_paths", "blind": "write_tests", "source": "generated", "id": "0b86bd6835"}
+{"task": "cover the user registration with tests", "intent": "write_tests", "style": "casual", "blind": "write_tests", "source": "generated", "id": "c91d9e1869"}
+{"task": "add unit tests for csv parser", "intent": "write_tests", "style": "terse", "blind": "write_tests", "source": "generated", "id": "3bb1aa47ef"}
+{"task": "Add validation checks to the file parsing module with corresponding test coverage", "intent": "write_tests", "style": "symptom", "blind": "write_tests", "source": "generated", "id": "8e848e680f"}
+{"task": "coverage for cache manager", "intent": "write_tests", "style": "terse", "blind": "write_tests", "source": "generated", "id": "f6932f4e7b"}
+{"task": "Test the email_notification_scheduler function in notifications/scheduler.py", "intent": "write_tests", "style": "with_paths", "blind": "write_tests", "source": "generated", "id": "cd7e54984a"}
+{"task": "Write pytest cases for get_user_permissions in users/access_control.py", "intent": "write_tests", "style": "with_paths", "blind": "write_tests", "source": "generated", "id": "34285ca704"}
+{"task": "Write end-to-end tests for the inventory management API endpoints covering create, read, update, and delete operations", "intent": "write_tests", "style": "descriptive", "blind": "write_tests", "source": "generated", "id": "a8a5d048c5"}
+{"task": "Add unit tests for parse_config_file in utils/config_reader.py", "intent": "write_tests", "style": "with_paths", "blind": "write_tests", "source": "generated", "id": "93e04593e0"}
+{"task": "Create test scenarios for the report generator that check different data filters and output formats", "intent": "write_tests", "style": "descriptive", "blind": "write_tests", "source": "generated", "id": "cdc05ee17c"}
+{"task": "Develop unit tests for the currency conversion service", "intent": "write_tests", "style": "symptom", "blind": "write_tests", "source": "generated", "id": "c929ae032c"}
+{"task": "test the payment handler function", "intent": "write_tests", "style": "casual", "blind": "write_tests", "source": "generated", "id": "33c81e1517"}
+{"task": "validate the report generator output", "intent": "write_tests", "style": "casual", "blind": "write_tests", "source": "generated", "id": "b1fcab211f"}
+{"task": "unit test for report generator", "intent": "write_tests", "style": "terse", "blind": "write_tests", "source": "generated", "id": "967583f9dd"}
+{"task": "Write unit tests for validate_session_token in auth/session.py", "intent": "write_tests", "style": "with_paths", "blind": "write_tests", "source": "generated", "id": "7c69254aff"}
+{"task": "Add mocking tests for fetch_remote_data in http/client.py", "intent": "write_tests", "style": "with_paths", "blind": "write_tests", "source": "generated", "id": "509423dbc0"}
+{"task": "Write test methods for the data export function that validates different file formats and compression options", "intent": "write_tests", "style": "descriptive", "blind": "write_tests", "source": "generated", "id": "b9481ad46f"}
+{"task": "Create test coverage for the logging utility that ensures proper message formatting and handler routing", "intent": "write_tests", "style": "descriptive", "blind": "write_tests", "source": "generated", "id": "c1b7fbf789"}
+{"task": "Implement pytest cases for the API rate limiter that checks token bucket algorithm and exception handling", "intent": "write_tests", "style": "descriptive", "blind": "write_tests", "source": "generated", "id": "609f80b97c"}
+{"task": "Create test cases for validate_user_credentials in auth/services.py", "intent": "write_tests", "style": "with_paths", "blind": "write_tests", "source": "generated", "id": "c691242c1c"}
+{"task": "test the csv parser edge cases", "intent": "write_tests", "style": "casual", "blind": "write_tests", "source": "generated", "id": "07618f2080"}
+{"task": "Develop pytest fixtures and test methods for the database connection utility class including error handling", "intent": "write_tests", "style": "descriptive", "blind": "write_tests", "source": "generated", "id": "76d2d9ef17"}
+{"task": "Create edge case tests for parse_csv_file in data/importer.py", "intent": "write_tests", "style": "with_paths", "blind": "write_tests", "source": "generated", "id": "1ef31097de"}
+{"task": "coverage for the http client response handling", "intent": "write_tests", "style": "casual", "blind": "write_tests", "source": "generated", "id": "3aaf558e56"}
+{"task": "Implement test cases for the report generation engine", "intent": "write_tests", "style": "symptom", "blind": "write_tests", "source": "generated", "id": "88bec10b5c"}
+{"task": "Create test cases for the user authentication flow including edge scenarios", "intent": "write_tests", "style": "symptom", "blind": "write_tests", "source": "generated", "id": "0349024130"}
+{"task": "test the order processing workflow", "intent": "write_tests", "style": "casual", "blind": "write_tests", "source": "generated", "id": "d1718c5014"}
+{"task": "Write test assertions for the user permission checking function", "intent": "write_tests", "style": "symptom", "blind": "write_tests", "source": "generated", "id": "3e89678900"}
+{"task": "test the notification service", "intent": "write_tests", "style": "casual", "blind": "write_tests", "source": "generated", "id": "c8b3464e79"}
+{"task": "test middleware response", "intent": "write_tests", "style": "terse", "blind": "write_tests", "source": "generated", "id": "b2ef139b31"}
+{"task": "coverage for payment handler", "intent": "write_tests", "style": "terse", "blind": "write_tests", "source": "generated", "id": "be902f2cc2"}
+{"task": "Build test coverage for the file upload validation logic", "intent": "write_tests", "style": "symptom", "blind": "write_tests", "source": "generated", "id": "44f2e37933"}
+{"task": "Write comprehensive unit tests for the user authentication module that covers login, logout, and session management scenarios", "intent": "write_tests", "style": "descriptive", "blind": "write_tests", "source": "generated", "id": "7b705c5407"}
+{"task": "Add comprehensive tests for parse_xml_document in data/xml_parser.py", "intent": "write_tests", "style": "with_paths", "blind": "write_tests", "source": "generated", "id": "d9f6ca93ad"}
+{"task": "Cover the configuration loader with tests for environment variable precedence and default value handling", "intent": "write_tests", "style": "descriptive", "blind": "write_tests", "source": "generated", "id": "2e4d015bf8"}
+{"task": "write tests for the user login function", "intent": "write_tests", "style": "casual", "blind": "write_tests", "source": "generated", "id": "cb72220fb6"}
+{"task": "test user authentication flow", "intent": "write_tests", "style": "terse", "blind": "write_tests", "source": "generated", "id": "a0736b55f9"}
+{"task": "Add test cases for the CSV data parser to handle edge cases like empty rows, missing columns, and special characters", "intent": "write_tests", "style": "descriptive", "blind": "write_tests", "source": "generated", "id": "3c4b0d72fe"}
+{"task": "write tests for login controller", "intent": "write_tests", "style": "terse", "blind": "write_tests", "source": "generated", "id": "f2475dd29f"}
+{"task": "unit test the file upload validation", "intent": "write_tests", "style": "casual", "blind": "write_tests", "source": "generated", "id": "550cd29968"}
+{"task": "Add boundary condition tests to the calculator module", "intent": "write_tests", "style": "symptom", "blind": "write_tests", "source": "generated", "id": "005be650bb"}
+{"task": "Create integration tests for the payment processing service that validate transaction success and failure paths", "intent": "write_tests", "style": "descriptive", "blind": "write_tests", "source": "generated", "id": "611040c205"}
+{"task": "Write mock-based tests for the HTTP client wrapper that validates retry logic and timeout behavior", "intent": "write_tests", "style": "descriptive", "blind": "write_tests", "source": "generated", "id": "925d0cd719"}
+{"task": "Cover generate_invoice_report with comprehensive test suite in reports/generator.py", "intent": "write_tests", "style": "with_paths", "blind": "write_tests", "source": "generated", "id": "ba92aec180"}
+{"task": "Generate tests for the data validation schema that cover required fields, type checking, and custom validators", "intent": "write_tests", "style": "descriptive", "blind": "write_tests", "source": "generated", "id": "cd01f88dc6"}
+{"task": "add assertions for fetch_user", "intent": "write_tests", "style": "terse", "blind": "write_tests", "source": "generated", "id": "53ccf14fe2"}
+{"task": "change 'config_loader' to 'settings_reader' in config_manager.py across the project", "intent": "rename_or_move", "style": "with_paths", "blind": "rename_or_move", "source": "generated", "id": "56e59ff697"}
+{"task": "move logging setup to logger_init.py", "intent": "rename_or_move", "style": "terse", "blind": "rename_or_move", "source": "generated", "id": "3f3af64233"}
+{"task": "move the http_request_handler from api_client.py to http_manager.py and update all calls", "intent": "rename_or_move", "style": "with_paths", "blind": "rename_or_move", "source": "generated", "id": "1cad83f922"}
+{"task": "Shift the session management code from the authentication service into a separate session_handler.py file", "intent": "rename_or_move", "style": "descriptive", "blind": "rename_or_move", "source": "generated", "id": "ec2baf6b1a"}
+{"task": "move config parsing to settings.py", "intent": "rename_or_move", "style": "terse", "blind": "rename_or_move", "source": "generated", "id": "bc8a0970d8"}
+{"task": "Move the configuration parsing logic from the main config.py file to a dedicated config_parser.py module", "intent": "rename_or_move", "style": "descriptive", "blind": "rename_or_move", "source": "generated", "id": "754c5217dd"}
+{"task": "Rename the 'process_order' method to 'handle_customer_order' across all files in the checkout package", "intent": "rename_or_move", "style": "descriptive", "blind": "rename_or_move", "source": "generated", "id": "5c3b2b2637"}
+{"task": "rename 'get_user_info' to 'fetch_customer_details' in user_repository.py", "intent": "rename_or_move", "style": "with_paths", "blind": "rename_or_move", "source": "generated", "id": "b41eca9ddb"}
+{"task": "move databaseconnection to dbmanager", "intent": "rename_or_move", "style": "casual", "blind": "rename_or_move", "source": "generated", "id": "a1de9edd94"}
+{"task": "Update the 'process_payment' function name to 'execute_transaction' across all payment processing modules", "intent": "rename_or_move", "style": "descriptive", "blind": "rename_or_move", "source": "generated", "id": "8f3ecd303d"}
+{"task": "Move the database connection manager from the main service file to a separate db_connection.py file", "intent": "rename_or_move", "style": "descriptive", "blind": "rename_or_move", "source": "generated", "id": "ecdbca25e0"}
+{"task": "move file operations to io_utils", "intent": "rename_or_move", "style": "terse", "blind": "rename_or_move", "source": "generated", "id": "5e297ec310"}
+{"task": "rename the 'process_order' function in orders_processor.py to 'handle_customer_order'", "intent": "rename_or_move", "style": "with_paths", "blind": "rename_or_move", "source": "generated", "id": "a490ddbc1b"}
+{"task": "Move the date formatting helper from the main controller file to its own dedicated datetime_utils.py module", "intent": "rename_or_move", "style": "descriptive", "blind": "rename_or_move", "source": "generated", "id": "82e6402845"}
+{"task": "rename invoicegenerator to billprocessor", "intent": "rename_or_move", "style": "casual", "blind": "rename_or_move", "source": "generated", "id": "9418223801"}
+{"task": "shift api calls to http_client.py", "intent": "rename_or_move", "style": "terse", "blind": "rename_or_move", "source": "generated", "id": "d45b9a75c3"}
+{"task": "Update the variable from 'result' to 'processed_output' throughout", "intent": "rename_or_move", "style": "symptom", "blind": "rename_or_move", "source": "generated", "id": "45f814a71f"}
+{"task": "rename processorder to handleorder", "intent": "rename_or_move", "style": "casual", "blind": "rename_or_move", "source": "generated", "id": "7a00391872"}
+{"task": "shift data validation to validator.py", "intent": "rename_or_move", "style": "terse", "blind": "rename_or_move", "source": "generated", "id": "dab0ebf500"}
+{"task": "Change the 'file_reader' class name to 'DataFileProcessor' throughout the entire codebase", "intent": "rename_or_move", "style": "descriptive", "blind": "rename_or_move", "source": "generated", "id": "5760596532"}
+{"task": "change userauth to authservice module", "intent": "rename_or_move", "style": "casual", "blind": "rename_or_move", "source": "generated", "id": "1f5613c1dc"}
+{"task": "Rename 'format_currency' utility to 'convert_to_localized_amount' in the currency formatting package", "intent": "rename_or_move", "style": "descriptive", "blind": "rename_or_move", "source": "generated", "id": "2a634c7f3f"}
+{"task": "rename calculate_tax to compute_vat", "intent": "rename_or_move", "style": "terse", "blind": "rename_or_move", "source": "generated", "id": "cf347558a7"}
+{"task": "change reportbuilder to datareporter", "intent": "rename_or_move", "style": "casual", "blind": "rename_or_move", "source": "generated", "id": "95104be2ba"}
+{"task": "rename 'user_auth' to 'authenticate_user' in authentication_service.js and update references", "intent": "rename_or_move", "style": "with_paths", "blind": "rename_or_move", "source": "generated", "id": "031b605260"}
+{"task": "shift the calculate_discount logic from products_calculator.py to discount_engine.py", "intent": "rename_or_move", "style": "with_paths", "blind": "rename_or_move", "source": "generated", "id": "b1b375cb9c"}
+{"task": "Change the function from 'get_data' to 'fetch_user_information'", "intent": "rename_or_move", "style": "symptom", "blind": "rename_or_move", "source": "generated", "id": "c853c75366"}
+{"task": "Change the 'send_notification' method name to 'dispatch_alert_message' in the messaging service", "intent": "rename_or_move", "style": "descriptive", "blind": "rename_or_move", "source": "generated", "id": "ff61be2626"}
+{"task": "Rename the parameter from 'path' to 'file_location' in method signatures", "intent": "rename_or_move", "style": "symptom", "blind": "rename_or_move", "source": "generated", "id": "826d907673"}
+{"task": "move the file_validator module from validators/ to utils/ and update import statements", "intent": "rename_or_move", "style": "with_paths", "blind": "rename_or_move", "source": "generated", "id": "8f106a5823"}
+{"task": "change 'process_payment' to 'handle_transaction' in payment_processor.js across modules", "intent": "rename_or_move", "style": "with_paths", "blind": "rename_or_move", "source": "generated", "id": "737a3e6b40"}
+{"task": "Relocate the error handling wrapper functions from the core service file to a separate error_handlers.py file", "intent": "rename_or_move", "style": "descriptive", "blind": "rename_or_move", "source": "generated", "id": "a9bf983514"}
+{"task": "Update the function signature from 'process_order' to 'handle_customer_order'", "intent": "rename_or_move", "style": "symptom", "blind": "rename_or_move", "source": "generated", "id": "776e6b4099"}
+{"task": "Move the database connection code to a configuration management file", "intent": "rename_or_move", "style": "symptom", "blind": "rename_or_move", "source": "generated", "id": "a743411eb8"}
+{"task": "restructure the invoice_generator.py file by moving the calculate_tax function to tax_calculator.py", "intent": "rename_or_move", "style": "with_paths", "blind": "rename_or_move", "source": "generated", "id": "7fe285887f"}
+{"task": "Relocate the logging setup from main.py to a separate logger module", "intent": "rename_or_move", "style": "symptom", "blind": "rename_or_move", "source": "generated", "id": "9559bcbe2a"}
+{"task": "change 'send_notification' to 'dispatch_alert' in notification_service.py", "intent": "rename_or_move", "style": "with_paths", "blind": "rename_or_move", "source": "generated", "id": "83db5b69c5"}
+{"task": "change httprequest to apiendpoint", "intent": "rename_or_move", "style": "casual", "blind": "rename_or_move", "source": "generated", "id": "d2de652d47"}
+{"task": "Reorganize the payment processing functions into their own dedicated file", "intent": "rename_or_move", "style": "symptom", "blind": "rename_or_move", "source": "generated", "id": "e0c4a29be8"}
+{"task": "rename render_template to generate_output", "intent": "rename_or_move", "style": "terse", "blind": "rename_or_move", "source": "generated", "id": "34a5a84ae4"}
+{"task": "move database connection logic to utils.py", "intent": "rename_or_move", "style": "terse", "blind": "rename_or_move", "source": "generated", "id": "9dffcdd335"}
+{"task": "change parse_json to decode_payload", "intent": "rename_or_move", "style": "terse", "blind": "rename_or_move", "source": "generated", "id": "45881df518"}
+{"task": "change 'format_date_string' to 'convert_timestamp' in date_formatter.py", "intent": "rename_or_move", "style": "with_paths", "blind": "rename_or_move", "source": "generated", "id": "cd614a71e1"}
+{"task": "relocate the parse_config_file function from config_reader.py to config_parser.py", "intent": "rename_or_move", "style": "with_paths", "blind": "rename_or_move", "source": "generated", "id": "6d15702f41"}
+{"task": "rename calculatevat to computevat", "intent": "rename_or_move", "style": "casual", "blind": "rename_or_move", "source": "generated", "id": "84c94b8ff9"}
+{"task": "move calculateprice function to pricing.py", "intent": "rename_or_move", "style": "casual", "blind": "rename_or_move", "source": "generated", "id": "5f000e4ce8"}
+{"task": "Shift the reporting functions from report_generator.py to report_utils.py", "intent": "rename_or_move", "style": "symptom", "blind": "rename_or_move", "source": "generated", "id": "fc563c1246"}
+{"task": "shift the parse_json_data function from data_parser.py to json_processor.py", "intent": "rename_or_move", "style": "with_paths", "blind": "rename_or_move", "source": "generated", "id": "05fcfaa5bf"}
+{"task": "Change the class name from 'Handler' to 'RequestProcessor' in all files", "intent": "rename_or_move", "style": "symptom", "blind": "rename_or_move", "source": "generated", "id": "193565fcc7"}
+{"task": "change process_order to handle_transaction", "intent": "rename_or_move", "style": "terse", "blind": "rename_or_move", "source": "generated", "id": "b7f86a1ec6"}
+{"task": "Modify the parameter name from 'config' to 'settings_dict' in all methods", "intent": "rename_or_move", "style": "symptom", "blind": "rename_or_move", "source": "generated", "id": "f5b7208b88"}
+{"task": "move the date_utils module from common/ to utils/ and update all imports", "intent": "rename_or_move", "style": "with_paths", "blind": "rename_or_move", "source": "generated", "id": "69171a5032"}
+{"task": "Relocate the payment gateway integration code from the main app.py file to a dedicated payment_gateway.py module", "intent": "rename_or_move", "style": "descriptive", "blind": "rename_or_move", "source": "generated", "id": "413372869a"}
+{"task": "change configloader to settingsmanager everywhere", "intent": "rename_or_move", "style": "casual", "blind": "rename_or_move", "source": "generated", "id": "f12a769666"}
+{"task": "rename parsejson to jsonparser in main", "intent": "rename_or_move", "style": "casual", "blind": "rename_or_move", "source": "generated", "id": "a74d0d4756"}
+{"task": "Relocate the authentication checks to a security_utils file", "intent": "rename_or_move", "style": "symptom", "blind": "rename_or_move", "source": "generated", "id": "d2bae7f84c"}
+{"task": "change parse_date to convert_timestamp", "intent": "rename_or_move", "style": "terse", "blind": "rename_or_move", "source": "generated", "id": "f44a35263c"}
+{"task": "change filewriter to outputmanager", "intent": "rename_or_move", "style": "casual", "blind": "rename_or_move", "source": "generated", "id": "0058f6d350"}
+{"task": "Update the module name from 'utils' to 'helpers' everywhere it's imported", "intent": "rename_or_move", "style": "symptom", "blind": "rename_or_move", "source": "generated", "id": "88a66d7d6b"}
+{"task": "rename filehandler to filereader", "intent": "rename_or_move", "style": "casual", "blind": "rename_or_move", "source": "generated", "id": "3d7641bfac"}
+{"task": "rename validate_user to check_credentials", "intent": "rename_or_move", "style": "terse", "blind": "rename_or_move", "source": "generated", "id": "878884195e"}
+{"task": "rename httpclient to apiwrapper", "intent": "rename_or_move", "style": "casual", "blind": "rename_or_move", "source": "generated", "id": "bb57800715"}
+{"task": "move dateparser to datetimeutils package", "intent": "rename_or_move", "style": "casual", "blind": "rename_or_move", "source": "generated", "id": "f5ba07e2dd"}
+{"task": "move the file_operations module from core/ to utils/ and fix all import paths", "intent": "rename_or_move", "style": "with_paths", "blind": "rename_or_move", "source": "generated", "id": "37f759fd9d"}
+{"task": "Shift the report generation logic from the analytics controller into its own reports_generator.py file", "intent": "rename_or_move", "style": "descriptive", "blind": "rename_or_move", "source": "generated", "id": "4b6bff1532"}
+{"task": "Transfer the error handling routines to an error_management file", "intent": "rename_or_move", "style": "symptom", "blind": "rename_or_move", "source": "generated", "id": "a57de5579d"}
+{"task": "Rename the 'validate_user_input' method to 'sanitize_and_check_inputs' in the validation module", "intent": "rename_or_move", "style": "descriptive", "blind": "rename_or_move", "source": "generated", "id": "f3ad9a836b"}
+{"task": "update the 'format_report' method name to 'generate_formatted_output' in reports_builder.py", "intent": "rename_or_move", "style": "with_paths", "blind": "rename_or_move", "source": "generated", "id": "3eaef9212e"}
+{"task": "Rename 'get_user_details' method to 'fetch_customer_information' in the user management service", "intent": "rename_or_move", "style": "descriptive", "blind": "rename_or_move", "source": "generated", "id": "b93ba421bf"}
+{"task": "rename load_config to read_settings", "intent": "rename_or_move", "style": "terse", "blind": "rename_or_move", "source": "generated", "id": "3203df2c1e"}
+{"task": "Move the logging configuration setup from the main entry point to a dedicated logger_config.py module", "intent": "rename_or_move", "style": "descriptive", "blind": "rename_or_move", "source": "generated", "id": "51eaea99ab"}
+{"task": "move email sending logic to mailer.py", "intent": "rename_or_move", "style": "terse", "blind": "rename_or_move", "source": "generated", "id": "443f89821c"}
+{"task": "Rename the file 'main.py' to 'application_controller.py'", "intent": "rename_or_move", "style": "symptom", "blind": "rename_or_move", "source": "generated", "id": "73de61139f"}
+{"task": "Develop a monitoring and metrics package for application performance tracking", "intent": "new_package", "style": "descriptive", "blind": "new_package", "source": "generated", "id": "9e0ac9e743"}
+{"task": "scaffold a new parsing tool for csv files", "intent": "new_package", "style": "casual", "blind": "new_package", "source": "generated", "id": "2f5f21913b"}
+{"task": "Create a user permissions system package with role-based access controls", "intent": "new_package", "style": "descriptive", "blind": "new_package", "source": "generated", "id": "2f98690597"}
+{"task": "construct a security module", "intent": "new_package", "style": "terse", "blind": "new_package", "source": "generated", "id": "19458afe0b"}
+{"task": "Create a user management system with role-based access control and profile handling", "intent": "new_package", "style": "with_paths", "blind": "new_package", "source": "generated", "id": "7bc3d0adce"}
+{"task": "scaffold a config management tool", "intent": "new_package", "style": "terse", "blind": "new_package", "source": "generated", "id": "80bdd896d9"}
+{"task": "wire up a data validation package", "intent": "new_package", "style": "terse", "blind": "new_package", "source": "generated", "id": "1bda8486e2"}
+{"task": "Construct a toolchain for parsing XML documents and transforming them to JSON", "intent": "new_package", "style": "symptom", "blind": "new_package", "source": "generated", "id": "998aa1a984"}
+{"task": "need a quick start on a config parser module", "intent": "new_package", "style": "casual", "blind": "new_package", "source": "generated", "id": "f2f32a3d93"}
+{"task": "Generate a data processing pipeline package with streaming and batch operations", "intent": "new_package", "style": "descriptive", "blind": "new_package", "source": "generated", "id": "66355943c1"}
+{"task": "make a users service package", "intent": "new_package", "style": "casual", "blind": "new_package", "source": "generated", "id": "57f219b0ca"}
+{"task": "need a orders management system package", "intent": "new_package", "style": "casual", "blind": "new_package", "source": "generated", "id": "4178f1914a"}
+{"task": "Initialize a notification service package with email and SMS delivery options", "intent": "new_package", "style": "descriptive", "blind": "new_package", "source": "generated", "id": "47518cf266"}
+{"task": "create a new http client lib for our api calls", "intent": "new_package", "style": "casual", "blind": "new_package", "source": "generated", "id": "0d0046cd60"}
+{"task": "generate a database adapter", "intent": "new_package", "style": "terse", "blind": "new_package", "source": "generated", "id": "43ceee2590"}
+{"task": "Build a reporting package that generates PDF invoices from order data", "intent": "new_package", "style": "descriptive", "blind": "new_package", "source": "generated", "id": "f67415a888"}
+{"task": "Initialize a system for managing file uploads and storage with metadata tracking", "intent": "new_package", "style": "symptom", "blind": "new_package", "source": "generated", "id": "4abde597ce"}
+{"task": "quick start on a billing module", "intent": "new_package", "style": "casual", "blind": "new_package", "source": "generated", "id": "0ba4d961e6"}
+{"task": "Construct a security utilities package for password hashing and token management", "intent": "new_package", "style": "descriptive", "blind": "new_package", "source": "generated", "id": "0f1529d6e2"}
+{"task": "spin up a logging framework", "intent": "new_package", "style": "terse", "blind": "new_package", "source": "generated", "id": "c57e9698a6"}
+{"task": "Scaffold a reporting module with functions to generate PDF invoices from order data", "intent": "new_package", "style": "with_paths", "blind": "new_package", "source": "generated", "id": "1086d26068"}
+{"task": "Build a configuration parser package that reads YAML files and validates against schemas", "intent": "new_package", "style": "with_paths", "blind": "new_package", "source": "generated", "id": "06917e9f4f"}
+{"task": "Construct an API client generator that creates classes from OpenAPI specifications", "intent": "new_package", "style": "with_paths", "blind": "new_package", "source": "generated", "id": "23e83d3e01"}
+{"task": "Set up a file handling package with utilities for uploading and processing CSV files", "intent": "new_package", "style": "descriptive", "blind": "new_package", "source": "generated", "id": "98cbdec6f8"}
+{"task": "Construct a library for parsing and validating configuration files in multiple formats", "intent": "new_package", "style": "symptom", "blind": "new_package", "source": "generated", "id": "439882e4e1"}
+{"task": "Generate a configuration management module for environment-specific settings", "intent": "new_package", "style": "descriptive", "blind": "new_package", "source": "generated", "id": "612f88fbb7"}
+{"task": "Set up a framework for processing image uploads and resizing operations", "intent": "new_package", "style": "symptom", "blind": "new_package", "source": "generated", "id": "164b99daff"}
+{"task": "Build out a complete structure for handling user authentication flows with proper directory organization", "intent": "new_package", "style": "symptom", "blind": "new_package", "source": "generated", "id": "41facc7fda"}
+{"task": "Develop a skeleton project for managing customer orders and inventory tracking", "intent": "new_package", "style": "symptom", "blind": "new_package", "source": "generated", "id": "189cf0a080"}
+{"task": "Develop a content parser package for extracting metadata from various document formats", "intent": "new_package", "style": "with_paths", "blind": "new_package", "source": "generated", "id": "cea6951684"}
+{"task": "Generate a logging framework with structured logging and custom formatters", "intent": "new_package", "style": "with_paths", "blind": "new_package", "source": "generated", "id": "4134241206"}
+{"task": "Develop a date and time helper package for timezone conversion and scheduling", "intent": "new_package", "style": "descriptive", "blind": "new_package", "source": "generated", "id": "d902d16971"}
+{"task": "Construct a module for handling asynchronous task queues with monitoring", "intent": "new_package", "style": "symptom", "blind": "new_package", "source": "generated", "id": "d447e05718"}
+{"task": "Create a new package for handling payment processing with support for multiple gateways", "intent": "new_package", "style": "descriptive", "blind": "new_package", "source": "generated", "id": "d8151dbd23"}
+{"task": "Create a payment processing module with support for multiple gateways and webhook handling", "intent": "new_package", "style": "with_paths", "blind": "new_package", "source": "generated", "id": "51caa12276"}
+{"task": "Engineer a module hierarchy for handling date and time conversions across timezones", "intent": "new_package", "style": "symptom", "blind": "new_package", "source": "generated", "id": "b01ba8d07e"}
+{"task": "hey can you help me make a new package for handling user auth stuff", "intent": "new_package", "style": "casual", "blind": "new_package", "source": "generated", "id": "6e1d2a5518"}
+{"task": "Draft a complete setup for building RESTful APIs with proper error responses", "intent": "new_package", "style": "symptom", "blind": "new_package", "source": "generated", "id": "5892fde873"}
+{"task": "Design a caching module for Redis integration with automatic cache invalidation", "intent": "new_package", "style": "descriptive", "blind": "new_package", "source": "generated", "id": "9b5438c50b"}
+{"task": "Build a data migration tool with version tracking and rollback capabilities", "intent": "new_package", "style": "with_paths", "blind": "new_package", "source": "generated", "id": "d3a29896b5"}
+{"task": "make a http client package", "intent": "new_package", "style": "terse", "blind": "new_package", "source": "generated", "id": "f4182c3276"}
+{"task": "Generate a file processing library with utilities for CSV parsing and JSON validation", "intent": "new_package", "style": "with_paths", "blind": "new_package", "source": "generated", "id": "e361f430eb"}
+{"task": "build a module for invoice processing", "intent": "new_package", "style": "terse", "blind": "new_package", "source": "generated", "id": "a32709bc17"}
+{"task": "make a date utility package with timezone support", "intent": "new_package", "style": "casual", "blind": "new_package", "source": "generated", "id": "73d06a5e70"}
+{"task": "Establish a template rendering package with support for multiple template engines", "intent": "new_package", "style": "descriptive", "blind": "new_package", "source": "generated", "id": "4562af1a33"}
+{"task": "Establish a modular system for generating monthly financial summaries and reports", "intent": "new_package", "style": "symptom", "blind": "new_package", "source": "generated", "id": "4fe93d6cc9"}
+{"task": "construct a reporting engine", "intent": "new_package", "style": "terse", "blind": "new_package", "source": "generated", "id": "a677667028"}
+{"task": "Set up a date utilities package with functions for timezone conversion and holiday calculations", "intent": "new_package", "style": "with_paths", "blind": "new_package", "source": "generated", "id": "669c4eb1c7"}
+{"task": "create a date parsing library", "intent": "new_package", "style": "terse", "blind": "new_package", "source": "generated", "id": "c79ff93bc3"}
+{"task": "Design a package structure for processing CSV data imports with validation", "intent": "new_package", "style": "symptom", "blind": "new_package", "source": "generated", "id": "e41672e943"}
+{"task": "Scaffold a testing utilities package with mock data generators and fixtures", "intent": "new_package", "style": "descriptive", "blind": "new_package", "source": "generated", "id": "c064d5ead7"}
+{"task": "Set up a framework for processing incoming webhook data from payment providers", "intent": "new_package", "style": "symptom", "blind": "new_package", "source": "generated", "id": "6d51885db0"}
+{"task": "need an orders tracking system", "intent": "new_package", "style": "casual", "blind": "new_package", "source": "generated", "id": "8a4ca1cf9e"}
+{"task": "Scaffold a module for parsing and validating user input in our authentication system", "intent": "new_package", "style": "descriptive", "blind": "new_package", "source": "generated", "id": "cc0b05f139"}
+{"task": "build me a reports generator thingy", "intent": "new_package", "style": "casual", "blind": "new_package", "source": "generated", "id": "6c1825a8ea"}
+{"task": "create a logging helper package", "intent": "new_package", "style": "casual", "blind": "new_package", "source": "generated", "id": "fe0eeb7355"}
+{"task": "build an invoice builder module from scratch", "intent": "new_package", "style": "casual", "blind": "new_package", "source": "generated", "id": "b0c1feb134"}
+{"task": "Build a package for handling database migrations with version tracking", "intent": "new_package", "style": "symptom", "blind": "new_package", "source": "generated", "id": "02583bfc25"}
+{"task": "develop a orders tracking system", "intent": "new_package", "style": "terse", "blind": "new_package", "source": "generated", "id": "821349821a"}
+{"task": "make a file watcher package", "intent": "new_package", "style": "casual", "blind": "new_package", "source": "generated", "id": "e267f3dcec"}
+{"task": "what does the sqlite3 connection's row_factory do?", "intent": "question", "style": "casual", "blind": "question", "source": "generated", "id": "5904104bc8"}
+{"task": "how does the json module handle unicode characters?", "intent": "question", "style": "casual", "blind": "question", "source": "generated", "id": "027df9be55"}
+{"task": "what occurs when an exception is raised inside a context manager?", "intent": "question", "style": "symptom", "blind": "question", "source": "generated", "id": "e2430cdcfc"}
+{"task": "how does the template_renderer.render_page handle missing variables?", "intent": "question", "style": "with_paths", "blind": "question", "source": "generated", "id": "4cd3ae7e64"}
+{"task": "What does the decorator @login_required actually check before allowing access?", "intent": "question", "style": "descriptive", "blind": "question", "source": "generated", "id": "d490cbb817"}
+{"task": "how does the config_loader.read_configuration file handle missing keys?", "intent": "question", "style": "with_paths", "blind": "question", "source": "generated", "id": "aaa36b6033"}
+{"task": "how does the parser deal with malformed JSON input?", "intent": "question", "style": "symptom", "blind": "question", "source": "generated", "id": "ebeae46ded"}
+{"task": "What's the behavior of __slots__ when trying to assign attributes not defined in it?", "intent": "question", "style": "descriptive", "blind": "question", "source": "generated", "id": "728a7c2be6"}
+{"task": "How does the database connection pool manage concurrent requests?", "intent": "question", "style": "descriptive", "blind": "question", "source": "generated", "id": "e17404f61d"}
+{"task": "what does the requests lib's timeout param do?", "intent": "question", "style": "casual", "blind": "question", "source": "generated", "id": "98c946a318"}
+{"task": "how does the workflow_engine.start_process manage task dependencies?", "intent": "question", "style": "with_paths", "blind": "question", "source": "generated", "id": "fc25920e24"}
+{"task": "how does the flask app context work internally?", "intent": "question", "style": "casual", "blind": "question", "source": "generated", "id": "8a93c51016"}
+{"task": "how does the urllib parse module handle url encoding?", "intent": "question", "style": "casual", "blind": "question", "source": "generated", "id": "d1aaff0316"}
+{"task": "how does zip() handle empty iterables?", "intent": "question", "style": "terse", "blind": "question", "source": "generated", "id": "1b41026dd8"}
+{"task": "what does the analytics_tracker.record_event function store in the database?", "intent": "question", "style": "with_paths", "blind": "question", "source": "generated", "id": "e4cecc7b0e"}
+{"task": "what does hasattr() actually check?", "intent": "question", "style": "terse", "blind": "question", "source": "generated", "id": "10eb1b9bce"}
+{"task": "how does the serializer handle nested objects with circular references?", "intent": "question", "style": "symptom", "blind": "question", "source": "generated", "id": "b1f8646237"}
+{"task": "what does the date_parser.convert_to_iso format do with ambiguous dates?", "intent": "question", "style": "with_paths", "blind": "question", "source": "generated", "id": "ad7bb1132c"}
+{"task": "how does django's get_object_or_404 work exactly?", "intent": "question", "style": "casual", "blind": "question", "source": "generated", "id": "280217fe34"}
+{"task": "what's the difference between using append and extend in lists?", "intent": "question", "style": "symptom", "blind": "question", "source": "generated", "id": "ff73bcdca8"}
+{"task": "how does the module_loader.import_module function resolve circular dependencies?", "intent": "question", "style": "with_paths", "blind": "question", "source": "generated", "id": "784902dbb3"}
+{"task": "what does the os.path.join function actually do?", "intent": "question", "style": "casual", "blind": "question", "source": "generated", "id": "12118db718"}
+{"task": "what's the difference between copy and deepcopy?", "intent": "question", "style": "casual", "blind": "question", "source": "generated", "id": "afed607b5b"}
+{"task": "what's the difference between == and is?", "intent": "question", "style": "terse", "blind": "question", "source": "generated", "id": "41d5c1ea3a"}
+{"task": "how does the configuration loader merge nested dictionaries?", "intent": "question", "style": "symptom", "blind": "question", "source": "generated", "id": "58f6d6b7db"}
+{"task": "how does asyncio.gather() return values?", "intent": "question", "style": "terse", "blind": "question", "source": "generated", "id": "4d1512c867"}
+{"task": "What happens when an HTTP request exceeds the maximum allowed payload size?", "intent": "question", "style": "descriptive", "blind": "question", "source": "generated", "id": "de279264f8"}
+{"task": "how does the datetime.strptime function work?", "intent": "question", "style": "casual", "blind": "question", "source": "generated", "id": "628d1ade5d"}
+{"task": "how does the authentication middleware validate tokens?", "intent": "question", "style": "symptom", "blind": "question", "source": "generated", "id": "09eec9421e"}
+{"task": "what does __slots__ do exactly?", "intent": "question", "style": "terse", "blind": "question", "source": "generated", "id": "d60569e6d3"}
+{"task": "What happens when a user tries to access a protected route without proper permissions?", "intent": "question", "style": "descriptive", "blind": "question", "source": "generated", "id": "4f0c0a4329"}
+{"task": "how does the database_connector.execute_query process batch operations?", "intent": "question", "style": "with_paths", "blind": "question", "source": "generated", "id": "d4575438af"}
+{"task": "What's the difference between using filter() and exclude() in querysets?", "intent": "question", "style": "descriptive", "blind": "question", "source": "generated", "id": "1fa4b1e192"}
+{"task": "what happens to default arguments when they're mutable objects?", "intent": "question", "style": "symptom", "blind": "question", "source": "generated", "id": "1d0ad4e786"}
+{"task": "How does the requests library handle connection pooling for multiple API calls?", "intent": "question", "style": "descriptive", "blind": "question", "source": "generated", "id": "b30fde4bf6"}
+{"task": "why does this validation rule reject empty strings but accept whitespace?", "intent": "question", "style": "symptom", "blind": "question", "source": "generated", "id": "380473c1e8"}
+{"task": "What does the yield keyword do in generator functions compared to return?", "intent": "question", "style": "descriptive", "blind": "question", "source": "generated", "id": "19add39737"}
+{"task": "can you explain how python's __slots__ actually works?", "intent": "question", "style": "casual", "blind": "question", "source": "generated", "id": "690aad315c"}
+{"task": "how does datetime.strptime() handle errors?", "intent": "question", "style": "terse", "blind": "question", "source": "generated", "id": "dd8dfeca0b"}
+{"task": "what does the re.compile function return exactly?", "intent": "question", "style": "casual", "blind": "question", "source": "generated", "id": "b173a4bb1b"}
+{"task": "what does the data_exporter.write_json_file function do with nested objects?", "intent": "question", "style": "with_paths", "blind": "question", "source": "generated", "id": "fe78500baf"}
+{"task": "what occurs when I pass a generator to a function expecting a list?", "intent": "question", "style": "symptom", "blind": "question", "source": "generated", "id": "2974bb337a"}
+{"task": "what's the deal with python's __future__ imports?", "intent": "question", "style": "casual", "blind": "question", "source": "generated", "id": "2e998f9e56"}
+{"task": "what does the pandas read_csv header param do exactly?", "intent": "question", "style": "casual", "blind": "question", "source": "generated", "id": "21a6c971a0"}
+{"task": "how does the cache_manager.get_cache_key method generate unique identifiers?", "intent": "question", "style": "with_paths", "blind": "question", "source": "generated", "id": "52d3a7f4d1"}
+{"task": "what does the user_auth.authenticate_user method return when credentials are invalid?", "intent": "question", "style": "with_paths", "blind": "question", "source": "generated", "id": "fe559f667e"}
+{"task": "How does the middleware handle request validation in the authentication flow?", "intent": "question", "style": "descriptive", "blind": "question", "source": "generated", "id": "25320ff846"}
+{"task": "what does the security_checker.validate_password_strength check for?", "intent": "question", "style": "with_paths", "blind": "question", "source": "generated", "id": "af941dd16c"}
+{"task": "Can you describe how Django's template inheritance system works with nested blocks?", "intent": "question", "style": "descriptive", "blind": "question", "source": "generated", "id": "d98a00d18e"}
+{"task": "what's the purpose of super()?", "intent": "question", "style": "terse", "blind": "question", "source": "generated", "id": "189013c470"}
+{"task": "How does the model manager's get_or_create method prevent race conditions?", "intent": "question", "style": "descriptive", "blind": "question", "source": "generated", "id": "2041a24fb0"}
+{"task": "Can you describe how pytest discovers and runs test cases automatically?", "intent": "question", "style": "descriptive", "blind": "question", "source": "generated", "id": "9495e0d097"}
+{"task": "what does __init__.py do?", "intent": "question", "style": "terse", "blind": "question", "source": "generated", "id": "6cb49e1612"}
+{"task": "how does requests.Session() work?", "intent": "question", "style": "terse", "blind": "question", "source": "generated", "id": "0e1cd2894e"}
+{"task": "How does the session management system handle user authentication timeouts?", "intent": "question", "style": "descriptive", "blind": "question", "source": "generated", "id": "d8b6b3aa4a"}
+{"task": "what does contextlib.contextmanager do?", "intent": "question", "style": "terse", "blind": "question", "source": "generated", "id": "cfde3923d7"}
+{"task": "what's the difference between list and tuple?", "intent": "question", "style": "terse", "blind": "question", "source": "generated", "id": "cc107b1a7f"}
+{"task": "how does the logger.log_message handle different log levels?", "intent": "question", "style": "with_paths", "blind": "question", "source": "generated", "id": "54198e7191"}
+{"task": "what happens when I call fetch on a URL that returns 404?", "intent": "question", "style": "symptom", "blind": "question", "source": "generated", "id": "c76b808b51"}
+{"task": "what does the api_client.fetch_user_data method do with rate limiting?", "intent": "question", "style": "with_paths", "blind": "question", "source": "generated", "id": "245dc04cb9"}
+{"task": "what's the expected behavior for date formatting with None values?", "intent": "question", "style": "symptom", "blind": "question", "source": "generated", "id": "1565435294"}
+{"task": "what's the behavior of string interpolation with missing keys?", "intent": "question", "style": "symptom", "blind": "question", "source": "generated", "id": "4380d242e8"}
+{"task": "how does the logging module determine which handler to use?", "intent": "question", "style": "casual", "blind": "question", "source": "generated", "id": "0cb95c2183"}
+{"task": "what does the http_client.make_request function do with timeout errors?", "intent": "question", "style": "with_paths", "blind": "question", "source": "generated", "id": "5597ff7650"}
+{"task": "what does the file_validator.validate_csv_format method check for?", "intent": "question", "style": "with_paths", "blind": "question", "source": "generated", "id": "5b28bfc194"}
+{"task": "what does the notification_service.send_email method do with invalid addresses?", "intent": "question", "style": "with_paths", "blind": "question", "source": "generated", "id": "966f1977d5"}
+{"task": "what does the shutil.copytree function do with existing directories?", "intent": "question", "style": "casual", "blind": "question", "source": "generated", "id": "fb4f66467c"}
+{"task": "how do I parse ISO format dates?", "intent": "question", "style": "terse", "blind": "question", "source": "generated", "id": "77a459b3cf"}
+{"task": "what's the impact of not calling close on file handles?", "intent": "question", "style": "symptom", "blind": "question", "source": "generated", "id": "c601cad684"}
+{"task": "how do I debug async functions?", "intent": "question", "style": "terse", "blind": "question", "source": "generated", "id": "043e64331e"}
+{"task": "what occurs when a file doesn't exist during open operation?", "intent": "question", "style": "symptom", "blind": "question", "source": "generated", "id": "3942b632a0"}
+{"task": "how does the cache handle concurrent access from multiple threads?", "intent": "question", "style": "symptom", "blind": "question", "source": "generated", "id": "34dc12c362"}
+{"task": "What's the purpose of using __init__.py files in Python packages?", "intent": "question", "style": "descriptive", "blind": "question", "source": "generated", "id": "a227129b6c"}
+{"task": "how does the invoice_parser.handle_line_item function process tax calculations?", "intent": "question", "style": "with_paths", "blind": "question", "source": "generated", "id": "304bf7313b"}
+{"task": "why does this function return a different type than documented?", "intent": "question", "style": "symptom", "blind": "question", "source": "generated", "id": "07e7f09974"}
+{"task": "Refactor the database_connection.py file to move the connection pooling logic into its own dedicated module", "intent": "refactor", "style": "with_paths", "blind": "refactor", "source": "generated", "id": "3f30677370"}
+{"task": "this users service is a mess, refactor it properly", "intent": "refactor", "style": "casual", "blind": "refactor", "source": "generated", "id": "de282f9cca"}
+{"task": "Break down the large generate_report function in reports.py into smaller functions for data aggregation, formatting, and output generation", "intent": "refactor", "style": "with_paths", "blind": "refactor", "source": "generated", "id": "e57e153f72"}
+{"task": "modularize date formatter function", "intent": "refactor", "style": "terse", "blind": "refactor", "source": "generated", "id": "d98ea32a1b"}
+{"task": "refactor the config loader to use classes instead of dicts", "intent": "refactor", "style": "casual", "blind": "refactor", "source": "generated", "id": "8c20949e65"}
+{"task": "Rewrite the file_parser.py script to use a more modular approach with distinct handlers for different file types", "intent": "refactor", "style": "with_paths", "blind": "refactor", "source": "generated", "id": "2a2adb8dec"}
+{"task": "restructure the invoice calculation to be more modular", "intent": "refactor", "style": "casual", "blind": "refactor", "source": "generated", "id": "42818e5161"}
+{"task": "extract logging setup from service", "intent": "refactor", "style": "terse", "blind": "refactor", "source": "generated", "id": "50d606eee9"}
+{"task": "The data processing pipeline has become unwieldy with too many responsibilities in one class, can you help break it down into more focused components?", "intent": "refactor", "style": "symptom", "blind": "refactor", "source": "generated", "id": "3356ed3427"}
+{"task": "The notification service is doing both template rendering and message sending, can we split these responsibilities cleanly?", "intent": "refactor", "style": "descriptive", "blind": "refactor", "source": "generated", "id": "9b7faca060"}
+{"task": "simplify data transformer module", "intent": "refactor", "style": "terse", "blind": "refactor", "source": "generated", "id": "30d985eea0"}
+{"task": "This orders service has grown too complex with nested conditionals, can you simplify the control flow?", "intent": "refactor", "style": "symptom", "blind": "refactor", "source": "generated", "id": "b0d002b06d"}
+{"task": "Rewrite the user_session.py module to use dependency injection instead of global variables for session management", "intent": "refactor", "style": "with_paths", "blind": "refactor", "source": "generated", "id": "cd28e24792"}
+{"task": "The file upload process handles validation, storage, and notifications all in one function, can we break it up?", "intent": "refactor", "style": "symptom", "blind": "refactor", "source": "generated", "id": "4063c559c3"}
+{"task": "The date parsing utility function is doing multiple things, can we separate the ISO format validation from the timezone conversion?", "intent": "refactor", "style": "descriptive", "blind": "refactor", "source": "generated", "id": "9877617e6b"}
+{"task": "please break down this parsing logic into separate helpers", "intent": "refactor", "style": "casual", "blind": "refactor", "source": "generated", "id": "ffc98ca44b"}
+{"task": "We need to refactor the report generation logic to move the data aggregation and formatting into distinct functions", "intent": "refactor", "style": "descriptive", "blind": "refactor", "source": "generated", "id": "65d3442c89"}
+{"task": "This data transformer converts multiple formats but lacks clear separation between conversion strategies", "intent": "refactor", "style": "symptom", "blind": "refactor", "source": "generated", "id": "4a00713f12"}
+{"task": "This caching layer mixes implementation details with business logic, could we separate the concerns?", "intent": "refactor", "style": "symptom", "blind": "refactor", "source": "generated", "id": "50608c5b02"}
+{"task": "the http client code is all over the place, clean it up", "intent": "refactor", "style": "casual", "blind": "refactor", "source": "generated", "id": "44a94b8e20"}
+{"task": "The CSV parser has grown too complex with multiple parsing strategies, let's break down each strategy into dedicated functions", "intent": "refactor", "style": "descriptive", "blind": "refactor", "source": "generated", "id": "277f16d515"}
+{"task": "The HTTP client wrapper in api_client.py should be restructured to handle retries and timeouts more cleanly", "intent": "refactor", "style": "descriptive", "blind": "refactor", "source": "generated", "id": "f0404059b7"}
+{"task": "The invoice calculation module has too many nested conditions that make it hard to follow, let's extract each business rule into its own function", "intent": "refactor", "style": "descriptive", "blind": "refactor", "source": "generated", "id": "39224808a9"}
+{"task": "Break down the complex calculate_tax function in tax_calculator.py into smaller functions for different tax brackets", "intent": "refactor", "style": "with_paths", "blind": "refactor", "source": "generated", "id": "6c76d6005c"}
+{"task": "extract payment processing from checkout", "intent": "refactor", "style": "terse", "blind": "refactor", "source": "generated", "id": "6fc4a3df38"}
+{"task": "The order fulfillment pipeline contains complex conditional logic that would benefit from being split into smaller rule functions", "intent": "refactor", "style": "descriptive", "blind": "refactor", "source": "generated", "id": "3a2c6bc318"}
+{"task": "The data_validator.py script needs refactoring to separate the validation rules from the error reporting logic", "intent": "refactor", "style": "with_paths", "blind": "refactor", "source": "generated", "id": "03ce5d0a7c"}
+{"task": "restructure invoice builder method", "intent": "refactor", "style": "terse", "blind": "refactor", "source": "generated", "id": "4aeb40fc82"}
+{"task": "break out email sender logic", "intent": "refactor", "style": "terse", "blind": "refactor", "source": "generated", "id": "226a42a884"}
+{"task": "Refactor the file_uploader.py module to extract the file type checking into a separate utility function", "intent": "refactor", "style": "with_paths", "blind": "refactor", "source": "generated", "id": "9bbe40dc59"}
+{"task": "this user registration flow is confusing, restructure it", "intent": "refactor", "style": "casual", "blind": "refactor", "source": "generated", "id": "db5ab971f1"}
+{"task": "The payment processing module has too many nested try-except blocks, how about simplifying the error flow?", "intent": "refactor", "style": "symptom", "blind": "refactor", "source": "generated", "id": "16198613be"}
+{"task": "refactor the config management to use proper classes", "intent": "refactor", "style": "casual", "blind": "refactor", "source": "generated", "id": "ff199dfe7e"}
+{"task": "clean up file uploader helper", "intent": "refactor", "style": "terse", "blind": "refactor", "source": "generated", "id": "7df863990a"}
+{"task": "This validation function is getting hard to follow, maybe split the different check types into separate methods", "intent": "refactor", "style": "symptom", "blind": "refactor", "source": "generated", "id": "2ecb6d9568"}
+{"task": "The file processing module has grown too large and needs to be split into separate handlers for different file types", "intent": "refactor", "style": "descriptive", "blind": "refactor", "source": "generated", "id": "6ee3c7fef2"}
+{"task": "the file uploader has duplicated code everywhere", "intent": "refactor", "style": "casual", "blind": "refactor", "source": "generated", "id": "9567036048"}
+{"task": "can you split this date formatting function?", "intent": "refactor", "style": "casual", "blind": "refactor", "source": "generated", "id": "48c93a22b5"}
+{"task": "the user auth logic is messy, split it up please", "intent": "refactor", "style": "casual", "blind": "refactor", "source": "generated", "id": "9ce47e64a4"}
+{"task": "this http request builder is too complex", "intent": "refactor", "style": "casual", "blind": "refactor", "source": "generated", "id": "922faf766c"}
+{"task": "The user profile service performs data transformation and persistence operations, can we clean that up?", "intent": "refactor", "style": "symptom", "blind": "refactor", "source": "generated", "id": "5623651b5f"}
+{"task": "The report generation uses a lot of hardcoded values, would be nice to extract those into constants or parameters", "intent": "refactor", "style": "symptom", "blind": "refactor", "source": "generated", "id": "6810909b25"}
+{"task": "clean up http client wrapper", "intent": "refactor", "style": "terse", "blind": "refactor", "source": "generated", "id": "42e9841f89"}
+{"task": "refactor config loader to use classes", "intent": "refactor", "style": "terse", "blind": "refactor", "source": "generated", "id": "508724de45"}
+{"task": "The configuration loader in settings.py does too much work at once, let's separate the environment detection from the value parsing", "intent": "refactor", "style": "descriptive", "blind": "refactor", "source": "generated", "id": "36f788570e"}
+{"task": "can you reorganize this file processing function?", "intent": "refactor", "style": "casual", "blind": "refactor", "source": "generated", "id": "b4b753df78"}
+{"task": "can you make this report generation function smaller?", "intent": "refactor", "style": "casual", "blind": "refactor", "source": "generated", "id": "5ae3897f03"}
+{"task": "rewrite order calculator with strategy", "intent": "refactor", "style": "terse", "blind": "refactor", "source": "generated", "id": "068b72f3b0"}
+{"task": "please organize this data validation logic better", "intent": "refactor", "style": "casual", "blind": "refactor", "source": "generated", "id": "616f5d3924"}
+{"task": "modularize currency conversion", "intent": "refactor", "style": "terse", "blind": "refactor", "source": "generated", "id": "a4b6fcea6d"}
+{"task": "reorganize file handling utilities", "intent": "refactor", "style": "terse", "blind": "refactor", "source": "generated", "id": "3b49b533ad"}
+{"task": "This date utility class does both formatting and calculation operations, could we split them apart?", "intent": "refactor", "style": "symptom", "blind": "refactor", "source": "generated", "id": "8de3391a9f"}
+{"task": "The error handling logic is repeated in several places, can you create a unified approach?", "intent": "refactor", "style": "symptom", "blind": "refactor", "source": "generated", "id": "6409f20d4e"}
+{"task": "The user authentication logic in auth.py is getting unwieldy, can you help break down the validate_credentials function into smaller, more focused pieces?", "intent": "refactor", "style": "descriptive", "blind": "refactor", "source": "generated", "id": "85d6b087d0"}
+{"task": "The data parsing module needs refactoring to move the error handling into a separate decorator pattern", "intent": "refactor", "style": "descriptive", "blind": "refactor", "source": "generated", "id": "f17be54b3f"}
+{"task": "The HTTP client makes assumptions about response formats throughout the codebase, can we centralize that handling?", "intent": "refactor", "style": "symptom", "blind": "refactor", "source": "generated", "id": "0822a91b55"}
+{"task": "The configuration parsing module should be restructured to separate the YAML loading from the schema validation", "intent": "refactor", "style": "descriptive", "blind": "refactor", "source": "generated", "id": "897cf3871a"}
+{"task": "The file upload service is doing too much at once, let's break it down between validation, storage, and notification steps", "intent": "refactor", "style": "descriptive", "blind": "refactor", "source": "generated", "id": "61324d0b01"}
+{"task": "The user authentication flow mixes business logic with data handling, could we separate those concerns better?", "intent": "refactor", "style": "symptom", "blind": "refactor", "source": "generated", "id": "9e56f7100d"}
+{"task": "the order processing module needs some cleanup", "intent": "refactor", "style": "casual", "blind": "refactor", "source": "generated", "id": "8ba40e288d"}
+{"task": "The database connection management has too many responsibilities for a single module, how about decomposing it?", "intent": "refactor", "style": "symptom", "blind": "refactor", "source": "generated", "id": "b8e49a3d58"}
+{"task": "The file_watcher.py module should be restructured to extract the notification logic into a separate service class", "intent": "refactor", "style": "with_paths", "blind": "refactor", "source": "generated", "id": "1e13031d6d"}
+{"task": "The http_client.py module should be restructured to move the error handling into a decorator pattern", "intent": "refactor", "style": "with_paths", "blind": "refactor", "source": "generated", "id": "8b83d891b4"}
+{"task": "This parsing utility contains both XML and JSON handling in one class, can you organize it by format?", "intent": "refactor", "style": "symptom", "blind": "refactor", "source": "generated", "id": "bcf58cdecd"}
+{"task": "this orders validation module is doing too much work", "intent": "refactor", "style": "casual", "blind": "refactor", "source": "generated", "id": "333b421430"}
+{"task": "the reporting tool has a huge function, make it smaller", "intent": "refactor", "style": "casual", "blind": "refactor", "source": "generated", "id": "f09a272912"}
+{"task": "refactor database connection manager", "intent": "refactor", "style": "terse", "blind": "refactor", "source": "generated", "id": "faa97d841a"}
+{"task": "Refactor the user authentication logic in auth.py to extract the password validation into its own function", "intent": "refactor", "style": "with_paths", "blind": "refactor", "source": "generated", "id": "5686588457"}
+{"task": "The data export module is doing both filtering and formatting, let's split these into separate processing steps", "intent": "refactor", "style": "descriptive", "blind": "refactor", "source": "generated", "id": "9f37bac804"}
+{"task": "Break down the config_loader.py module's load_settings function into smaller functions for each configuration section", "intent": "refactor", "style": "with_paths", "blind": "refactor", "source": "generated", "id": "968593e7ce"}
+{"task": "Rewrite the user_profile.py file to use composition instead of inheritance for the different profile types", "intent": "refactor", "style": "with_paths", "blind": "refactor", "source": "generated", "id": "73354f4471"}
+{"task": "The user profile update handler contains both validation and database logic, please split these concerns properly", "intent": "refactor", "style": "descriptive", "blind": "refactor", "source": "generated", "id": "b55b2173dd"}
+{"task": "Rewrite the config_reader.py module to use a more object-oriented approach with dedicated classes for each configuration type", "intent": "refactor", "style": "with_paths", "blind": "refactor", "source": "generated", "id": "ab11e802b1"}
+{"task": "Split the large process_orders function in orders_manager.py into smaller functions for order creation, validation, and confirmation", "intent": "refactor", "style": "with_paths", "blind": "refactor", "source": "generated", "id": "8ea74988c9"}
+{"task": "break down data parser into components", "intent": "refactor", "style": "terse", "blind": "refactor", "source": "generated", "id": "e2080322d9"}
+{"task": "simplify user validation logic", "intent": "refactor", "style": "terse", "blind": "refactor", "source": "generated", "id": "0dbd01be71"}
+{"task": "split report generator into sections", "intent": "refactor", "style": "terse", "blind": "refactor", "source": "generated", "id": "f8f71fac38"}
+{"task": "The HTTP request builder is mixing concerns between headers and body construction, please refactor this properly", "intent": "refactor", "style": "descriptive", "blind": "refactor", "source": "generated", "id": "1712f56462"}
+{"task": "Create a quick start guide for integrating the notification service", "intent": "docs", "style": "descriptive", "blind": "docs", "source": "generated", "id": "14aec365aa"}
+{"task": "Write README for data_processor module", "intent": "docs", "style": "terse", "blind": "docs", "source": "generated", "id": "531eee607e"}
+{"task": "Document the expected response formats for the API endpoint functions", "intent": "docs", "style": "symptom", "blind": "docs", "source": "generated", "id": "6fb7e395de"}
+{"task": "Add type hints and docstrings to the calculate_tax method in billing/models.py", "intent": "docs", "style": "with_paths", "blind": "docs", "source": "generated", "id": "ed823a7c4e"}
+{"task": "Create a docstring for the authenticate_user function in auth/service.py", "intent": "docs", "style": "with_paths", "blind": "docs", "source": "generated", "id": "4490dc3804"}
+{"task": "Add explanatory notes to the data validation function that checks user input formats", "intent": "docs", "style": "symptom", "blind": "docs", "source": "generated", "id": "248b5d4e51"}
+{"task": "write up what each field in the order_status dict means", "intent": "docs", "style": "casual", "blind": "docs", "source": "generated", "id": "a7008bdc0e"}
+{"task": "Include setup guidance for the configuration loading utility in the project overview", "intent": "docs", "style": "symptom", "blind": "docs", "source": "generated", "id": "28e8053113"}
+{"task": "Add inline comments to explain the date parsing logic in the report generator", "intent": "docs", "style": "descriptive", "blind": "docs", "source": "generated", "id": "2ebd5b45c4"}
+{"task": "Write a setup guide for the configuration management tool in the docs folder", "intent": "docs", "style": "descriptive", "blind": "docs", "source": "generated", "id": "bd39ed1e6f"}
+{"task": "Improve the comments in the invoice processing module to clarify the tax calculation logic", "intent": "docs", "style": "descriptive", "blind": "docs", "source": "generated", "id": "5c00c4aa01"}
+{"task": "Update README with installation steps", "intent": "docs", "style": "terse", "blind": "docs", "source": "generated", "id": "dec6c357c3"}
+{"task": "write a quick readme for our new auth module", "intent": "docs", "style": "casual", "blind": "docs", "source": "generated", "id": "d4f89a47a2"}
+{"task": "Write docstring for calculate_shipping", "intent": "docs", "style": "terse", "blind": "docs", "source": "generated", "id": "c3a101e212"}
+{"task": "Document the expected parameters and return values for the authentication handler", "intent": "docs", "style": "symptom", "blind": "docs", "source": "generated", "id": "adffd7232b"}
+{"task": "Document the format_report function", "intent": "docs", "style": "terse", "blind": "docs", "source": "generated", "id": "cf1ec4073f"}
+{"task": "put some docs on how to handle api response errors", "intent": "docs", "style": "casual", "blind": "docs", "source": "generated", "id": "3c5113e810"}
+{"task": "put some inline docs on how we validate email addresses", "intent": "docs", "style": "casual", "blind": "docs", "source": "generated", "id": "9658861e0d"}
+{"task": "add docstring for the calculate_tax method in billing.py", "intent": "docs", "style": "casual", "blind": "docs", "source": "generated", "id": "4699634427"}
+{"task": "Write function-level documentation for the data migration utility script", "intent": "docs", "style": "symptom", "blind": "docs", "source": "generated", "id": "134905fdde"}
+{"task": "Update the class docstring for the payment processor with proper parameter descriptions", "intent": "docs", "style": "descriptive", "blind": "docs", "source": "generated", "id": "ad06244bcd"}
+{"task": "Write a comment explaining why we're using a custom logger in utils/logging.py", "intent": "docs", "style": "with_paths", "blind": "docs", "source": "generated", "id": "06ea63237a"}
+{"task": "Update the README with installation instructions for the orders_service package", "intent": "docs", "style": "with_paths", "blind": "docs", "source": "generated", "id": "4c45ae1ee4"}
+{"task": "Add docstring to validate_password", "intent": "docs", "style": "terse", "blind": "docs", "source": "generated", "id": "b2ddec64e6"}
+{"task": "Add parameter descriptions to the process_payment function in payments/service.py", "intent": "docs", "style": "with_paths", "blind": "docs", "source": "generated", "id": "505c501051"}
+{"task": "Comment the merge_arrays utility", "intent": "docs", "style": "terse", "blind": "docs", "source": "generated", "id": "32740f66d4"}
+{"task": "Document the error codes returned by the validate_schema method in schema/validator.py", "intent": "docs", "style": "with_paths", "blind": "docs", "source": "generated", "id": "27fbf113f1"}
+{"task": "Include examples of valid inputs for the invoice processing function", "intent": "docs", "style": "symptom", "blind": "docs", "source": "generated", "id": "cdcfd656f2"}
+{"task": "Create a module-level docstring for the analytics/collector.py file", "intent": "docs", "style": "with_paths", "blind": "docs", "source": "generated", "id": "cb8812c8f1"}
+{"task": "Write a comprehensive description for the user profile endpoint in the API docs", "intent": "docs", "style": "descriptive", "blind": "docs", "source": "generated", "id": "5737a3e6be"}
+{"task": "Write clear instructions for using the data export tool in the user manual", "intent": "docs", "style": "symptom", "blind": "docs", "source": "generated", "id": "107f34546d"}
+{"task": "Add inline comments to the parse_invoice_data method in reports/parser.py", "intent": "docs", "style": "with_paths", "blind": "docs", "source": "generated", "id": "b288129f66"}
+{"task": "Write inline comments for the order_confirmation email template in emails/templates.py", "intent": "docs", "style": "with_paths", "blind": "docs", "source": "generated", "id": "405549c459"}
+{"task": "Create a configuration reference section detailing all available settings", "intent": "docs", "style": "descriptive", "blind": "docs", "source": "generated", "id": "e69987b3ed"}
+{"task": "Add inline comments explaining the logic flow in the order validation service", "intent": "docs", "style": "symptom", "blind": "docs", "source": "generated", "id": "b449253f56"}
+{"task": "Add a TODO comment with explanation in the file_upload_handler function in files/upload.py", "intent": "docs", "style": "with_paths", "blind": "docs", "source": "generated", "id": "226dd3a4cf"}
+{"task": "Write detailed inline comments explaining the caching strategy in the HTTP client", "intent": "docs", "style": "descriptive", "blind": "docs", "source": "generated", "id": "eb5ed829b7"}
+{"task": "Document the expected input format and output structure for the CSV export function", "intent": "docs", "style": "descriptive", "blind": "docs", "source": "generated", "id": "9df7a6d5f2"}
+{"task": "Add parameter type hints and return value descriptions to the logging utility", "intent": "docs", "style": "symptom", "blind": "docs", "source": "generated", "id": "86ffba339e"}
+{"task": "Add type hints and docstring to get_config", "intent": "docs", "style": "terse", "blind": "docs", "source": "generated", "id": "e4baafa52e"}
+{"task": "Add a section explaining how to extend the notification sending class", "intent": "docs", "style": "symptom", "blind": "docs", "source": "generated", "id": "a1129b4c92"}
+{"task": "make a help text for the --verbose flag in cli parser", "intent": "docs", "style": "casual", "blind": "docs", "source": "generated", "id": "6e708ff081"}
+{"task": "Add docstring for validate_user_input", "intent": "docs", "style": "terse", "blind": "docs", "source": "generated", "id": "e22645f408"}
+{"task": "Update docs for file_validator class", "intent": "docs", "style": "terse", "blind": "docs", "source": "generated", "id": "803247b129"}
+{"task": "Document the return values of the get_user_permissions function in users/api.py", "intent": "docs", "style": "with_paths", "blind": "docs", "source": "generated", "id": "9a99312b83"}
+{"task": "Add usage notes about memory management to the data processing module comments", "intent": "docs", "style": "descriptive", "blind": "docs", "source": "generated", "id": "2f1dd1fc0c"}
+{"task": "document the expected format for invoice_data json", "intent": "docs", "style": "casual", "blind": "docs", "source": "generated", "id": "38a1e1172a"}
+{"task": "Add inline comments to user_authenticate", "intent": "docs", "style": "terse", "blind": "docs", "source": "generated", "id": "e815583172"}
+{"task": "Document the expected input format for the validate_config function in config/validator.py", "intent": "docs", "style": "with_paths", "blind": "docs", "source": "generated", "id": "e36696a7bd"}
+{"task": "Document the error handling behavior for the file upload service", "intent": "docs", "style": "symptom", "blind": "docs", "source": "generated", "id": "be4e9cd1f6"}
+{"task": "Write README for auth_service", "intent": "docs", "style": "terse", "blind": "docs", "source": "generated", "id": "b6bc3c40df"}
+{"task": "Create a usage example for the configuration parser in the developer guide", "intent": "docs", "style": "symptom", "blind": "docs", "source": "generated", "id": "9c4992dcdf"}
+{"task": "document the return value of get_user_permissions", "intent": "docs", "style": "casual", "blind": "docs", "source": "generated", "id": "856dd9dc61"}
+{"task": "add example usage to the logger setup function", "intent": "docs", "style": "casual", "blind": "docs", "source": "generated", "id": "d3210c5643"}
+{"task": "Update docs for file_parser class", "intent": "docs", "style": "terse", "blind": "docs", "source": "generated", "id": "aca7647da1"}
+{"task": "Comment the http_request helper", "intent": "docs", "style": "terse", "blind": "docs", "source": "generated", "id": "6c3f94e1f7"}
+{"task": "Improve the docstring for the file parser class with examples of supported formats", "intent": "docs", "style": "descriptive", "blind": "docs", "source": "generated", "id": "3efc7b00d4"}
+{"task": "add docstrings to all the methods in user_controller.py", "intent": "docs", "style": "casual", "blind": "docs", "source": "generated", "id": "5f9eea6d5e"}
+{"task": "Comment the calculate_tax function", "intent": "docs", "style": "terse", "blind": "docs", "source": "generated", "id": "f777d7e0e5"}
+{"task": "hey can u add some comments to explain what this parse_csv function does", "intent": "docs", "style": "casual", "blind": "docs", "source": "generated", "id": "5addd92e82"}
+{"task": "make a quick doc for the file_watcher class", "intent": "docs", "style": "casual", "blind": "docs", "source": "generated", "id": "f23cd4f976"}
+{"task": "Create a usage guide in docs/quickstart.md for the http_client module", "intent": "docs", "style": "with_paths", "blind": "docs", "source": "generated", "id": "140c0a7d77"}
+{"task": "Write usage notes for parse_config", "intent": "docs", "style": "terse", "blind": "docs", "source": "generated", "id": "6cd22dc4f5"}
+{"task": "Add a section to the README about environment variable setup for dev", "intent": "docs", "style": "with_paths", "blind": "docs", "source": "generated", "id": "47dcdb98e5"}
+{"task": "Improve the comments in utils/date_formatter.py to explain the timezone handling", "intent": "docs", "style": "with_paths", "blind": "docs", "source": "generated", "id": "726b773f2d"}
+{"task": "explain in docstring what the date_format parameter does", "intent": "docs", "style": "casual", "blind": "docs", "source": "generated", "id": "033e6bae49"}
+{"task": "Improve the docstring for the parse_xml_config method in config/parser.py", "intent": "docs", "style": "with_paths", "blind": "docs", "source": "generated", "id": "9e7c3c14d6"}
+{"task": "Document the send_email utility", "intent": "docs", "style": "terse", "blind": "docs", "source": "generated", "id": "f842a9e827"}
+{"task": "Add comprehensive docstrings to the user authentication functions in auth.py", "intent": "docs", "style": "descriptive", "blind": "docs", "source": "generated", "id": "9d8dba993a"}
+{"task": "add type hints and comments to the report_generator function", "intent": "docs", "style": "casual", "blind": "docs", "source": "generated", "id": "97aea748eb"}
+{"task": "add a summary comment at the top of this utils.py file", "intent": "docs", "style": "casual", "blind": "docs", "source": "generated", "id": "04469f8e38"}
+{"task": "Create usage instructions for the file processing module in the project documentation", "intent": "docs", "style": "symptom", "blind": "docs", "source": "generated", "id": "14e1275175"}
+{"task": "Write a detailed README section explaining how to configure the database connection", "intent": "docs", "style": "descriptive", "blind": "docs", "source": "generated", "id": "528987dfd9"}
+{"task": "Review the database connection handler for any resource leak possibilities", "intent": "review", "style": "symptom", "blind": "review", "source": "generated", "id": "5fa15c48d1"}
+{"task": "Examine the file_parser.py file for potential infinite loop issues in parse_json", "intent": "review", "style": "with_paths", "blind": "review", "source": "generated", "id": "275d478422"}
+{"task": "Could you examine the report generation module for memory usage issues during large data processing?", "intent": "review", "style": "descriptive", "blind": "review", "source": "generated", "id": "4a2c935f97"}
+{"task": "Please take a look at my data processing pipeline and let me know if there are any performance bottlenecks.", "intent": "review", "style": "descriptive", "blind": "review", "source": "generated", "id": "6f0fb5d8ca"}
+{"task": "Look over the payment processing function for missing exception cases", "intent": "review", "style": "symptom", "blind": "review", "source": "generated", "id": "527c7439eb"}
+{"task": "Analyze the api_client.py script for missing timeout configurations in http requests", "intent": "review", "style": "with_paths", "blind": "review", "source": "generated", "id": "290863ab80"}
+{"task": "Review the error reporting middleware and see if there are any sensitive information leaks.", "intent": "review", "style": "descriptive", "blind": "review", "source": "generated", "id": "18796e0478"}
+{"task": "Please check my file compression utility for proper exception handling and cleanup procedures.", "intent": "review", "style": "descriptive", "blind": "review", "source": "generated", "id": "8debaf40b8"}
+{"task": "Look over the file compression service for missing error recovery steps", "intent": "review", "style": "symptom", "blind": "review", "source": "generated", "id": "7f48711fca"}
+{"task": "review the api response handler", "intent": "review", "style": "casual", "blind": "review", "source": "generated", "id": "e115366e20"}
+{"task": "review cache manager", "intent": "review", "style": "terse", "blind": "review", "source": "generated", "id": "ed129db6ac"}
+{"task": "Analyze the notification dispatcher for message delivery reliability", "intent": "review", "style": "symptom", "blind": "review", "source": "generated", "id": "7d4dc2429a"}
+{"task": "Can you examine the date parsing utility and recommend ways to make it more robust against malformed inputs?", "intent": "review", "style": "descriptive", "blind": "review", "source": "generated", "id": "befac69702"}
+{"task": "Take a look at this configuration loader and tell me if there are better approaches to handle environment variables.", "intent": "review", "style": "descriptive", "blind": "review", "source": "generated", "id": "14a0ad826d"}
+{"task": "Analyze the data_exporter.py script for potential memory overflow in large dataset processing", "intent": "review", "style": "with_paths", "blind": "review", "source": "generated", "id": "8b0a8988e3"}
+{"task": "Look over the session_handler.py for session fixation security concerns", "intent": "review", "style": "with_paths", "blind": "review", "source": "generated", "id": "9f6e6b623c"}
+{"task": "Check my http_client.py for proper error handling in the request method", "intent": "review", "style": "with_paths", "blind": "review", "source": "generated", "id": "2ee52284c3"}
+{"task": "is this file parsing code solid", "intent": "review", "style": "casual", "blind": "review", "source": "generated", "id": "7499570933"}
+{"task": "Review the migration_manager.py module for rollback procedure issues", "intent": "review", "style": "with_paths", "blind": "review", "source": "generated", "id": "2adb254c5e"}
+{"task": "take a quick look at my auth middleware", "intent": "review", "style": "casual", "blind": "review", "source": "generated", "id": "11de736f25"}
+{"task": "Please review orders_manager.py for any database transaction consistency problems", "intent": "review", "style": "with_paths", "blind": "review", "source": "generated", "id": "fd04b45e1a"}
+{"task": "review my auth middleware", "intent": "review", "style": "terse", "blind": "review", "source": "generated", "id": "8a6bf283dd"}
+{"task": "Review the database connection pooling implementation and comment on any issues with resource management.", "intent": "review", "style": "descriptive", "blind": "review", "source": "generated", "id": "bd91f5d071"}
+{"task": "review config loader", "intent": "review", "style": "terse", "blind": "review", "source": "generated", "id": "922eeb607e"}
+{"task": "Examine the data processing pipeline and identify potential race conditions in the threading implementation", "intent": "review", "style": "symptom", "blind": "review", "source": "generated", "id": "b660a4cd19"}
+{"task": "Please examine the data_processor.py module for potential memory leaks in the parse_csv function", "intent": "review", "style": "with_paths", "blind": "review", "source": "generated", "id": "b775d4d44f"}
+{"task": "Review the HTTP client wrapper for proper connection pooling", "intent": "review", "style": "symptom", "blind": "review", "source": "generated", "id": "9b180a3123"}
+{"task": "I need you to check my HTTP client wrapper for proper error handling and retry mechanisms.", "intent": "review", "style": "descriptive", "blind": "review", "source": "generated", "id": "ba6654caef"}
+{"task": "Review the payment_processor.py file and identify any potential deadlock scenarios", "intent": "review", "style": "with_paths", "blind": "review", "source": "generated", "id": "3b9aa87132"}
+{"task": "I'd appreciate if you could examine the user registration flow and identify any edge cases that aren't handled properly.", "intent": "review", "style": "descriptive", "blind": "review", "source": "generated", "id": "59c8562ab6"}
+{"task": "what do you think about this user validation logic", "intent": "review", "style": "casual", "blind": "review", "source": "generated", "id": "5f5b428e5a"}
+{"task": "review the orders processing function", "intent": "review", "style": "casual", "blind": "review", "source": "generated", "id": "5ff6236f93"}
+{"task": "Review the database_connection.py file and let me know if there are any connection pool issues", "intent": "review", "style": "with_paths", "blind": "review", "source": "generated", "id": "ebc47452f7"}
+{"task": "Can you review my auth.py file and point out any security issues in the login function?", "intent": "review", "style": "with_paths", "blind": "review", "source": "generated", "id": "492b952d1b"}
+{"task": "Could you review the API response formatting logic and suggest improvements for consistency?", "intent": "review", "style": "descriptive", "blind": "review", "source": "generated", "id": "087ae6f505"}
+{"task": "Can you review the payment gateway integration and comment on potential race conditions in transaction handling?", "intent": "review", "style": "descriptive", "blind": "review", "source": "generated", "id": "ebd4b03475"}
+{"task": "Please examine this invoice generation script and let me know if it handles all currency formatting cases correctly.", "intent": "review", "style": "descriptive", "blind": "review", "source": "generated", "id": "cf16077849"}
+{"task": "Inspect the user permissions checker for potential security vulnerabilities", "intent": "review", "style": "symptom", "blind": "review", "source": "generated", "id": "2b5cd9016f"}
+{"task": "Check my cache_manager.py implementation for thread safety issues in the get method", "intent": "review", "style": "with_paths", "blind": "review", "source": "generated", "id": "e09485ea42"}
+{"task": "check my report builder logic", "intent": "review", "style": "casual", "blind": "review", "source": "generated", "id": "1f4819a077"}
+{"task": "Can you review the authentication module and point out any security vulnerabilities I might have missed?", "intent": "review", "style": "descriptive", "blind": "review", "source": "generated", "id": "b490852d98"}
+{"task": "review my date formatting function", "intent": "review", "style": "casual", "blind": "review", "source": "generated", "id": "13fb386a92"}
+{"task": "review notification service", "intent": "review", "style": "terse", "blind": "review", "source": "generated", "id": "69d4b63e04"}
+{"task": "Review the notification_service.py file for proper resource cleanup in send_email method", "intent": "review", "style": "with_paths", "blind": "review", "source": "generated", "id": "208c6e7e57"}
+{"task": "Please review the logging setup in our service and suggest improvements for production monitoring.", "intent": "review", "style": "descriptive", "blind": "review", "source": "generated", "id": "e4cddd3034"}
+{"task": "Take a look at this authentication module and point out any logical flaws in the token validation process", "intent": "review", "style": "symptom", "blind": "review", "source": "generated", "id": "967c60cdb9"}
+{"task": "Can you look over the user permissions system and identify any potential privilege escalation paths?", "intent": "review", "style": "descriptive", "blind": "review", "source": "generated", "id": "82afe36136"}
+{"task": "Review the cache invalidation logic for race condition scenarios", "intent": "review", "style": "symptom", "blind": "review", "source": "generated", "id": "168865175b"}
+{"task": "Examine the date parsing utility for edge case handling issues", "intent": "review", "style": "symptom", "blind": "review", "source": "generated", "id": "fe4bf3a01a"}
+{"task": "Check my scheduler.py implementation for proper exception handling in task execution", "intent": "review", "style": "with_paths", "blind": "review", "source": "generated", "id": "744a344784"}
+{"task": "Please check my file upload handler for potential memory leaks or race conditions.", "intent": "review", "style": "descriptive", "blind": "review", "source": "generated", "id": "56835f40f9"}
+{"task": "review my data parser and see if theres any issues", "intent": "review", "style": "casual", "blind": "review", "source": "generated", "id": "dd61c2cc15"}
+{"task": "Examine the database migration script for rollback capability issues", "intent": "review", "style": "symptom", "blind": "review", "source": "generated", "id": "26ff2bc165"}
+{"task": "review payment handler", "intent": "review", "style": "terse", "blind": "review", "source": "generated", "id": "fe4b101f2f"}
+{"task": "look over the http client setup", "intent": "review", "style": "casual", "blind": "review", "source": "generated", "id": "8684474326"}
+{"task": "Release the new version with the improved date formatting utilities", "intent": "ship", "style": "descriptive", "blind": "ship", "source": "generated", "id": "22e08c63f6"}
+{"task": "push the latest configuration changes to the remote repository", "intent": "ship", "style": "symptom", "blind": "ship", "source": "generated", "id": "28bd3d3923"}
+{"task": "release v3.0.1 to production", "intent": "ship", "style": "terse", "blind": "ship", "source": "generated", "id": "069fadfe2a"}
+{"task": "merge feature/auth into develop", "intent": "ship", "style": "terse", "blind": "ship", "source": "generated", "id": "1c4aeafe78"}
+{"task": "merge the feature branch into master and delete the temporary branch", "intent": "ship", "style": "symptom", "blind": "ship", "source": "generated", "id": "9785b4525b"}
+{"task": "tag release candidate 1.2.0 for the file upload service", "intent": "ship", "style": "with_paths", "blind": "ship", "source": "generated", "id": "b1b9871837"}
+{"task": "create pull request for review", "intent": "ship", "style": "casual", "blind": "ship", "source": "generated", "id": "a2eca5fc4f"}
+{"task": "commit the new file src/api/users/endpoints.py and push to feature-branch", "intent": "ship", "style": "with_paths", "blind": "ship", "source": "generated", "id": "881d7d31ca"}
+{"task": "finalize the payment processing changes and push to staging", "intent": "ship", "style": "symptom", "blind": "ship", "source": "generated", "id": "9846a9a95c"}
+{"task": "release the new build", "intent": "ship", "style": "casual", "blind": "ship", "source": "generated", "id": "463013516f"}
+{"task": "release version 3.0.0", "intent": "ship", "style": "casual", "blind": "ship", "source": "generated", "id": "69f5c14047"}
+{"task": "commit all modifications and push them to origin/main", "intent": "ship", "style": "symptom", "blind": "ship", "source": "generated", "id": "1ec139581b"}
+{"task": "Merge this branch once the performance benchmarks show positive results", "intent": "ship", "style": "descriptive", "blind": "ship", "source": "generated", "id": "dc31c3c6c0"}
+{"task": "Open a pull request for the parsing module improvements with the new test cases", "intent": "ship", "style": "descriptive", "blind": "ship", "source": "generated", "id": "2b23e727b8"}
+{"task": "Please commit these changes and push to the main branch so we can trigger the deployment pipeline", "intent": "ship", "style": "descriptive", "blind": "ship", "source": "generated", "id": "90223f209c"}
+{"task": "tag the release and push", "intent": "ship", "style": "casual", "blind": "ship", "source": "generated", "id": "27bd277999"}
+{"task": "Push the latest changes to the feature flag implementation and trigger deployment", "intent": "ship", "style": "descriptive", "blind": "ship", "source": "generated", "id": "bb323ed3f4"}
+{"task": "push changes to remote repo", "intent": "ship", "style": "casual", "blind": "ship", "source": "generated", "id": "0324ea9094"}
+{"task": "commit config updates and push", "intent": "ship", "style": "terse", "blind": "ship", "source": "generated", "id": "7a864c96f8"}
+{"task": "publish this fix to production after the tests complete successfully", "intent": "ship", "style": "symptom", "blind": "ship", "source": "generated", "id": "b8dea5f997"}
+{"task": "commit changes to reports/sales_summary.py and push to staging", "intent": "ship", "style": "with_paths", "blind": "ship", "source": "generated", "id": "e34c830605"}
+{"task": "submit PR for user auth flow", "intent": "ship", "style": "terse", "blind": "ship", "source": "generated", "id": "b73d89c221"}
+{"task": "submit the data parsing improvements as a pull request for review", "intent": "ship", "style": "symptom", "blind": "ship", "source": "generated", "id": "56261d3544"}
+{"task": "create a pull request for the invoice generation logic in billing/invoice.py", "intent": "ship", "style": "with_paths", "blind": "ship", "source": "generated", "id": "014cfbec05"}
+{"task": "merge feature/payment-integration once all tests pass", "intent": "ship", "style": "with_paths", "blind": "ship", "source": "generated", "id": "f49a3c7930"}
+{"task": "open PR for the user session management in auth/session.py", "intent": "ship", "style": "with_paths", "blind": "ship", "source": "generated", "id": "eade752875"}
+{"task": "Merge this pull request after the automated tests complete successfully", "intent": "ship", "style": "descriptive", "blind": "ship", "source": "generated", "id": "5cc7011cec"}
+{"task": "merge the security patches into main and tag version 3.0.1", "intent": "ship", "style": "symptom", "blind": "ship", "source": "generated", "id": "d913db5efa"}
+{"task": "Push the updated reports generation script to the staging environment", "intent": "ship", "style": "descriptive", "blind": "ship", "source": "generated", "id": "056ed4439f"}
+{"task": "tag v1.2.3 and release", "intent": "ship", "style": "casual", "blind": "ship", "source": "generated", "id": "0086412aa0"}
+{"task": "open a merge request from feature/user-profile to develop", "intent": "ship", "style": "symptom", "blind": "ship", "source": "generated", "id": "87669de3da"}
+{"task": "push the file upload functionality changes and create a release", "intent": "ship", "style": "symptom", "blind": "ship", "source": "generated", "id": "76f5568869"}
+{"task": "please merge this branch", "intent": "ship", "style": "casual", "blind": "ship", "source": "generated", "id": "25b8752820"}
+{"task": "Tag version 2.1.0 and create a release for the new user authentication module", "intent": "ship", "style": "descriptive", "blind": "ship", "source": "generated", "id": "041969860f"}
+{"task": "ship this to production", "intent": "ship", "style": "casual", "blind": "ship", "source": "generated", "id": "ae7f5f15d0"}
+{"task": "Commit the invoice processing logic and open a pull request for review", "intent": "ship", "style": "descriptive", "blind": "ship", "source": "generated", "id": "7d0759d6b3"}
+{"task": "Push these changes to the feature branch and create a pull request for the HTTP client refactor", "intent": "ship", "style": "descriptive", "blind": "ship", "source": "generated", "id": "63b9bb1768"}
+{"task": "push this to main plz", "intent": "ship", "style": "casual", "blind": "ship", "source": "generated", "id": "a4a735cb1e"}
+{"task": "Tag the release candidate and push to the production servers", "intent": "ship", "style": "descriptive", "blind": "ship", "source": "generated", "id": "41c36961fe"}
+{"task": "push updated config in settings/app.json and create PR", "intent": "ship", "style": "with_paths", "blind": "ship", "source": "generated", "id": "9ef19b472b"}
+{"task": "merge invoice processing branch", "intent": "ship", "style": "terse", "blind": "ship", "source": "generated", "id": "1eb04fc4f1"}
+{"task": "create tag v2.1.0 and push", "intent": "ship", "style": "casual", "blind": "ship", "source": "generated", "id": "99f080ee7b"}
+{"task": "commit and push changes to config/database.yml", "intent": "ship", "style": "with_paths", "blind": "ship", "source": "generated", "id": "a7074e5392"}
+{"task": "release the new authentication flow in auth/routes.py", "intent": "ship", "style": "with_paths", "blind": "ship", "source": "generated", "id": "46c73a2575"}
+{"task": "open pr for these changes", "intent": "ship", "style": "casual", "blind": "ship", "source": "generated", "id": "5a7e6ee9f4"}
+{"task": "tag v1.5.2 release for the order management system", "intent": "ship", "style": "with_paths", "blind": "ship", "source": "generated", "id": "0a626779b2"}
+{"task": "commit and push to feature", "intent": "ship", "style": "casual", "blind": "ship", "source": "generated", "id": "657d7c25be"}
+{"task": "Push the updated configuration files to the production environment", "intent": "ship", "style": "descriptive", "blind": "ship", "source": "generated", "id": "20508a9b0d"}
+{"task": "tag version 2.1.0 for the analytics reporting service", "intent": "ship", "style": "with_paths", "blind": "ship", "source": "generated", "id": "b7108d1415"}
+{"task": "finish the user management feature by merging and tagging the code", "intent": "ship", "style": "symptom", "blind": "ship", "source": "generated", "id": "d2d0f342f4"}
+{"task": "merge branch develop into main", "intent": "ship", "style": "casual", "blind": "ship", "source": "generated", "id": "1ad81882ef"}
+{"task": "push http client changes", "intent": "ship", "style": "terse", "blind": "ship", "source": "generated", "id": "dca8ba530a"}
+{"task": "Release version 3.0.0 with the enhanced user management system", "intent": "ship", "style": "descriptive", "blind": "ship", "source": "generated", "id": "67fdf9075a"}
+{"task": "merge when travis passes", "intent": "ship", "style": "casual", "blind": "ship", "source": "generated", "id": "55bb107fcd"}
+{"task": "release the updated report generation in reports/generator.py", "intent": "ship", "style": "with_paths", "blind": "ship", "source": "generated", "id": "9829ceb7c2"}
+{"task": "open a pull request with the new HTTP client implementation", "intent": "ship", "style": "symptom", "blind": "ship", "source": "generated", "id": "761e795d1c"}
+{"task": "open PR for data validation", "intent": "ship", "style": "terse", "blind": "ship", "source": "generated", "id": "1b68e18bf2"}
+{"task": "commit changes to src/models/user.py and push to main branch", "intent": "ship", "style": "with_paths", "blind": "ship", "source": "generated", "id": "f7357b1d61"}
+{"task": "commit and push the updated documentation files to the repository", "intent": "ship", "style": "symptom", "blind": "ship", "source": "generated", "id": "3338bda0d6"}
+{"task": "Merge this PR after the security audit is complete and all comments are addressed", "intent": "ship", "style": "descriptive", "blind": "ship", "source": "generated", "id": "ff6d50a69c"}
+{"task": "tag the current commit as v1.4.2 and push the tag upstream", "intent": "ship", "style": "symptom", "blind": "ship", "source": "generated", "id": "544b789877"}
+{"task": "release version 3.0.0 for the http client wrapper in network/client.py", "intent": "ship", "style": "with_paths", "blind": "ship", "source": "generated", "id": "a712190dc8"}
+{"task": "open a pull request for the payment processing module in payments/processor.py", "intent": "ship", "style": "with_paths", "blind": "ship", "source": "generated", "id": "1619194a3b"}
+{"task": "push these changes to the main branch and create a release with version 2.1.0", "intent": "ship", "style": "symptom", "blind": "ship", "source": "generated", "id": "64aafbda3d"}
+{"task": "Commit the file upload functionality and create a pull request for review", "intent": "ship", "style": "descriptive", "blind": "ship", "source": "generated", "id": "c6e6ce6397"}
+{"task": "Release the latest build with the date parsing utility fixes", "intent": "ship", "style": "descriptive", "blind": "ship", "source": "generated", "id": "f433c65361"}
+{"task": "merge into master when ready", "intent": "ship", "style": "casual", "blind": "ship", "source": "generated", "id": "1ee1729c26"}
+{"task": "submit a pull request for the authentication module changes", "intent": "ship", "style": "symptom", "blind": "ship", "source": "generated", "id": "f1e9a6a809"}
+{"task": "open a PR with these fixes", "intent": "ship", "style": "casual", "blind": "ship", "source": "generated", "id": "f0a37bca59"}
+{"task": "finish the merge and deploy", "intent": "ship", "style": "casual", "blind": "ship", "source": "generated", "id": "31c11de46d"}
+{"task": "tag final 0.9.0 release", "intent": "ship", "style": "terse", "blind": "ship", "source": "generated", "id": "09ed975d1a"}
+{"task": "finalize this update by merging into develop and tagging the commit", "intent": "ship", "style": "symptom", "blind": "ship", "source": "generated", "id": "7dbcefb8bf"}
+{"task": "create tag for stable build", "intent": "ship", "style": "terse", "blind": "ship", "source": "generated", "id": "8aabe52f5f"}
+{"task": "What approach would you recommend for handling OS-specific path separators when constructing file paths in a cross-platform application?", "intent": "platform_ops", "style": "descriptive", "blind": "platform_ops", "source": "generated", "id": "4a30016add"}
+{"task": "check if running in ci/cd pipeline", "intent": "platform_ops", "style": "terse", "blind": "platform_ops", "source": "generated", "id": "d831b71cee"}
+{"task": "set up retry logic for http requests with backoff", "intent": "platform_ops", "style": "casual", "blind": "platform_ops", "source": "generated", "id": "0b00ff8489"}
+{"task": "The installation script should automatically detect and use the appropriate Python executable path for each platform", "intent": "platform_ops", "style": "symptom", "blind": "platform_ops", "source": "generated", "id": "c4ee456ed2"}
+{"task": "How do I read the DATABASE_URL environment variable in my Django app and handle the case when it's not set?", "intent": "platform_ops", "style": "with_paths", "blind": "platform_ops", "source": "generated", "id": "1e7c38d604"}
+{"task": "find python interpreter in virtualenv", "intent": "platform_ops", "style": "terse", "blind": "platform_ops", "source": "generated", "id": "2cd19479b7"}
+{"task": "The logging configuration file is being ignored on some machines, how do I troubleshoot path resolution issues?", "intent": "platform_ops", "style": "symptom", "blind": "platform_ops", "source": "generated", "id": "28668d1ed9"}
+{"task": "How do I detect which operating system my application is running on and adjust behavior accordingly?", "intent": "platform_ops", "style": "symptom", "blind": "platform_ops", "source": "generated", "id": "f0ad90d11e"}
+{"task": "How can I make sure my application loads the correct configuration file based on the environment variable APP_ENV?", "intent": "platform_ops", "style": "descriptive", "blind": "platform_ops", "source": "generated", "id": "06f1244ff3"}
+{"task": "Can you show me how to detect if we're running inside a virtual environment and adjust file paths accordingly?", "intent": "platform_ops", "style": "descriptive", "blind": "platform_ops", "source": "generated", "id": "d82cdfcd9d"}
+{"task": "What's the proper way to handle different executable paths for Python when working with virtual environments?", "intent": "platform_ops", "style": "symptom", "blind": "platform_ops", "source": "generated", "id": "6575ece704"}
+{"task": "What's the correct way to handle platform-specific directory structures when creating cache directories for user data?", "intent": "platform_ops", "style": "with_paths", "blind": "platform_ops", "source": "generated", "id": "fbb5aff245"}
+{"task": "why does my relative path fail when i run from different dir", "intent": "platform_ops", "style": "casual", "blind": "platform_ops", "source": "generated", "id": "9c55e98ead"}
+{"task": "parse boolean from environment variable", "intent": "platform_ops", "style": "terse", "blind": "platform_ops", "source": "generated", "id": "c96f0388c8"}
+{"task": "How can I make sure my code works correctly across Windows and Linux systems when dealing with file paths?", "intent": "platform_ops", "style": "symptom", "blind": "platform_ops", "source": "generated", "id": "bcd22002c5"}
+{"task": "How can I implement automatic retry logic for file operations that might fail due to temporary filesystem issues?", "intent": "platform_ops", "style": "with_paths", "blind": "platform_ops", "source": "generated", "id": "fe221a16f9"}
+{"task": "how do i get the path to the current virtualenv in python", "intent": "platform_ops", "style": "casual", "blind": "platform_ops", "source": "generated", "id": "68cdca36d1"}
+{"task": "set retry count for database connection attempts", "intent": "platform_ops", "style": "casual", "blind": "platform_ops", "source": "generated", "id": "72d275dd38"}
+{"task": "find where pip installs packages on mac vs windows", "intent": "platform_ops", "style": "casual", "blind": "platform_ops", "source": "generated", "id": "7fd3175d1c"}
+{"task": "get current working directory in python script", "intent": "platform_ops", "style": "casual", "blind": "platform_ops", "source": "generated", "id": "dbb4d7313d"}
+{"task": "detect if running on windows or unix system", "intent": "platform_ops", "style": "casual", "blind": "platform_ops", "source": "generated", "id": "65bcb07ab5"}
+{"task": "What's the best approach for handling environment-specific paths like /var/log/myapp/ on Linux vs C:\\ProgramData\\myapp\\logs on Windows?", "intent": "platform_ops", "style": "with_paths", "blind": "platform_ops", "source": "generated", "id": "2d80962287"}
+{"task": "check for required environment variables", "intent": "platform_ops", "style": "terse", "blind": "platform_ops", "source": "generated", "id": "7b0094cac7"}
+{"task": "The error handling logic needs to account for different network conditions and retry strategies", "intent": "platform_ops", "style": "symptom", "blind": "platform_ops", "source": "generated", "id": "3079ef2460"}
+{"task": "How should I implement retry logic with jitter for HTTP requests that might fail due to network issues?", "intent": "platform_ops", "style": "descriptive", "blind": "platform_ops", "source": "generated", "id": "32198af300"}
+{"task": "How do I make sure my logging configuration works correctly whether running locally or in a container with different volume mounts?", "intent": "platform_ops", "style": "with_paths", "blind": "platform_ops", "source": "generated", "id": "348e113ba5"}
+{"task": "set custom log level from environment", "intent": "platform_ops", "style": "terse", "blind": "platform_ops", "source": "generated", "id": "7ea0476f46"}
+{"task": "What's the proper way to handle retries with urllib3 when connecting to an external API that might timeout?", "intent": "platform_ops", "style": "with_paths", "blind": "platform_ops", "source": "generated", "id": "2baf597cb1"}
+{"task": "How do I check if a specific environment variable is set and contains a valid path before trying to access it?", "intent": "platform_ops", "style": "with_paths", "blind": "platform_ops", "source": "generated", "id": "16187d7e63"}
+{"task": "how to make sure virtualenv is activated before running script", "intent": "platform_ops", "style": "casual", "blind": "platform_ops", "source": "generated", "id": "9dee87522c"}
+{"task": "handle file path separators on windows", "intent": "platform_ops", "style": "terse", "blind": "platform_ops", "source": "generated", "id": "be30f43b6a"}
+{"task": "How do I properly set up environment variables in my CI pipeline so they're available during test execution?", "intent": "platform_ops", "style": "descriptive", "blind": "platform_ops", "source": "generated", "id": "283eba2bd9"}
+{"task": "The application needs to access a database using credentials stored in a config file, but the path varies by deployment target", "intent": "platform_ops", "style": "symptom", "blind": "platform_ops", "source": "generated", "id": "3d5b42485b"}
+{"task": "I'm getting a timeout error when making HTTP requests, what's the best way to implement retry logic with exponential backoff?", "intent": "platform_ops", "style": "symptom", "blind": "platform_ops", "source": "generated", "id": "2c28f685ac"}
+{"task": "The script crashes when it encounters a non-English filename in the data directory, how should I handle encoding properly?", "intent": "platform_ops", "style": "symptom", "blind": "platform_ops", "source": "generated", "id": "93864da5e9"}
+{"task": "read timeout value from env with default fallback", "intent": "platform_ops", "style": "casual", "blind": "platform_ops", "source": "generated", "id": "3af220c589"}
+{"task": "I want to implement graceful fallback behavior for configuration files that may not exist in certain environments", "intent": "platform_ops", "style": "symptom", "blind": "platform_ops", "source": "generated", "id": "f389f122e8"}
+{"task": "I need to find the absolute path of the current script's directory regardless of OS platform differences.", "intent": "platform_ops", "style": "with_paths", "blind": "platform_ops", "source": "generated", "id": "db69b74358"}
+{"task": "get user's home folder cross platform in python", "intent": "platform_ops", "style": "casual", "blind": "platform_ops", "source": "generated", "id": "8ebf4e780f"}
+{"task": "What's the recommended way to handle virtual environment activation in scripts that need to run across different operating systems?", "intent": "platform_ops", "style": "descriptive", "blind": "platform_ops", "source": "generated", "id": "027d6d09c2"}
+{"task": "How do I load configuration from multiple sources: command line args, environment variables, and config files in order of precedence?", "intent": "platform_ops", "style": "with_paths", "blind": "platform_ops", "source": "generated", "id": "3ec68b4ad0"}
+{"task": "how do i set environment variables in pytest", "intent": "platform_ops", "style": "casual", "blind": "platform_ops", "source": "generated", "id": "b3acde192e"}
+{"task": "load config file with fallback to default", "intent": "platform_ops", "style": "terse", "blind": "platform_ops", "source": "generated", "id": "5a8cf28098"}
+{"task": "read retry count from env var with default", "intent": "platform_ops", "style": "terse", "blind": "platform_ops", "source": "generated", "id": "e46f4f8275"}
+{"task": "Write code that determines the Python executable path inside a conda environment for different operating systems.", "intent": "platform_ops", "style": "with_paths", "blind": "platform_ops", "source": "generated", "id": "4fb8b7f37e"}
+{"task": "what's the right way to handle os specific paths", "intent": "platform_ops", "style": "casual", "blind": "platform_ops", "source": "generated", "id": "47e5fc78de"}
+{"task": "read api key from env var called API_TOKEN", "intent": "platform_ops", "style": "casual", "blind": "platform_ops", "source": "generated", "id": "12f3286317"}
+{"task": "Can you help me write a function that checks if the virtualenv's Python path exists on both Windows and Linux systems?", "intent": "platform_ops", "style": "with_paths", "blind": "platform_ops", "source": "generated", "id": "ead7beb2b3"}
+{"task": "How can I make sure my application uses the correct version of Python regardless of system installation?", "intent": "platform_ops", "style": "symptom", "blind": "platform_ops", "source": "generated", "id": "ed8b6a0c3b"}
+{"task": "resolve relative path from script directory", "intent": "platform_ops", "style": "terse", "blind": "platform_ops", "source": "generated", "id": "0c45ac4a41"}
+{"task": "check if running in docker container", "intent": "platform_ops", "style": "terse", "blind": "platform_ops", "source": "generated", "id": "9f84369a71"}
+{"task": "How do I set up environment variables for a Python script running inside a Docker container with different volume mounts?", "intent": "platform_ops", "style": "with_paths", "blind": "platform_ops", "source": "generated", "id": "3d4b4af651"}
+{"task": "What's the best way to parse a config file located at /etc/myapp/config.ini using configparser module?", "intent": "platform_ops", "style": "with_paths", "blind": "platform_ops", "source": "generated", "id": "8b223d4bd1"}
+{"task": "My application needs to read data from a directory that might be located differently on various operating systems", "intent": "platform_ops", "style": "symptom", "blind": "platform_ops", "source": "generated", "id": "f8836a4258"}
+{"task": "detect python virtual environment activation", "intent": "platform_ops", "style": "terse", "blind": "platform_ops", "source": "generated", "id": "d58e13da8f"}
+{"task": "why is my config file not loading on linux", "intent": "platform_ops", "style": "casual", "blind": "platform_ops", "source": "generated", "id": "a9f9a0fec9"}
+{"task": "get user home directory cross-platform", "intent": "platform_ops", "style": "terse", "blind": "platform_ops", "source": "generated", "id": "b14ed69fa7"}
+{"task": "The application needs to load different settings based on whether it's running in development or production mode", "intent": "platform_ops", "style": "symptom", "blind": "platform_ops", "source": "generated", "id": "8612da753c"}
+{"task": "How do I ensure consistent behavior when my code runs in both development and production environments with different configurations?", "intent": "platform_ops", "style": "symptom", "blind": "platform_ops", "source": "generated", "id": "5a5d13f5b4"}
+{"task": "What's the best approach to manage application-specific settings that can vary between different deployment targets?", "intent": "platform_ops", "style": "symptom", "blind": "platform_ops", "source": "generated", "id": "932f3fafd1"}
+{"task": "The program works fine locally but fails when deployed to a container environment due to missing dependencies", "intent": "platform_ops", "style": "symptom", "blind": "platform_ops", "source": "generated", "id": "ae20d656cb"}
+{"task": "My build process fails on the CI server because it can't locate the required DLLs, how do I set up dynamic library loading?", "intent": "platform_ops", "style": "symptom", "blind": "platform_ops", "source": "generated", "id": "973496d3b1"}
+{"task": "I need to implement a retry mechanism for database connections that handles different error types differently", "intent": "platform_ops", "style": "descriptive", "blind": "platform_ops", "source": "generated", "id": "25fc3f646d"}
+{"task": "Can you show me how to properly handle path resolution when working with relative paths in different operating systems?", "intent": "platform_ops", "style": "descriptive", "blind": "platform_ops", "source": "generated", "id": "d039262ede"}
+{"task": "get os-specific temp directory", "intent": "platform_ops", "style": "terse", "blind": "platform_ops", "source": "generated", "id": "8c70d9c848"}
+{"task": "I'm trying to write a script that reads a JSON config file from multiple possible locations and merges them with defaults", "intent": "platform_ops", "style": "descriptive", "blind": "platform_ops", "source": "generated", "id": "52df718cd8"}
+{"task": "get home directory in a cross platform way", "intent": "platform_ops", "style": "casual", "blind": "platform_ops", "source": "generated", "id": "215093e2b3"}
+{"task": "How can I make sure my application reads the correct config file based on the environment variable APP_ENV set to 'production' or 'development'?", "intent": "platform_ops", "style": "with_paths", "blind": "platform_ops", "source": "generated", "id": "6b82ab4c8e"}
+{"task": "What's the correct way to handle file paths in a cross-platform way when reading from /tmp/ on Unix vs %TEMP% on Windows?", "intent": "platform_ops", "style": "with_paths", "blind": "platform_ops", "source": "generated", "id": "a1686c9424"}
+{"task": "read timeout value from environment", "intent": "platform_ops", "style": "terse", "blind": "platform_ops", "source": "generated", "id": "f8ba9cb4c1"}
+{"task": "I need to read a configuration value from an environment variable that might not be set", "intent": "platform_ops", "style": "symptom", "blind": "platform_ops", "source": "generated", "id": "ca8e787862"}
+{"task": "Write a function that reads from multiple potential config files in order: .myapprc, ~/.myapprc, /etc/myapp/config.json", "intent": "platform_ops", "style": "with_paths", "blind": "platform_ops", "source": "generated", "id": "4339c02641"}
+{"task": "I'm looking for a clean way to manage different configuration settings for development, staging, and production environments", "intent": "platform_ops", "style": "descriptive", "blind": "platform_ops", "source": "generated", "id": "1ffb06a6f6"}
+{"task": "Can you show me how to detect if we're running inside a virtual environment and get its path programmatically?", "intent": "platform_ops", "style": "with_paths", "blind": "platform_ops", "source": "generated", "id": "563771c3e7"}
+{"task": "find executable in PATH or fallback location", "intent": "platform_ops", "style": "terse", "blind": "platform_ops", "source": "generated", "id": "c590028f6b"}
+{"task": "My virtual environment seems to be missing certain packages after activation, what could be causing this?", "intent": "platform_ops", "style": "symptom", "blind": "platform_ops", "source": "generated", "id": "0d015f13b0"}
+{"task": "Build a script that extracts data from database tables and exports it as CSV", "intent": "script_cli", "style": "symptom", "blind": "script_cli", "source": "generated", "id": "3ae851f49e"}
+{"task": "Create a tool that handles HTTP requests with --url, --method, and --headers flags", "intent": "script_cli", "style": "with_paths", "blind": "script_cli", "source": "generated", "id": "4e4cc80125"}
+{"task": "Build a script that monitors disk usage and sends email alerts when any partition exceeds 80% capacity", "intent": "script_cli", "style": "descriptive", "blind": "script_cli", "source": "generated", "id": "9e760afaf6"}
+{"task": "build command line tool to validate json schemas", "intent": "script_cli", "style": "casual", "blind": "script_cli", "source": "generated", "id": "7c9c7f3df9"}
+{"task": "Design a command-line application that converts between different time zones and displays the current time in each location", "intent": "script_cli", "style": "descriptive", "blind": "script_cli", "source": "generated", "id": "e60aca2194"}
+{"task": "Construct a tool that monitors network connectivity and logs ping results with timestamps to a CSV file", "intent": "script_cli", "style": "descriptive", "blind": "script_cli", "source": "generated", "id": "7e8c45a3c6"}
+{"task": "write a command line utility for merging log files", "intent": "script_cli", "style": "terse", "blind": "script_cli", "source": "generated", "id": "edb10c89af"}
+{"task": "Construct a script that parses log files and extracts error messages with timestamps", "intent": "script_cli", "style": "symptom", "blind": "script_cli", "source": "generated", "id": "7e18de5cad"}
+{"task": "create a file size analyzer tool", "intent": "script_cli", "style": "terse", "blind": "script_cli", "source": "generated", "id": "ee4eb9e88c"}
+{"task": "make a file size reporter for directories", "intent": "script_cli", "style": "casual", "blind": "script_cli", "source": "generated", "id": "35be3099f0"}
+{"task": "Write a script that monitors log files and sends email notifications when errors occur", "intent": "script_cli", "style": "with_paths", "blind": "script_cli", "source": "generated", "id": "4702cd4335"}
+{"task": "script to monitor disk usage and send alerts", "intent": "script_cli", "style": "casual", "blind": "script_cli", "source": "generated", "id": "40c6fd28d6"}
+{"task": "script to check if urls are accessible", "intent": "script_cli", "style": "terse", "blind": "script_cli", "source": "generated", "id": "ca1326cd4a"}
+{"task": "Write a script that analyzes code coverage reports and generates a summary table with percentages", "intent": "script_cli", "style": "descriptive", "blind": "script_cli", "source": "generated", "id": "fbef2c703c"}
+{"task": "Write a tool that parses log files and extracts error messages with line numbers for debugging purposes", "intent": "script_cli", "style": "descriptive", "blind": "script_cli", "source": "generated", "id": "8ee1af1a6a"}
+{"task": "Create a tool that processes CSV files and generates summary statistics for each column", "intent": "script_cli", "style": "symptom", "blind": "script_cli", "source": "generated", "id": "b9d0723816"}
+{"task": "cli utility to convert markdown to html", "intent": "script_cli", "style": "casual", "blind": "script_cli", "source": "generated", "id": "b7e0c52a15"}
+{"task": "build script to parse xml config files and extract values", "intent": "script_cli", "style": "casual", "blind": "script_cli", "source": "generated", "id": "39428e56fb"}
+{"task": "build a script that validates yaml config files", "intent": "script_cli", "style": "terse", "blind": "script_cli", "source": "generated", "id": "c133cb0d78"}
+{"task": "Develop a script that parses network logs and generates security reports with --start-time and --end-time", "intent": "script_cli", "style": "with_paths", "blind": "script_cli", "source": "generated", "id": "ff42b39fb4"}
+{"task": "Implement a script that automates deployment of web applications to cloud platforms", "intent": "script_cli", "style": "symptom", "blind": "script_cli", "source": "generated", "id": "1b244f2e64"}
+{"task": "add --output flag to my data processor script", "intent": "script_cli", "style": "casual", "blind": "script_cli", "source": "generated", "id": "70026a4eba"}
+{"task": "write a date formatter for command line", "intent": "script_cli", "style": "terse", "blind": "script_cli", "source": "generated", "id": "a0190108e2"}
+{"task": "add --dry-run option to backup script", "intent": "script_cli", "style": "terse", "blind": "script_cli", "source": "generated", "id": "8d1c39ce5d"}
+{"task": "Develop a CLI command that fetches user data from a REST API and saves it to a local JSON file with timestamps", "intent": "script_cli", "style": "descriptive", "blind": "script_cli", "source": "generated", "id": "b5ce29b541"}
+{"task": "Create a tool that fetches GitHub issues and exports them to CSV with --repo and --since parameters", "intent": "script_cli", "style": "with_paths", "blind": "script_cli", "source": "generated", "id": "dc0d1afba1"}
+{"task": "write a cli tool that converts csv to json with custom delimiters", "intent": "script_cli", "style": "casual", "blind": "script_cli", "source": "generated", "id": "961c0459cd"}
+{"task": "build a script to sync folders with rsync", "intent": "script_cli", "style": "terse", "blind": "script_cli", "source": "generated", "id": "247fcd22ee"}
+{"task": "Write a CLI application that processes user data from JSON files and generates monthly reports", "intent": "script_cli", "style": "with_paths", "blind": "script_cli", "source": "generated", "id": "db8383996f"}
+{"task": "Write a command-line tool that manages database migrations with --up, --down, and --dry-run flags", "intent": "script_cli", "style": "with_paths", "blind": "script_cli", "source": "generated", "id": "c0b1060ed4"}
+{"task": "Construct a command-line interface for generating reports from time tracking data", "intent": "script_cli", "style": "symptom", "blind": "script_cli", "source": "generated", "id": "91222d8bd1"}
+{"task": "cli app to generate random passwords", "intent": "script_cli", "style": "terse", "blind": "script_cli", "source": "generated", "id": "129861198a"}
+{"task": "build a script to batch rename photos", "intent": "script_cli", "style": "terse", "blind": "script_cli", "source": "generated", "id": "a99250f6de"}
+{"task": "write a cli that converts markdown to html", "intent": "script_cli", "style": "terse", "blind": "script_cli", "source": "generated", "id": "0d769f9e84"}
+{"task": "Build a command-line tool that reads config files and validates their structure with --schema option", "intent": "script_cli", "style": "with_paths", "blind": "script_cli", "source": "generated", "id": "5596906de9"}
+{"task": "create command line interface for database backups", "intent": "script_cli", "style": "casual", "blind": "script_cli", "source": "generated", "id": "05ff976588"}
+{"task": "command line utility for compressing images", "intent": "script_cli", "style": "terse", "blind": "script_cli", "source": "generated", "id": "a414460ff7"}
+{"task": "Create a utility that monitors system resources and logs metrics to CSV with --interval and --duration", "intent": "script_cli", "style": "with_paths", "blind": "script_cli", "source": "generated", "id": "33de5afe48"}
+{"task": "Create a script that analyzes order data and exports statistics to CSV with --filter and --group-by parameters", "intent": "script_cli", "style": "with_paths", "blind": "script_cli", "source": "generated", "id": "8813262700"}
+{"task": "Write a CLI script that manages user permissions and outputs results in JSON format", "intent": "script_cli", "style": "with_paths", "blind": "script_cli", "source": "generated", "id": "ef5403ff4d"}
+{"task": "Create a command-line tool that processes CSV files and generates JSON reports with statistics on numeric columns", "intent": "script_cli", "style": "descriptive", "blind": "script_cli", "source": "generated", "id": "6c4d5c70ee"}
+{"task": "add --version flag to existing cli program", "intent": "script_cli", "style": "terse", "blind": "script_cli", "source": "generated", "id": "a1832cfbd2"}
+{"task": "Construct a CLI application that fetches stock prices from financial APIs and stores them in a local SQLite database", "intent": "script_cli", "style": "descriptive", "blind": "script_cli", "source": "generated", "id": "37ea001577"}
+{"task": "make a tool to parse xml and output csv", "intent": "script_cli", "style": "terse", "blind": "script_cli", "source": "generated", "id": "2976e0b4ad"}
+{"task": "make a user management cli with add/delete functions", "intent": "script_cli", "style": "casual", "blind": "script_cli", "source": "generated", "id": "7ace750660"}
+{"task": "Create a command-line tool that schedules automated tasks using cron syntax and validates the schedule expressions", "intent": "script_cli", "style": "descriptive", "blind": "script_cli", "source": "generated", "id": "8e8c06a7af"}
+{"task": "add --silent mode to my reporting script", "intent": "script_cli", "style": "casual", "blind": "script_cli", "source": "generated", "id": "58b4348fc6"}
+{"task": "write tool that checks git commit messages for style", "intent": "script_cli", "style": "casual", "blind": "script_cli", "source": "generated", "id": "611a5beaf6"}
+{"task": "Develop a command-line interface for managing user accounts with password hashing", "intent": "script_cli", "style": "symptom", "blind": "script_cli", "source": "generated", "id": "a8b0a13f9d"}
+{"task": "create a cli tool to convert csv to json with headers", "intent": "script_cli", "style": "terse", "blind": "script_cli", "source": "generated", "id": "fc06b597ed"}
+{"task": "Build a script that generates monthly invoices from a database and exports them to PDF format with proper formatting", "intent": "script_cli", "style": "descriptive", "blind": "script_cli", "source": "generated", "id": "a9f9f90acc"}
+{"task": "Develop a utility that processes invoice data and generates summary reports with --start and --end dates", "intent": "script_cli", "style": "with_paths", "blind": "script_cli", "source": "generated", "id": "08ddf6a5b5"}
+{"task": "Develop a command-line utility that compares two directories and outputs differences to a file", "intent": "script_cli", "style": "with_paths", "blind": "script_cli", "source": "generated", "id": "765172e8e6"}
+{"task": "Write a tool that processes file metadata and generates a report of duplicate files with --recursive flag", "intent": "script_cli", "style": "with_paths", "blind": "script_cli", "source": "generated", "id": "882ec85404"}
+{"task": "Build a script that validates configuration files and outputs a summary report to stdout", "intent": "script_cli", "style": "with_paths", "blind": "script_cli", "source": "generated", "id": "abb8ca1b0b"}
+{"task": "make a tool that lists all python dependencies", "intent": "script_cli", "style": "terse", "blind": "script_cli", "source": "generated", "id": "5aa2711250"}
+{"task": "script to merge multiple log files by timestamp", "intent": "script_cli", "style": "casual", "blind": "script_cli", "source": "generated", "id": "cb9bc01c92"}
+{"task": "Build a command-line interface that manages environment variables for different development environments", "intent": "script_cli", "style": "descriptive", "blind": "script_cli", "source": "generated", "id": "7d026f1060"}
+{"task": "Build a script that parses date strings and converts them to different formats with --input-format and --output-format", "intent": "script_cli", "style": "with_paths", "blind": "script_cli", "source": "generated", "id": "b7cb554978"}
+{"task": "Develop a CLI application that handles API requests and saves responses to JSON files", "intent": "script_cli", "style": "with_paths", "blind": "script_cli", "source": "generated", "id": "884baae507"}

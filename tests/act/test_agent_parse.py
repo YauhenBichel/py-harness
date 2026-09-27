@@ -153,5 +153,25 @@ class FieldNameAsActionTest(unittest.TestCase):
             self.assertEqual(turn.action, verb)
 
 
+class DoneWinsOnceAskedForTest(unittest.TestCase):
+    PASTED = (
+        "Action: patch\nPath: src/orders.py\nFind: TAX = 0.02\nReplace: TAX = 0.2\n\n"
+        "Action: run\nArgv: -m unittest discover -s tests -q\n\n"
+        "Action: done\nSummary: fixed the tax rate\n"
+    )
+
+    def test_the_patch_wins_by_default(self) -> None:
+        self.assertEqual(parse_turn_smart(self.PASTED).action, "patch")
+
+    def test_done_wins_once_the_harness_asked_for_it(self) -> None:
+        turn = parse_turn_smart(self.PASTED, asked_done=True)
+        self.assertEqual(turn.action, "done")
+        self.assertEqual(turn.summary, "fixed the tax rate")
+
+    def test_asking_for_done_does_not_invent_one(self) -> None:
+        single = "Action: read\nPath: src/orders.py\n"
+        self.assertEqual(parse_turn_smart(single, asked_done=True).action, "read")
+
+
 if __name__ == "__main__":
     unittest.main()

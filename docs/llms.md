@@ -62,6 +62,7 @@ Measured on one laptop, 29 Aug 2026: 8B first Action on three scoped tasks 3/3; 
 - [Everyday laptop]({{ '/investigations/everyday-laptop/' | absolute_url }}): Why the 0.5B LoRA is not daily work.
 - [Everyday skills]({{ '/investigations/everyday-skills/' | absolute_url }}): Skills are one copy-paste Action, written for an 8B.
 - [Harness comparison]({{ '/investigations/harness-comparison/' | absolute_url }}): What transfers from other published harnesses. No free shell tool.
+- [What would make it useful]({{ '/investigations/what-would-make-it-useful/' | absolute_url }}): Every method reviewed against this project's own numbers. The model ceiling was the cheapest thing to fix; training is not viable with thirty rows.
 - [0.5B vibe review]({{ '/research-vibe-review/' | absolute_url }}): Held-out vibe tasks and a 100-file stub walk that was not a review.
 
 ## Code and weights

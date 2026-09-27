@@ -23,7 +23,7 @@ from harness.act.autofix import (
     apply_person_bind,
     unbound_typo,
 )
-from harness.act.parse import parse_turn_smart
+from harness.act.parse import AgentTurn, parse_turn_smart
 from harness.act.tools import run_python
 from harness.scan.names import undefined_in_file
 from harness.agent.dispatch import ACTIONS, run_action
@@ -44,6 +44,7 @@ from harness.model.ollama_generate import CONTEXT_TOKENS
 from harness.observe.trace_record import append_turn, default_trace_path
 from harness.scan.design import render_design_review
 from harness.task import (
+    set_decided_intent,
     looks_like_add_feature,
     looks_like_app_loop,
     looks_like_bugfix,
@@ -220,6 +221,39 @@ class Agent:
         options = self.options if task is None else _with_task(self.options, task)
         if not options.task.strip():
             raise ValueError("task required")
+        self._decide_intent(options)
+        try:
+            return self._after_deciding(options)
+        finally:
+            # Forget it, so a later run in this process — a benchmark
+            # arm measured with the regex — cannot inherit this decision.
+            set_decided_intent(options.task, None)
+
+    def _decide_intent(self, options: AgentOptions) -> None:
+        """Ask the fitted model what kind of task this is, if asked to.
+
+        One embedding call per run, before any model turn. The answer is
+        registered against the task text so every `looks_like_*` reader
+        sees it without being changed. If nothing can embed, nothing is
+        registered and the regexes answer as they always have.
+        """
+        if options.decide != "model":
+            return
+        from harness.decide.intent import intent_of
+
+        decision = intent_of(options.task)
+        if decision is None:
+            options.emit("decide", "no embedding model reachable; the regex decides")
+            return
+        set_decided_intent(options.task, decision.intent)
+        options.emit(
+            "decide",
+            f"intent {decision.intent} (margin {decision.margin:.2f}, "
+            f"runner-up {decision.runner_up})",
+        )
+
+    def _after_deciding(self, options: AgentOptions) -> AgentResult:
+        """The four questions, and then the model. See `run`."""
         run = RunState(options=options, preamble=build_preamble(options))
         run.options.emit("preamble", run.preamble.pre_text or "")
 
@@ -407,13 +441,19 @@ class Agent:
         steps: list[Step] = []
 
         for number in range(1, options.steps + 1):
-            draft = generate(prompt)
-            _remember(generate, prompt, draft)
-            options.emit("draft", f"--- step {number} ---\n{draft}")
-            turn = parse_turn_smart(
-                draft,
+            draft, turn, tried = _first_that_parses(
+                generate,
+                prompt,
+                options.drafts,
                 question=looks_like_question(options.task),
                 ship=looks_like_ship(options.task),
+                asked_done=_asked_for_done(prompt),
+            )
+            _remember(generate, prompt, draft)
+            options.emit(
+                "draft",
+                f"--- step {number} ---\n{draft}"
+                + (f"\n[draft {tried} of {options.drafts}]" if tried > 1 else ""),
             )
             trace = trace_path(options)
             if trace is not None:
@@ -553,6 +593,7 @@ class Agent:
             state.ran_tests = True
         if result.startswith(("patched", "wrote")):
             run.writes.append(turn.path or state.last_path)
+            state.wrote_paths.add(turn.path or state.last_path)
             state.wrote_something = True
             cover = _cover_after_add(
                 self.project, run.options.task, turn.path or state.last_path
@@ -695,6 +736,56 @@ def _with_task(options: AgentOptions, task: str) -> AgentOptions:
     from dataclasses import replace
 
     return replace(options, task=task)
+
+
+def _asked_for_done(prompt: str) -> bool:
+    """True when the harness's last message told the model to finish.
+
+    Only the finishing nudge counts, the one that ends "Action: done
+    Summary: say what you changed". The opening prompt for a question
+    also mentions done, as one option among several, and a first reply
+    of "I think I should look around" must stay unparsed there.
+    """
+    lines = [line for line in prompt.splitlines() if line.strip()]
+    return bool(lines) and lines[-1].rstrip().endswith(
+        "Action: done Summary: say what you changed."
+    )
+
+
+def _first_that_parses(generate, prompt: str, drafts: int, *, question: bool,
+                       ship: bool, asked_done: bool = False):
+    """Ask up to `drafts` times, and keep the first reply that parses.
+
+    A reply the loop cannot read costs a whole step: it is answered with
+    "Could not parse" and the budget is one shorter. Asking again is the
+    cheapest repair there is, because the model is not being argued with
+    — it is simply being asked again, which measures better than feeding
+    a small model its own mistake.
+
+    The check is deliberately only "does this parse into an action".
+    Anything further would need the action carried out, and a draft that
+    has been carried out cannot be taken back.
+
+    One reading is added when the harness has just asked for done: a
+    reply with no Action line at all is the summary, said plainly.
+    Told "Action: done Summary: say what you changed", a 30B answered
+    "I changed the tax rate from 0.02 to 0.2" — which is the summary —
+    and was told it could not be parsed, five times, until the budget
+    ran out with the fix in and the suite green.
+
+    Returns the draft kept, its parsed turn, and how many were asked for,
+    so a run can be read afterwards for how often this fired.
+    """
+    draft = generate(prompt)
+    turn = parse_turn_smart(draft, question=question, ship=ship, asked_done=asked_done)
+    tried = 1
+    while turn is None and tried < drafts:
+        tried += 1
+        draft = generate(prompt)
+        turn = parse_turn_smart(draft, question=question, ship=ship, asked_done=asked_done)
+    if turn is None and asked_done and draft.strip():
+        turn = AgentTurn(action="done", summary=draft.strip())
+    return draft, turn, tried
 
 
 def _remember(generate, prompt: str, draft: str) -> None:

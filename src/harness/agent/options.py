@@ -35,6 +35,17 @@ class AgentOptions:
         skills: skill names to load. Empty means choose them from the task.
         steps: maximum number of model turns before the run stops.
         max_tokens: maximum length of one model reply.
+        decide: "regex" (the default, and what every published number was
+            measured with) or "model" — decide what kind of task this is
+            with the fitted intent model once at the start of the run,
+            falling back to the regex if no embedding model is reachable.
+        drafts: how many replies to ask for at each step, keeping the
+            first that parses into an action the loop can carry out.
+            One means the behaviour this harness has always had. A reply
+            that does not parse costs a whole step, and on small models
+            format compliance — not reasoning — is the common failure:
+            five separate draft shapes had to be repaired in the parser
+            before a hosted model could be measured at all.
         allow_writes: when False, patch, edit and run are refused and the
             project is not modified. Used for the HTTP server and --dry-run.
         record: file to append redacted turns to, for training data.
@@ -57,6 +68,8 @@ class AgentOptions:
     skills: tuple[str, ...] = ()
     steps: int = DEFAULT_STEPS
     max_tokens: int = DEFAULT_MAX_TOKENS
+    drafts: int = 1
+    decide: str = "regex"
     allow_writes: bool = True
     record: Path | None = None
     keep_no_record: bool = False

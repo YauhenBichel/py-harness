@@ -104,6 +104,7 @@ def _options(args, *, interactive: bool) -> AgentOptions:
         skills=tuple(args.skill or ()),
         steps=args.steps,
         max_tokens=args.max_tokens,
+        drafts=getattr(args, "drafts", 1),
         allow_writes=getattr(args, "allow_writes", True),
         record=getattr(args, "record", None),
         keep_no_record=getattr(args, "no_record", False),
@@ -123,6 +124,14 @@ def _add_agent_flags(parser: argparse.ArgumentParser) -> None:
     )
     parser.add_argument("--steps", type=int, default=DEFAULT_STEPS)
     parser.add_argument("--max-tokens", type=int, default=DEFAULT_MAX_TOKENS)
+    parser.add_argument(
+        "--drafts",
+        type=int,
+        default=1,
+        metavar="N",
+        help="ask up to N times at each step, keeping the first reply that "
+        "parses into an action (default 1, the long-standing behaviour)",
+    )
     parser.add_argument(
         "--record",
         type=Path,

@@ -91,4 +91,5 @@ Public pages do not name other editors or chat products.
 | [Everyday skills]({{ '/investigations/everyday-skills/' | relative_url }}) | Each skill is one copy-paste step, written for an 8B. |
 | [Skills]({{ '/skills/' | relative_url }}) | The twenty-four kit skills and when each one loads. |
 | [Platform engineering]({{ '/investigations/platform-engineering/' | relative_url }}) | Small files that must work on every OS. |
+| [What would make it useful]({{ '/investigations/what-would-make-it-useful/' | relative_url }}) | Every method, ranked against this project's own numbers. A local 30B scores 20/20 where the old default scored 8/20. |
 | [Architecture]({{ '/architecture/' | relative_url }}) | Layers from the bottom up. A cycle fails the merge gate. |

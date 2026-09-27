@@ -4,8 +4,10 @@ A model that is unsure what to do next will often repeat its last search.
 The tool returns the same output, the model is no better informed, and the
 step budget is spent.
 
-Only read-only actions are checked. Running the tests again after a change
-is progress, not repetition, so `run` and `patch` are never rejected here.
+Read-only actions are keyed by their arguments. Patches are keyed by their
+destination and exact Find, Replace, and Append body so the same boilerplate
+can legitimately be applied to more than one file. Running the tests again
+after a change remains progress and is never rejected here.
 """
 
 from __future__ import annotations
@@ -35,14 +37,70 @@ def turn_key(turn) -> tuple[str, ...]:
     )
 
 
+def patch_key(turn, path: str | None = None) -> tuple[str, ...] | None:
+    """The destination and exact mutation a patch proposes.
+
+    A patch with no Path lands on the last file read, so the caller passes that
+    resolved path. Keying on the bare `turn.path` instead made every pathless
+    patch share one empty destination: the same boilerplate appended to two
+    files in turn was refused the second time, for a file it had never touched.
+    """
+    if turn.action != "patch":
+        return None
+    body = tuple(
+        getattr(turn, field, "") for field in ("find", "replace", "append")
+    )
+    if not any(body):
+        return None
+    destination = (path if path is not None else turn.path) or ""
+    return ("patch", destination.strip(), *body)
+
+
 @dataclass
 class LoopGuard:
-    """Remembers explore keys already served in this run."""
+    """Remembers explore actions and patch bodies already seen in this run."""
 
-    seen: set[tuple[str, ...]] = field(default_factory=set)
+    seen: dict[tuple[str, ...], str] = field(default_factory=dict)
+    # Why a patch was refused, in the words the model was given. A repeat
+    # hears those words again, not a generic "take a different action":
+    # every refusal in the loop names the one right next step, and the
+    # retry is exactly when that step is needed.
+    reasons: dict[tuple[str, ...], str] = field(default_factory=dict)
 
-    def check(self, turn) -> str:
-        if turn is None or turn.action not in EXPLORE:
+    def remember_patch_result(
+        self, turn, result: str, path: str | None = None, reason: str = ""
+    ) -> None:
+        """Record whether a previously accepted patch was applied or refused.
+
+        `reason` is the refusal or tool result the model saw, kept so a
+        repeat can be answered with it.
+        """
+        patch = patch_key(turn, path)
+        if patch is not None and patch in self.seen:
+            self.seen[patch] = result
+            if reason.strip():
+                self.reasons[patch] = reason.strip()
+
+    def check(self, turn, path: str | None = None) -> str:
+        if turn is None:
+            return ""
+        patch = patch_key(turn, path)
+        if patch is not None:
+            if result := self.seen.get(patch):
+                reason = self.reasons.get(patch, "")
+                if result == "refused" and reason:
+                    return (
+                        "already proposed that exact patch for this path. "
+                        f"It was refused: {reason}"
+                    )
+                return (
+                    f"already proposed that exact patch for this path. It was {result}; "
+                    "repeating it will not help. Read the "
+                    "earlier result and take a different action."
+                )
+            self.seen[patch] = "proposed"
+            return ""
+        if turn.action not in EXPLORE:
             return ""
         key = turn_key(turn)
         if key in self.seen:
@@ -53,5 +111,5 @@ class LoopGuard:
                 + (f" ({detail})" if detail else "")
                 + f". The result has not changed. {hint}"
             )
-        self.seen.add(key)
+        self.seen[key] = "ran"
         return ""

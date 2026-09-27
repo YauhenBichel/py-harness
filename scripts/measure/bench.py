@@ -12,6 +12,8 @@ The three jobs this is for: write a test, add a small component, fix a bug.
   tier 4  write a test for something already there
   tier 5  fix a bug that is already in the code
   tier 6  platform and operations work: paths, environment, config, retries
+  tier 7  the tier-5 bugs, said the way people report them: no "fix",
+          no "bug", no exception name — a symptom and a place
 
 Each case runs the code afterwards. "Worked" means the function does the
 job, not that a file was written.
@@ -208,6 +210,45 @@ CASES = [
          "assert load('last_price')([1, 2, 3]) == 3\n",
          files={"src/orders.py": APP + "\n\ndef last_price(prices: list[int]) -> int:\n"
                                         "    return prices[len(prices)]\n"}),
+
+    # Tier 7: the same kind of bug, reported the way people report one.
+    # Every task above that is a fix says "fix" or names the exception,
+    # which is exactly the vocabulary the regex decider keys on, so on
+    # tiers 1–6 the regex and the fitted model route every case the same
+    # way and a comparison between them can only be noise. These say
+    # what happens and where, and none of the words in task._BUG. The
+    # regex sees a feature request; the decision model, measured at 86%
+    # on phrasings like these, should see a fix. Whether that changes
+    # the run is what --decide model against --decide regex measures.
+    Case("said-nameerror", 7,
+         "calling total_with_tax([10]) in src/orders.py stops with: "
+         "name 'subtotl' is not defined. It should return 12.0",
+         "assert load('total_with_tax')([10]) == 12.0\n",
+         files={"src/orders.py": APP + "\n\nTAX = 0.2\n\n\n"
+                                        "def total_with_tax(prices: list[int]) -> float:\n"
+                                        "    subtotal = compute_total(prices)\n"
+                                        "    return subtotl + (subtotl * TAX)\n"}),
+    Case("said-offbyone", 7,
+         "last_price in src/orders.py raises IndexError on a full list; "
+         "it should return the last price",
+         "assert load('last_price')([1, 2, 3]) == 3\n",
+         files={"src/orders.py": APP + "\n\ndef last_price(prices: list[int]) -> int:\n"
+                                        "    return prices[len(prices)]\n"}),
+    Case("said-toolow", 7,
+         "the totals from compute_total in src/orders.py come out one too low",
+         "assert load('compute_total')([1, 2]) == 3\n",
+         suite_must_pass=True,
+         files={"src/orders.py": '"""Order arithmetic."""\n\n\n'
+                                 "def compute_total(prices: list[int]) -> int:\n"
+                                 "    return sum(prices) - 1\n"}),
+    Case("said-wrongtax", 7,
+         "total_with_tax([10]) in src/orders.py gives 10.2 and the tax rate is 20%, "
+         "so it should give 12.0",
+         "assert load('total_with_tax')([10]) == 12.0\n",
+         files={"src/orders.py": APP + "\n\nTAX = 0.02\n\n\n"
+                                        "def total_with_tax(prices: list[int]) -> float:\n"
+                                        "    subtotal = compute_total(prices)\n"
+                                        "    return subtotal + (subtotal * TAX)\n"}),
 ]
 
 

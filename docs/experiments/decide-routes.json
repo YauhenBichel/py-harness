@@ -1,0 +1,229 @@
+{
+  "when": "2026-09-27",
+  "tiers": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "differ": [
+    "said-nameerror",
+    "said-offbyone",
+    "said-toolow",
+    "said-wrongtax"
+  ],
+  "rows": [
+    {
+      "case": "double",
+      "tier": 1,
+      "task": "add a function double(n) that returns n times two",
+      "regex_bugfix": false,
+      "model_intent": "add_feature",
+      "model_bugfix": false,
+      "margin": 1.487,
+      "runner_up": "bugfix",
+      "differ": false
+    },
+    {
+      "case": "largest",
+      "tier": 1,
+      "task": "add a function largest(values) that returns the biggest value",
+      "regex_bugfix": false,
+      "model_intent": "add_feature",
+      "model_bugfix": false,
+      "margin": 1.471,
+      "runner_up": "bugfix",
+      "differ": false
+    },
+    {
+      "case": "initials",
+      "tier": 1,
+      "task": "add a function initials(name) that returns the first letter of each word, upper case",
+      "regex_bugfix": false,
+      "model_intent": "add_feature",
+      "model_bugfix": false,
+      "margin": 1.594,
+      "runner_up": "docs",
+      "differ": false
+    },
+    {
+      "case": "average",
+      "tier": 2,
+      "task": "add a function average(values) that returns the mean, and a unit test",
+      "regex_bugfix": false,
+      "model_intent": "add_feature",
+      "model_bugfix": false,
+      "margin": 0.11,
+      "runner_up": "write_tests",
+      "differ": false
+    },
+    {
+      "case": "clamp",
+      "tier": 2,
+      "task": "add a function clamp(value, low, high) that keeps a value inside a range, and a unit test",
+      "regex_bugfix": false,
+      "model_intent": "add_feature",
+      "model_bugfix": false,
+      "margin": 0.06,
+      "runner_up": "write_tests",
+      "differ": false
+    },
+    {
+      "case": "slugify",
+      "tier": 3,
+      "task": "create a new module with a function slugify(text) that lowercases and joins words with a dash, and a unit test for it",
+      "regex_bugfix": false,
+      "model_intent": "write_tests",
+      "model_bugfix": false,
+      "margin": 0.151,
+      "runner_up": "add_feature",
+      "differ": false
+    },
+    {
+      "case": "wordcount",
+      "tier": 3,
+      "task": "create a new module with a function word_count(text) that counts words, and a unit test for it",
+      "regex_bugfix": false,
+      "model_intent": "write_tests",
+      "model_bugfix": false,
+      "margin": 0.258,
+      "runner_up": "add_feature",
+      "differ": false
+    },
+    {
+      "case": "cover-discount",
+      "tier": 4,
+      "task": "write a unit test for apply_discount in src/orders.py",
+      "regex_bugfix": false,
+      "model_intent": "write_tests",
+      "model_bugfix": false,
+      "margin": 1.212,
+      "runner_up": "add_feature",
+      "differ": false
+    },
+    {
+      "case": "cover-shout",
+      "tier": 4,
+      "task": "write a unit test for shout in src/orders.py",
+      "regex_bugfix": false,
+      "model_intent": "write_tests",
+      "model_bugfix": false,
+      "margin": 1.332,
+      "runner_up": "add_feature",
+      "differ": false
+    },
+    {
+      "case": "fix-nameerror",
+      "tier": 5,
+      "task": "fix the NameError in src/orders.py",
+      "regex_bugfix": true,
+      "model_intent": "bugfix",
+      "model_bugfix": true,
+      "margin": 1.311,
+      "runner_up": "rename_or_move",
+      "differ": false
+    },
+    {
+      "case": "env-flag",
+      "tier": 6,
+      "task": "add a function env_flag(name, default) that reads a boolean environment variable, accepting 1, true and yes in any case",
+      "regex_bugfix": false,
+      "model_intent": "platform_ops",
+      "model_bugfix": false,
+      "margin": 0.726,
+      "runner_up": "add_feature",
+      "differ": false
+    },
+    {
+      "case": "venv-python",
+      "tier": 6,
+      "task": "add a function venv_python(venv, windows) that returns the interpreter path inside a virtual environment, Scripts on Windows and bin elsewhere",
+      "regex_bugfix": false,
+      "model_intent": "platform_ops",
+      "model_bugfix": false,
+      "margin": 2.135,
+      "runner_up": "rename_or_move",
+      "differ": false
+    },
+    {
+      "case": "read-env-file",
+      "tier": 6,
+      "task": "add a function read_env_file(path) that reads KEY=VALUE lines into a dict, skipping blank lines and comments",
+      "regex_bugfix": false,
+      "model_intent": "docs",
+      "model_bugfix": false,
+      "margin": 0.112,
+      "runner_up": "platform_ops",
+      "differ": false
+    },
+    {
+      "case": "retry",
+      "tier": 6,
+      "task": "add a function retry(action, times) that calls action and tries again on an exception, up to times, returning the result",
+      "regex_bugfix": false,
+      "model_intent": "add_feature",
+      "model_bugfix": false,
+      "margin": 0.401,
+      "runner_up": "write_tests",
+      "differ": false
+    },
+    {
+      "case": "fix-offbyone",
+      "tier": 5,
+      "task": "fix the bug in last_price in src/orders.py: it raises IndexError on a full list",
+      "regex_bugfix": true,
+      "model_intent": "bugfix",
+      "model_bugfix": true,
+      "margin": 2.653,
+      "runner_up": "review",
+      "differ": false
+    },
+    {
+      "case": "said-nameerror",
+      "tier": 7,
+      "task": "calling total_with_tax([10]) in src/orders.py stops with: name 'subtotl' is not defined. It should return 12.0",
+      "regex_bugfix": false,
+      "model_intent": "bugfix",
+      "model_bugfix": true,
+      "margin": 1.771,
+      "runner_up": "refactor",
+      "differ": true
+    },
+    {
+      "case": "said-offbyone",
+      "tier": 7,
+      "task": "last_price in src/orders.py raises IndexError on a full list; it should return the last price",
+      "regex_bugfix": false,
+      "model_intent": "bugfix",
+      "model_bugfix": true,
+      "margin": 2.304,
+      "runner_up": "review",
+      "differ": true
+    },
+    {
+      "case": "said-toolow",
+      "tier": 7,
+      "task": "the totals from compute_total in src/orders.py come out one too low",
+      "regex_bugfix": false,
+      "model_intent": "bugfix",
+      "model_bugfix": true,
+      "margin": 0.996,
+      "runner_up": "refactor",
+      "differ": true
+    },
+    {
+      "case": "said-wrongtax",
+      "tier": 7,
+      "task": "total_with_tax([10]) in src/orders.py gives 10.2 and the tax rate is 20%, so it should give 12.0",
+      "regex_bugfix": false,
+      "model_intent": "bugfix",
+      "model_bugfix": true,
+      "margin": 1.043,
+      "runner_up": "refactor",
+      "differ": true
+    }
+  ]
+}

@@ -122,8 +122,10 @@ class AgentResult:
     Fields:
         ok: True when the agent finished the task.
         summary: the agent's closing sentence, or the reason it stopped.
-        stopped: "done", "steps" when the step budget ran out, or
-            "question" when the agent needs an answer to continue.
+        stopped: "done", "steps" when the step budget ran out,
+            "question" when the agent needs an answer to continue, or
+            "broke" when the run turned a green suite red and its one
+            repair did not fix it, so the harness stopped it.
         steps: every turn, in order.
         writes: files that were changed.
     """

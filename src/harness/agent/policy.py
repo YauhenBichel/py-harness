@@ -147,6 +147,15 @@ class LoopState:
     wrote_paths: set[str] = field(default_factory=set)
     repairs: int = 0
     existing_paths: tuple[str, ...] = ()
+    # The suite's colour before the model touched anything ("green",
+    # "red", "none", or "" when not measured), its colour after the
+    # latest run of it, that run's output, and how many red results
+    # have come back since something was written. A run that turns a
+    # green suite red has broken what it did not break at the start.
+    suite_at_start: str = ""
+    suite_now: str = ""
+    suite_output: str = ""
+    suite_reds: int = 0
 
 
 def refuse_patch_before_reading(state: LoopState, turn) -> str:

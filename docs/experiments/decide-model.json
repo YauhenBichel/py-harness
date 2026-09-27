@@ -1,0 +1,495 @@
+{
+  "name": "decide-model",
+  "when": "2026-09-27",
+  "commit": "0fa8066",
+  "dirty": true,
+  "machine": "Darwin arm64",
+  "model": "qwen3-coder:30b",
+  "engine": "ollama",
+  "tiers": [
+    5,
+    7
+  ],
+  "passes": 5,
+  "seconds": 1015.6,
+  "decide": "model",
+  "drafts": 1,
+  "worked": 30,
+  "runs": 30,
+  "totals_per_pass": [
+    6,
+    6,
+    6,
+    6,
+    6
+  ],
+  "errored_runs": 0,
+  "zero_step_runs": 10,
+  "runs_that_asked": 0,
+  "rows": [
+    {
+      "case": "fix-nameerror",
+      "tier": 5,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 0,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 2.3,
+      "pass": 1
+    },
+    {
+      "case": "fix-offbyone",
+      "tier": 5,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 38.2,
+      "pass": 1
+    },
+    {
+      "case": "said-nameerror",
+      "tier": 7,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 0,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 2.3,
+      "pass": 1
+    },
+    {
+      "case": "said-offbyone",
+      "tier": 7,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 161.1,
+      "pass": 1
+    },
+    {
+      "case": "said-toolow",
+      "tier": 7,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [
+        "src/orders.py",
+        "src/orders.py"
+      ],
+      "seconds": 30.7,
+      "pass": 1
+    },
+    {
+      "case": "said-wrongtax",
+      "tier": 7,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 49.7,
+      "pass": 1
+    },
+    {
+      "case": "fix-nameerror",
+      "tier": 5,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 0,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 2.3,
+      "pass": 2
+    },
+    {
+      "case": "fix-offbyone",
+      "tier": 5,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 45.5,
+      "pass": 2
+    },
+    {
+      "case": "said-nameerror",
+      "tier": 7,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 0,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 2.1,
+      "pass": 2
+    },
+    {
+      "case": "said-offbyone",
+      "tier": 7,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 32.2,
+      "pass": 2
+    },
+    {
+      "case": "said-toolow",
+      "tier": 7,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 101.4,
+      "pass": 2
+    },
+    {
+      "case": "said-wrongtax",
+      "tier": 7,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 30.1,
+      "pass": 2
+    },
+    {
+      "case": "fix-nameerror",
+      "tier": 5,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 0,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 2.0,
+      "pass": 3
+    },
+    {
+      "case": "fix-offbyone",
+      "tier": 5,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 5,
+      "writes": [
+        "src/orders.py",
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 22.1,
+      "pass": 3
+    },
+    {
+      "case": "said-nameerror",
+      "tier": 7,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 0,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 2.3,
+      "pass": 3
+    },
+    {
+      "case": "said-offbyone",
+      "tier": 7,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 166.2,
+      "pass": 3
+    },
+    {
+      "case": "said-toolow",
+      "tier": 7,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 55.3,
+      "pass": 3
+    },
+    {
+      "case": "said-wrongtax",
+      "tier": 7,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 27.5,
+      "pass": 3
+    },
+    {
+      "case": "fix-nameerror",
+      "tier": 5,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 0,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 2.3,
+      "pass": 4
+    },
+    {
+      "case": "fix-offbyone",
+      "tier": 5,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 5,
+      "writes": [
+        "src/orders.py",
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 15.4,
+      "pass": 4
+    },
+    {
+      "case": "said-nameerror",
+      "tier": 7,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 0,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 2.3,
+      "pass": 4
+    },
+    {
+      "case": "said-offbyone",
+      "tier": 7,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 5,
+      "writes": [
+        "src/orders.py",
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 15.4,
+      "pass": 4
+    },
+    {
+      "case": "said-toolow",
+      "tier": 7,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 51.2,
+      "pass": 4
+    },
+    {
+      "case": "said-wrongtax",
+      "tier": 7,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [
+        "src/orders.py",
+        "src/orders.py",
+        "src/orders.py"
+      ],
+      "seconds": 38.5,
+      "pass": 4
+    },
+    {
+      "case": "fix-nameerror",
+      "tier": 5,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 0,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 2.3,
+      "pass": 5
+    },
+    {
+      "case": "fix-offbyone",
+      "tier": 5,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 19.3,
+      "pass": 5
+    },
+    {
+      "case": "said-nameerror",
+      "tier": 7,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 0,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 2.3,
+      "pass": 5
+    },
+    {
+      "case": "said-offbyone",
+      "tier": 7,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 5,
+      "writes": [
+        "src/orders.py",
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 21.8,
+      "pass": 5
+    },
+    {
+      "case": "said-toolow",
+      "tier": 7,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [
+        "src/orders.py",
+        "src/orders.py",
+        "src/orders.py",
+        "src/orders.py"
+      ],
+      "seconds": 30.0,
+      "pass": 5
+    },
+    {
+      "case": "said-wrongtax",
+      "tier": 7,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 41.4,
+      "pass": 5
+    }
+  ]
+}

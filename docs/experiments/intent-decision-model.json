@@ -1,0 +1,565 @@
+{
+  "embed_model": "bge-m3:latest",
+  "intents": [
+    "add_feature",
+    "bugfix",
+    "docs",
+    "new_package",
+    "platform_ops",
+    "question",
+    "refactor",
+    "rename_or_move",
+    "review",
+    "script_cli",
+    "ship",
+    "write_tests"
+  ],
+  "train": 841,
+  "splits": {
+    "test": {
+      "n": 203,
+      "per_intent": {
+        "add_feature": {
+          "support": 18,
+          "model": {
+            "tp": 10,
+            "fp": 3,
+            "fn": 8,
+            "tn": 182,
+            "accuracy": 0.946,
+            "precision": 0.769,
+            "recall": 0.556,
+            "f1": 0.645
+          },
+          "regex": {
+            "tp": 13,
+            "fp": 23,
+            "fn": 5,
+            "tn": 162,
+            "accuracy": 0.862,
+            "precision": 0.361,
+            "recall": 0.722,
+            "f1": 0.481
+          }
+        },
+        "bugfix": {
+          "support": 17,
+          "model": {
+            "tp": 16,
+            "fp": 2,
+            "fn": 1,
+            "tn": 184,
+            "accuracy": 0.985,
+            "precision": 0.889,
+            "recall": 0.941,
+            "f1": 0.914
+          },
+          "regex": {
+            "tp": 1,
+            "fp": 1,
+            "fn": 16,
+            "tn": 185,
+            "accuracy": 0.916,
+            "precision": 0.5,
+            "recall": 0.059,
+            "f1": 0.105
+          }
+        },
+        "docs": {
+          "support": 18,
+          "model": {
+            "tp": 18,
+            "fp": 2,
+            "fn": 0,
+            "tn": 183,
+            "accuracy": 0.99,
+            "precision": 0.9,
+            "recall": 1.0,
+            "f1": 0.947
+          }
+        },
+        "new_package": {
+          "support": 14,
+          "model": {
+            "tp": 11,
+            "fp": 1,
+            "fn": 3,
+            "tn": 188,
+            "accuracy": 0.98,
+            "precision": 0.917,
+            "recall": 0.786,
+            "f1": 0.846
+          },
+          "regex": {
+            "tp": 3,
+            "fp": 6,
+            "fn": 11,
+            "tn": 183,
+            "accuracy": 0.916,
+            "precision": 0.333,
+            "recall": 0.214,
+            "f1": 0.261
+          }
+        },
+        "platform_ops": {
+          "support": 18,
+          "model": {
+            "tp": 18,
+            "fp": 0,
+            "fn": 0,
+            "tn": 185,
+            "accuracy": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "regex": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 18,
+            "tn": 185,
+            "accuracy": 0.911,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        },
+        "question": {
+          "support": 18,
+          "model": {
+            "tp": 18,
+            "fp": 1,
+            "fn": 0,
+            "tn": 184,
+            "accuracy": 0.995,
+            "precision": 0.947,
+            "recall": 1.0,
+            "f1": 0.973
+          },
+          "regex": {
+            "tp": 18,
+            "fp": 19,
+            "fn": 0,
+            "tn": 166,
+            "accuracy": 0.906,
+            "precision": 0.486,
+            "recall": 1.0,
+            "f1": 0.655
+          }
+        },
+        "refactor": {
+          "support": 19,
+          "model": {
+            "tp": 18,
+            "fp": 1,
+            "fn": 1,
+            "tn": 183,
+            "accuracy": 0.99,
+            "precision": 0.947,
+            "recall": 0.947,
+            "f1": 0.947
+          },
+          "regex": {
+            "tp": 3,
+            "fp": 0,
+            "fn": 16,
+            "tn": 184,
+            "accuracy": 0.921,
+            "precision": 1.0,
+            "recall": 0.158,
+            "f1": 0.273
+          }
+        },
+        "rename_or_move": {
+          "support": 18,
+          "model": {
+            "tp": 18,
+            "fp": 3,
+            "fn": 0,
+            "tn": 182,
+            "accuracy": 0.985,
+            "precision": 0.857,
+            "recall": 1.0,
+            "f1": 0.923
+          },
+          "regex": {
+            "tp": 6,
+            "fp": 1,
+            "fn": 12,
+            "tn": 184,
+            "accuracy": 0.936,
+            "precision": 0.857,
+            "recall": 0.333,
+            "f1": 0.48
+          }
+        },
+        "review": {
+          "support": 13,
+          "model": {
+            "tp": 10,
+            "fp": 0,
+            "fn": 3,
+            "tn": 190,
+            "accuracy": 0.985,
+            "precision": 1.0,
+            "recall": 0.769,
+            "f1": 0.87
+          },
+          "regex": {
+            "tp": 6,
+            "fp": 0,
+            "fn": 7,
+            "tn": 190,
+            "accuracy": 0.966,
+            "precision": 1.0,
+            "recall": 0.462,
+            "f1": 0.632
+          }
+        },
+        "script_cli": {
+          "support": 15,
+          "model": {
+            "tp": 11,
+            "fp": 5,
+            "fn": 4,
+            "tn": 183,
+            "accuracy": 0.956,
+            "precision": 0.688,
+            "recall": 0.733,
+            "f1": 0.71
+          },
+          "regex": {
+            "tp": 5,
+            "fp": 5,
+            "fn": 10,
+            "tn": 183,
+            "accuracy": 0.926,
+            "precision": 0.5,
+            "recall": 0.333,
+            "f1": 0.4
+          }
+        },
+        "ship": {
+          "support": 18,
+          "model": {
+            "tp": 18,
+            "fp": 0,
+            "fn": 0,
+            "tn": 185,
+            "accuracy": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "regex": {
+            "tp": 12,
+            "fp": 0,
+            "fn": 6,
+            "tn": 185,
+            "accuracy": 0.97,
+            "precision": 1.0,
+            "recall": 0.667,
+            "f1": 0.8
+          }
+        },
+        "write_tests": {
+          "support": 17,
+          "model": {
+            "tp": 17,
+            "fp": 2,
+            "fn": 0,
+            "tn": 184,
+            "accuracy": 0.99,
+            "precision": 0.895,
+            "recall": 1.0,
+            "f1": 0.944
+          },
+          "regex": {
+            "tp": 5,
+            "fp": 0,
+            "fn": 12,
+            "tn": 186,
+            "accuracy": 0.941,
+            "precision": 1.0,
+            "recall": 0.294,
+            "f1": 0.455
+          }
+        }
+      },
+      "multiclass_accuracy": 0.901
+    },
+    "gold": {
+      "n": 55,
+      "per_intent": {
+        "add_feature": {
+          "support": 0,
+          "model": {
+            "tp": 0,
+            "fp": 4,
+            "fn": 0,
+            "tn": 51,
+            "accuracy": 0.927,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "regex": {
+            "tp": 0,
+            "fp": 12,
+            "fn": 0,
+            "tn": 43,
+            "accuracy": 0.782,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        },
+        "bugfix": {
+          "support": 27,
+          "model": {
+            "tp": 19,
+            "fp": 0,
+            "fn": 8,
+            "tn": 28,
+            "accuracy": 0.855,
+            "precision": 1.0,
+            "recall": 0.704,
+            "f1": 0.826
+          },
+          "regex": {
+            "tp": 4,
+            "fp": 3,
+            "fn": 23,
+            "tn": 25,
+            "accuracy": 0.527,
+            "precision": 0.571,
+            "recall": 0.148,
+            "f1": 0.235
+          }
+        },
+        "docs": {
+          "support": 0,
+          "model": {
+            "tp": 0,
+            "fp": 5,
+            "fn": 0,
+            "tn": 50,
+            "accuracy": 0.909,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        },
+        "new_package": {
+          "support": 0,
+          "model": {
+            "tp": 0,
+            "fp": 1,
+            "fn": 0,
+            "tn": 54,
+            "accuracy": 0.982,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "regex": {
+            "tp": 0,
+            "fp": 1,
+            "fn": 0,
+            "tn": 54,
+            "accuracy": 0.982,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        },
+        "platform_ops": {
+          "support": 0,
+          "model": {
+            "tp": 0,
+            "fp": 2,
+            "fn": 0,
+            "tn": 53,
+            "accuracy": 0.964,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "regex": {
+            "tp": 0,
+            "fp": 1,
+            "fn": 0,
+            "tn": 54,
+            "accuracy": 0.982,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        },
+        "question": {
+          "support": 0,
+          "model": {
+            "tp": 0,
+            "fp": 7,
+            "fn": 0,
+            "tn": 48,
+            "accuracy": 0.873,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "regex": {
+            "tp": 0,
+            "fp": 4,
+            "fn": 0,
+            "tn": 51,
+            "accuracy": 0.927,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        },
+        "refactor": {
+          "support": 0,
+          "model": {
+            "tp": 0,
+            "fp": 4,
+            "fn": 0,
+            "tn": 51,
+            "accuracy": 0.927,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "regex": {
+            "tp": 0,
+            "fp": 1,
+            "fn": 0,
+            "tn": 54,
+            "accuracy": 0.982,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        },
+        "rename_or_move": {
+          "support": 0,
+          "model": {
+            "tp": 0,
+            "fp": 4,
+            "fn": 0,
+            "tn": 51,
+            "accuracy": 0.927,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "regex": {
+            "tp": 0,
+            "fp": 3,
+            "fn": 0,
+            "tn": 52,
+            "accuracy": 0.945,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        },
+        "review": {
+          "support": 0,
+          "model": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "tn": 55,
+            "accuracy": 1.0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "regex": {
+            "tp": 0,
+            "fp": 1,
+            "fn": 0,
+            "tn": 54,
+            "accuracy": 0.982,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        },
+        "script_cli": {
+          "support": 0,
+          "model": {
+            "tp": 0,
+            "fp": 2,
+            "fn": 0,
+            "tn": 53,
+            "accuracy": 0.964,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "regex": {
+            "tp": 0,
+            "fp": 3,
+            "fn": 0,
+            "tn": 52,
+            "accuracy": 0.945,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        },
+        "ship": {
+          "support": 0,
+          "model": {
+            "tp": 0,
+            "fp": 3,
+            "fn": 0,
+            "tn": 52,
+            "accuracy": 0.945,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "regex": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "tn": 55,
+            "accuracy": 1.0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        },
+        "write_tests": {
+          "support": 0,
+          "model": {
+            "tp": 0,
+            "fp": 4,
+            "fn": 0,
+            "tn": 51,
+            "accuracy": 0.927,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "regex": {
+            "tp": 0,
+            "fp": 2,
+            "fn": 0,
+            "tn": 53,
+            "accuracy": 0.964,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        }
+      },
+      "multiclass_accuracy": 0.704
+    }
+  },
+  "minutes": 0.6
+}

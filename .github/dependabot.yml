@@ -9,3 +9,8 @@ updates:
     directory: /
     schedule:
       interval: monthly
+    # Actions are pinned by commit, so this is the only thing that moves them.
+    # Grouped, so a month of digest bumps is one pull request rather than six.
+    groups:
+      actions:
+        patterns: ['*']

@@ -1,0 +1,1186 @@
+{
+  "name": "all-tiers-qwen3coder30b",
+  "when": "2026-09-24",
+  "commit": "f5f2ba1",
+  "dirty": false,
+  "machine": "Darwin arm64",
+  "model": "qwen3-coder:30b",
+  "engine": "ollama",
+  "tiers": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "passes": 5,
+  "seconds": 1929.4,
+  "worked": 72,
+  "runs": 75,
+  "totals_per_pass": [
+    12,
+    15,
+    15,
+    15,
+    15
+  ],
+  "errored_runs": 3,
+  "zero_step_runs": 15,
+  "runs_that_asked": 0,
+  "rows": [
+    {
+      "case": "double",
+      "tier": 1,
+      "worked": "error",
+      "why": "TimeoutError: timed out",
+      "pass": 1
+    },
+    {
+      "case": "largest",
+      "tier": 1,
+      "worked": "error",
+      "why": "TimeoutError: timed out",
+      "pass": 1
+    },
+    {
+      "case": "initials",
+      "tier": 1,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 218.5,
+      "pass": 1
+    },
+    {
+      "case": "average",
+      "tier": 2,
+      "worked": "error",
+      "why": "TimeoutError: timed out",
+      "pass": 1
+    },
+    {
+      "case": "clamp",
+      "tier": 2,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 3,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 79.4,
+      "pass": 1
+    },
+    {
+      "case": "slugify",
+      "tier": 3,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 104.1,
+      "pass": 1
+    },
+    {
+      "case": "wordcount",
+      "tier": 3,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 96.0,
+      "pass": 1
+    },
+    {
+      "case": "cover-discount",
+      "tier": 4,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 0,
+      "writes": [
+        "tests/test_orders.py"
+      ],
+      "seconds": 0.3,
+      "pass": 1
+    },
+    {
+      "case": "cover-shout",
+      "tier": 4,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 0,
+      "writes": [
+        "tests/test_orders.py"
+      ],
+      "seconds": 0.2,
+      "pass": 1
+    },
+    {
+      "case": "fix-nameerror",
+      "tier": 5,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 0,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 0.1,
+      "pass": 1
+    },
+    {
+      "case": "env-flag",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 89.2,
+      "pass": 1
+    },
+    {
+      "case": "venv-python",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 3,
+      "writes": [
+        "pkg/paths.py"
+      ],
+      "seconds": 46.4,
+      "pass": 1
+    },
+    {
+      "case": "read-env-file",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 5,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 14.2,
+      "pass": 1
+    },
+    {
+      "case": "retry",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [
+        "src/orders.py",
+        "src/orders.py",
+        "src/orders.py"
+      ],
+      "seconds": 17.2,
+      "pass": 1
+    },
+    {
+      "case": "fix-offbyone",
+      "tier": 5,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 34.9,
+      "pass": 1
+    },
+    {
+      "case": "double",
+      "tier": 1,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 5,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 7.0,
+      "pass": 2
+    },
+    {
+      "case": "largest",
+      "tier": 1,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 6.7,
+      "pass": 2
+    },
+    {
+      "case": "initials",
+      "tier": 1,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 7.3,
+      "pass": 2
+    },
+    {
+      "case": "average",
+      "tier": 2,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [
+        "src/orders.py",
+        "src/orders.py"
+      ],
+      "seconds": 26.1,
+      "pass": 2
+    },
+    {
+      "case": "clamp",
+      "tier": 2,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 3,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 6.4,
+      "pass": 2
+    },
+    {
+      "case": "slugify",
+      "tier": 3,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 6.8,
+      "pass": 2
+    },
+    {
+      "case": "wordcount",
+      "tier": 3,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 5,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 6.7,
+      "pass": 2
+    },
+    {
+      "case": "cover-discount",
+      "tier": 4,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 0,
+      "writes": [
+        "tests/test_orders.py"
+      ],
+      "seconds": 0.2,
+      "pass": 2
+    },
+    {
+      "case": "cover-shout",
+      "tier": 4,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 0,
+      "writes": [
+        "tests/test_orders.py"
+      ],
+      "seconds": 0.2,
+      "pass": 2
+    },
+    {
+      "case": "fix-nameerror",
+      "tier": 5,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 0,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 0.1,
+      "pass": 2
+    },
+    {
+      "case": "env-flag",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 5.3,
+      "pass": 2
+    },
+    {
+      "case": "venv-python",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 3,
+      "writes": [
+        "pkg/paths.py"
+      ],
+      "seconds": 8.3,
+      "pass": 2
+    },
+    {
+      "case": "read-env-file",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 32.9,
+      "pass": 2
+    },
+    {
+      "case": "retry",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 7.7,
+      "pass": 2
+    },
+    {
+      "case": "fix-offbyone",
+      "tier": 5,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 26.8,
+      "pass": 2
+    },
+    {
+      "case": "double",
+      "tier": 1,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 6.0,
+      "pass": 3
+    },
+    {
+      "case": "largest",
+      "tier": 1,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 6.9,
+      "pass": 3
+    },
+    {
+      "case": "initials",
+      "tier": 1,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 6.5,
+      "pass": 3
+    },
+    {
+      "case": "average",
+      "tier": 2,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [
+        "src/orders.py",
+        "src/orders.py"
+      ],
+      "seconds": 15.1,
+      "pass": 3
+    },
+    {
+      "case": "clamp",
+      "tier": 2,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 10.2,
+      "pass": 3
+    },
+    {
+      "case": "slugify",
+      "tier": 3,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 6.6,
+      "pass": 3
+    },
+    {
+      "case": "wordcount",
+      "tier": 3,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 6.8,
+      "pass": 3
+    },
+    {
+      "case": "cover-discount",
+      "tier": 4,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 0,
+      "writes": [
+        "tests/test_orders.py"
+      ],
+      "seconds": 0.2,
+      "pass": 3
+    },
+    {
+      "case": "cover-shout",
+      "tier": 4,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 0,
+      "writes": [
+        "tests/test_orders.py"
+      ],
+      "seconds": 0.2,
+      "pass": 3
+    },
+    {
+      "case": "fix-nameerror",
+      "tier": 5,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 0,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 0.1,
+      "pass": 3
+    },
+    {
+      "case": "env-flag",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 3,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 6.2,
+      "pass": 3
+    },
+    {
+      "case": "venv-python",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 3,
+      "writes": [
+        "pkg/paths.py"
+      ],
+      "seconds": 8.8,
+      "pass": 3
+    },
+    {
+      "case": "read-env-file",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 7,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 15.8,
+      "pass": 3
+    },
+    {
+      "case": "retry",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 5,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 8.7,
+      "pass": 3
+    },
+    {
+      "case": "fix-offbyone",
+      "tier": 5,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 5,
+      "writes": [
+        "src/orders.py",
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 8.2,
+      "pass": 3
+    },
+    {
+      "case": "double",
+      "tier": 1,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 5.9,
+      "pass": 4
+    },
+    {
+      "case": "largest",
+      "tier": 1,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 6.7,
+      "pass": 4
+    },
+    {
+      "case": "initials",
+      "tier": 1,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 7.0,
+      "pass": 4
+    },
+    {
+      "case": "average",
+      "tier": 2,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [
+        "src/orders.py",
+        "src/orders.py"
+      ],
+      "seconds": 27.9,
+      "pass": 4
+    },
+    {
+      "case": "clamp",
+      "tier": 2,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 10.9,
+      "pass": 4
+    },
+    {
+      "case": "slugify",
+      "tier": 3,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 7.0,
+      "pass": 4
+    },
+    {
+      "case": "wordcount",
+      "tier": 3,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 6.6,
+      "pass": 4
+    },
+    {
+      "case": "cover-discount",
+      "tier": 4,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 0,
+      "writes": [
+        "tests/test_orders.py"
+      ],
+      "seconds": 0.2,
+      "pass": 4
+    },
+    {
+      "case": "cover-shout",
+      "tier": 4,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 0,
+      "writes": [
+        "tests/test_orders.py"
+      ],
+      "seconds": 0.2,
+      "pass": 4
+    },
+    {
+      "case": "fix-nameerror",
+      "tier": 5,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 0,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 0.1,
+      "pass": 4
+    },
+    {
+      "case": "env-flag",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 5,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 8.3,
+      "pass": 4
+    },
+    {
+      "case": "venv-python",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 3,
+      "writes": [
+        "pkg/paths.py"
+      ],
+      "seconds": 11.9,
+      "pass": 4
+    },
+    {
+      "case": "read-env-file",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 5,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 10.0,
+      "pass": 4
+    },
+    {
+      "case": "retry",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [
+        "src/orders.py",
+        "src/orders.py"
+      ],
+      "seconds": 18.6,
+      "pass": 4
+    },
+    {
+      "case": "fix-offbyone",
+      "tier": 5,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [
+        "src/orders.py",
+        "src/orders.py",
+        "src/orders.py"
+      ],
+      "seconds": 29.8,
+      "pass": 4
+    },
+    {
+      "case": "double",
+      "tier": 1,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 5.9,
+      "pass": 5
+    },
+    {
+      "case": "largest",
+      "tier": 1,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 6.5,
+      "pass": 5
+    },
+    {
+      "case": "initials",
+      "tier": 1,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 6.5,
+      "pass": 5
+    },
+    {
+      "case": "average",
+      "tier": 2,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [
+        "src/orders.py",
+        "src/orders.py"
+      ],
+      "seconds": 19.9,
+      "pass": 5
+    },
+    {
+      "case": "clamp",
+      "tier": 2,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 10.2,
+      "pass": 5
+    },
+    {
+      "case": "slugify",
+      "tier": 3,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 7.1,
+      "pass": 5
+    },
+    {
+      "case": "wordcount",
+      "tier": 3,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 6,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 6.9,
+      "pass": 5
+    },
+    {
+      "case": "cover-discount",
+      "tier": 4,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 0,
+      "writes": [
+        "tests/test_orders.py"
+      ],
+      "seconds": 0.2,
+      "pass": 5
+    },
+    {
+      "case": "cover-shout",
+      "tier": 4,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 0,
+      "writes": [
+        "tests/test_orders.py"
+      ],
+      "seconds": 0.2,
+      "pass": 5
+    },
+    {
+      "case": "fix-nameerror",
+      "tier": 5,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 0,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 0.1,
+      "pass": 5
+    },
+    {
+      "case": "env-flag",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 5.4,
+      "pass": 5
+    },
+    {
+      "case": "venv-python",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 3,
+      "writes": [
+        "pkg/paths.py"
+      ],
+      "seconds": 10.6,
+      "pass": 5
+    },
+    {
+      "case": "read-env-file",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 5,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 9.8,
+      "pass": 5
+    },
+    {
+      "case": "retry",
+      "tier": 6,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [
+        "src/orders.py",
+        "src/orders.py"
+      ],
+      "seconds": 25.6,
+      "pass": 5
+    },
+    {
+      "case": "fix-offbyone",
+      "tier": 5,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 48.9,
+      "pass": 5
+    }
+  ]
+}

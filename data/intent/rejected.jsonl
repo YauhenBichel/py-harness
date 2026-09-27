@@ -1,0 +1,156 @@
+{"task": "patch missing return value in config loader", "intent": "bugfix", "style": "terse", "blind": "platform_ops"}
+{"task": "debug missing module in setup script", "intent": "bugfix", "style": "terse", "blind": "platform_ops"}
+{"task": "resolve timeout in http client", "intent": "bugfix", "style": "terse", "blind": "platform_ops"}
+{"task": "The email notification service throws a ConnectionError when the SMTP server is temporarily unavailable", "intent": "bugfix", "style": "descriptive", "blind": "platform_ops"}
+{"task": "The configuration loader fails to load environment variables from .env files when the path contains spaces", "intent": "bugfix", "style": "descriptive", "blind": "platform_ops"}
+{"task": "The user registration flow doesn't validate password strength requirements before creating new accounts", "intent": "bugfix", "style": "descriptive", "blind": "add_feature"}
+{"task": "database queries timeout during peak usage hours", "intent": "bugfix", "style": "symptom", "blind": "platform_ops"}
+{"task": "config loading fails when environment variables contain spaces", "intent": "bugfix", "style": "symptom", "blind": "platform_ops"}
+{"task": "The load_configuration function in app_config.py raises ModuleNotFoundError for missing third-party dependencies during startup", "intent": "bugfix", "style": "with_paths", "blind": "platform_ops"}
+{"task": "my http client times out on every request", "intent": "bugfix", "style": "casual", "blind": "platform_ops"}
+{"task": "why does the config loader not read from env vars", "intent": "bugfix", "style": "casual", "blind": "platform_ops"}
+{"task": "the file upload handler throws a permission error", "intent": "bugfix", "style": "casual", "blind": "platform_ops"}
+{"task": "why does the csv reader skip first row", "intent": "bugfix", "style": "casual", "blind": "question"}
+{"task": "add a tool to parse command line arguments", "intent": "add_feature", "style": "terse", "blind": "script_cli"}
+{"task": "Add a module that handles HTTP requests with automatic retry logic", "intent": "add_feature", "style": "descriptive", "blind": "new_package"}
+{"task": "Create a module that handles file uploads with size and type validation", "intent": "add_feature", "style": "descriptive", "blind": "new_package"}
+{"task": "design a module for compressing and decompressing zip archives", "intent": "add_feature", "style": "symptom", "blind": "new_package"}
+{"task": "create a module for handling file uploads with size validation", "intent": "add_feature", "style": "symptom", "blind": "new_package"}
+{"task": "develop a service that manages configuration settings in JSON format", "intent": "add_feature", "style": "symptom", "blind": "new_package"}
+{"task": "test config loading logic", "intent": "write_tests", "style": "terse", "blind": "platform_ops"}
+{"task": "mock http client in api service", "intent": "write_tests", "style": "terse", "blind": "add_feature"}
+{"task": "validate date format function", "intent": "write_tests", "style": "terse", "blind": "add_feature"}
+{"task": "check inventory calculation", "intent": "write_tests", "style": "terse", "blind": "question"}
+{"task": "cover error handling in service", "intent": "write_tests", "style": "terse", "blind": "refactor"}
+{"task": "validate input in order processor", "intent": "write_tests", "style": "terse", "blind": "add_feature"}
+{"task": "test authentication token", "intent": "write_tests", "style": "terse", "blind": "question"}
+{"task": "validate form submission", "intent": "write_tests", "style": "terse", "blind": "add_feature"}
+{"task": "check if the invoice calculator works correctly", "intent": "write_tests", "style": "casual", "blind": "question"}
+{"task": "check the error handling in file reader", "intent": "write_tests", "style": "casual", "blind": "bugfix"}
+{"task": "validate the email sender function", "intent": "write_tests", "style": "casual", "blind": "bugfix"}
+{"task": "shift payment processing to separate module", "intent": "rename_or_move", "style": "terse", "blind": "refactor"}
+{"task": "shift user authentication to auth_service", "intent": "rename_or_move", "style": "terse", "blind": "refactor"}
+{"task": "shift error handling to error_wrapper", "intent": "rename_or_move", "style": "terse", "blind": "refactor"}
+{"task": "Refactor the user authentication logic by extracting the password validation function into a separate utility module", "intent": "rename_or_move", "style": "descriptive", "blind": "refactor"}
+{"task": "Shift the validation logic into a separate utility file", "intent": "rename_or_move", "style": "symptom", "blind": "refactor"}
+{"task": "Shift the email sending functionality into its own dedicated service module", "intent": "rename_or_move", "style": "symptom", "blind": "refactor"}
+{"task": "restructure the report_generator.py by extracting generate_summary function to summary_builder.py", "intent": "rename_or_move", "style": "with_paths", "blind": "refactor"}
+{"task": "shift validation logic to utils.py module", "intent": "rename_or_move", "style": "casual", "blind": "refactor"}
+{"task": "restructure helpers into separate modules", "intent": "rename_or_move", "style": "casual", "blind": "refactor"}
+{"task": "bootstrap a payment handler", "intent": "new_package", "style": "terse", "blind": "add_feature"}
+{"task": "set up a cache manager", "intent": "new_package", "style": "terse", "blind": "add_feature"}
+{"task": "create a template renderer", "intent": "new_package", "style": "terse", "blind": "add_feature"}
+{"task": "build a notification service", "intent": "new_package", "style": "terse", "blind": "add_feature"}
+{"task": "scaffold a cli tool", "intent": "new_package", "style": "terse", "blind": "script_cli"}
+{"task": "make a currency converter", "intent": "new_package", "style": "terse", "blind": "add_feature"}
+{"task": "draft an analytics tracker", "intent": "new_package", "style": "terse", "blind": "add_feature"}
+{"task": "develop a file uploader", "intent": "new_package", "style": "terse", "blind": "add_feature"}
+{"task": "Construct a HTTP client wrapper with retry logic and request logging capabilities", "intent": "new_package", "style": "descriptive", "blind": "add_feature"}
+{"task": "Create a database connection pool manager with automatic reconnection handling", "intent": "new_package", "style": "descriptive", "blind": "add_feature"}
+{"task": "Create a foundation for building HTTP clients with retry logic and error handling", "intent": "new_package", "style": "symptom", "blind": "add_feature"}
+{"task": "Establish a workflow for managing user permissions and access control", "intent": "new_package", "style": "symptom", "blind": "add_feature"}
+{"task": "Create a structure for processing real-time notifications and alerts", "intent": "new_package", "style": "symptom", "blind": "add_feature"}
+{"task": "Develop a system for generating PDF invoices from template data", "intent": "new_package", "style": "symptom", "blind": "add_feature"}
+{"task": "Formulate a foundation for building command-line tools with argument parsing", "intent": "new_package", "style": "symptom", "blind": "script_cli"}
+{"task": "Develop a HTTP client wrapper with retry logic and request logging capabilities", "intent": "new_package", "style": "with_paths", "blind": "add_feature"}
+{"task": "Construct a database connection manager with pooling and transaction support", "intent": "new_package", "style": "with_paths", "blind": "add_feature"}
+{"task": "Design a caching system with Redis integration and automatic cache invalidation", "intent": "new_package", "style": "with_paths", "blind": "add_feature"}
+{"task": "Build an email service wrapper with template rendering and bulk sending capabilities", "intent": "new_package", "style": "with_paths", "blind": "add_feature"}
+{"task": "Create a notification service with support for email, SMS, and push notifications", "intent": "new_package", "style": "with_paths", "blind": "add_feature"}
+{"task": "Establish a file upload handler with cloud storage integration and validation", "intent": "new_package", "style": "with_paths", "blind": "add_feature"}
+{"task": "need a http request wrapper", "intent": "new_package", "style": "casual", "blind": "add_feature"}
+{"task": "create a new config manager", "intent": "new_package", "style": "casual", "blind": "platform_ops"}
+{"task": "build a date formatting utility", "intent": "new_package", "style": "casual", "blind": "add_feature"}
+{"task": "create a new http middleware", "intent": "new_package", "style": "casual", "blind": "add_feature"}
+{"task": "scaffold a users data model", "intent": "new_package", "style": "casual", "blind": "add_feature"}
+{"task": "why does my HTTP request timeout?", "intent": "question", "style": "terse", "blind": "platform_ops"}
+{"task": "why does my file read fail?", "intent": "question", "style": "terse", "blind": "platform_ops"}
+{"task": "how do I validate config files?", "intent": "question", "style": "terse", "blind": "platform_ops"}
+{"task": "why does my module import fail?", "intent": "question", "style": "terse", "blind": "platform_ops"}
+{"task": "why does my HTTP client timeout after 30 seconds?", "intent": "question", "style": "symptom", "blind": "platform_ops"}
+{"task": "why does my sorting algorithm produce inconsistent results?", "intent": "question", "style": "symptom", "blind": "bugfix"}
+{"task": "why does this module import fail in production but work locally?", "intent": "question", "style": "symptom", "blind": "platform_ops"}
+{"task": "decompose user authentication flow", "intent": "refactor", "style": "terse", "blind": "question"}
+{"task": "extract api request builder", "intent": "refactor", "style": "terse", "blind": "add_feature"}
+{"task": "simplify user registration process", "intent": "refactor", "style": "terse", "blind": "add_feature"}
+{"task": "Write usage example for parse_dates", "intent": "docs", "style": "terse", "blind": "question"}
+{"task": "Add inline comments to calculate_totals", "intent": "docs", "style": "terse", "blind": "refactor"}
+{"task": "Create a usage example for the file upload handler in the storage service", "intent": "docs", "style": "descriptive", "blind": "add_feature"}
+{"task": "Create a code example showing how to use the data migration script", "intent": "docs", "style": "descriptive", "blind": "add_feature"}
+{"task": "Write clear comments for the complex nested loop in the inventory reconciliation function", "intent": "docs", "style": "descriptive", "blind": "refactor"}
+{"task": "Provide detailed explanations for the date parsing helper function's edge cases", "intent": "docs", "style": "symptom", "blind": "question"}
+{"task": "Create a troubleshooting section for the environment variable reader module", "intent": "docs", "style": "symptom", "blind": "platform_ops"}
+{"task": "Create sample output formats for the report generation module", "intent": "docs", "style": "symptom", "blind": "add_feature"}
+{"task": "add inline comments to show why we're using list comprehension here", "intent": "docs", "style": "casual", "blind": "refactor"}
+{"task": "check this data parser", "intent": "review", "style": "terse", "blind": "question"}
+{"task": "look at user service logic", "intent": "review", "style": "terse", "blind": "question"}
+{"task": "analyze file uploader", "intent": "review", "style": "terse", "blind": "question"}
+{"task": "inspect http client code", "intent": "review", "style": "terse", "blind": "question"}
+{"task": "examine order processor", "intent": "review", "style": "terse", "blind": "question"}
+{"task": "check invoice generator", "intent": "review", "style": "terse", "blind": "question"}
+{"task": "look over date helper", "intent": "review", "style": "terse", "blind": "question"}
+{"task": "analyze report builder", "intent": "review", "style": "terse", "blind": "question"}
+{"task": "inspect user validator", "intent": "review", "style": "terse", "blind": "question"}
+{"task": "check logging setup", "intent": "review", "style": "terse", "blind": "question"}
+{"task": "examine api routes", "intent": "review", "style": "terse", "blind": "question"}
+{"task": "look at csv parser", "intent": "review", "style": "terse", "blind": "question"}
+{"task": "analyze security checks", "intent": "review", "style": "terse", "blind": "question"}
+{"task": "check database queries", "intent": "review", "style": "terse", "blind": "question"}
+{"task": "inspect error handling", "intent": "review", "style": "terse", "blind": "question"}
+{"task": "Take a look at this configuration management tool and let me know if it properly supports hot reloading.", "intent": "review", "style": "descriptive", "blind": "question"}
+{"task": "Check the file upload service for proper error handling during network timeouts", "intent": "review", "style": "symptom", "blind": "write_tests"}
+{"task": "Inspect the logging configuration for potential performance bottlenecks", "intent": "review", "style": "symptom", "blind": "platform_ops"}
+{"task": "Examine the API response formatter for inconsistent status code handling", "intent": "review", "style": "symptom", "blind": "refactor"}
+{"task": "Check the config parser for proper fallback value assignment", "intent": "review", "style": "symptom", "blind": "platform_ops"}
+{"task": "Check the data validation schema for incomplete field constraints", "intent": "review", "style": "symptom", "blind": "question"}
+{"task": "Inspect the caching layer for potential cache stampede scenarios", "intent": "review", "style": "symptom", "blind": "refactor"}
+{"task": "hey can you look at this auth code real quick", "intent": "review", "style": "casual", "blind": "question"}
+{"task": "check this config file for me please", "intent": "review", "style": "casual", "blind": "platform_ops"}
+{"task": "can you spot any bugs in this date handler", "intent": "review", "style": "casual", "blind": "bugfix"}
+{"task": "take a look at this invoice generator", "intent": "review", "style": "casual", "blind": "question"}
+{"task": "what's wrong with this user login flow", "intent": "review", "style": "casual", "blind": "bugfix"}
+{"task": "look at this file uploader code", "intent": "review", "style": "casual", "blind": "question"}
+{"task": "can you find errors in this config loader", "intent": "review", "style": "casual", "blind": "bugfix"}
+{"task": "check this http request builder", "intent": "review", "style": "casual", "blind": "question"}
+{"task": "what do you see in this orders module", "intent": "review", "style": "casual", "blind": "question"}
+{"task": "is there anything wrong with this parser", "intent": "review", "style": "casual", "blind": "question"}
+{"task": "merge hotfix/security patch", "intent": "ship", "style": "terse", "blind": "bugfix"}
+{"task": "push new reports module", "intent": "ship", "style": "terse", "blind": "new_package"}
+{"task": "commit file parsing logic", "intent": "ship", "style": "terse", "blind": "add_feature"}
+{"task": "commit date formatting utils", "intent": "ship", "style": "terse", "blind": "add_feature"}
+{"task": "merge config management", "intent": "ship", "style": "terse", "blind": "platform_ops"}
+{"task": "push file upload handler", "intent": "ship", "style": "terse", "blind": "add_feature"}
+{"task": "merge the config parsing refactor in config/parser.py", "intent": "ship", "style": "with_paths", "blind": "refactor"}
+{"task": "merge the data validation module in core/validators.py", "intent": "ship", "style": "with_paths", "blind": "rename_or_move"}
+{"task": "commit the new function parse_order_data in orders/parser.py", "intent": "ship", "style": "with_paths", "blind": "add_feature"}
+{"task": "I want to create a utility function that converts environment variables to appropriate data types with sensible defaults", "intent": "platform_ops", "style": "descriptive", "blind": "add_feature"}
+{"task": "How do I write a script that checks for the presence of required command-line arguments and provides clear usage instructions?", "intent": "platform_ops", "style": "descriptive", "blind": "script_cli"}
+{"task": "How can I implement retry logic with exponential backoff for HTTP requests in my requests library wrapper?", "intent": "platform_ops", "style": "with_paths", "blind": "add_feature"}
+{"task": "Write a function that reads user-specific settings from ~/.myapp/settings.json and handles missing files gracefully.", "intent": "platform_ops", "style": "with_paths", "blind": "add_feature"}
+{"task": "how to check if running inside docker container", "intent": "platform_ops", "style": "casual", "blind": "question"}
+{"task": "what's the best way to parse ini config files", "intent": "platform_ops", "style": "casual", "blind": "question"}
+{"task": "create a config validator for json schema", "intent": "script_cli", "style": "terse", "blind": "add_feature"}
+{"task": "Construct a script that automates the creation of project directories and initializes git repositories with standard files", "intent": "script_cli", "style": "descriptive", "blind": "new_package"}
+{"task": "Implement a utility that validates configuration files against a schema and reports any missing or invalid fields", "intent": "script_cli", "style": "descriptive", "blind": "add_feature"}
+{"task": "Write a utility that converts markdown files to HTML with syntax highlighting for code blocks and proper CSS styling", "intent": "script_cli", "style": "descriptive", "blind": "add_feature"}
+{"task": "Design a utility that parses XML configuration files and validates them against XSD schemas", "intent": "script_cli", "style": "descriptive", "blind": "add_feature"}
+{"task": "Implement a tool that automates the backup of database dumps with compression and rotation policies", "intent": "script_cli", "style": "descriptive", "blind": "add_feature"}
+{"task": "Develop a utility that processes JSON data streams and transforms them into formatted CSV output", "intent": "script_cli", "style": "descriptive", "blind": "add_feature"}
+{"task": "Build a utility that monitors network connectivity and logs timestamps of failures", "intent": "script_cli", "style": "symptom", "blind": "add_feature"}
+{"task": "Write a program that fetches weather information from an API and saves it to a local file", "intent": "script_cli", "style": "symptom", "blind": "add_feature"}
+{"task": "Design a tool that compares two directories and reports differences in file contents", "intent": "script_cli", "style": "symptom", "blind": "add_feature"}
+{"task": "Implement a utility that schedules periodic backups of specified folders to cloud storage", "intent": "script_cli", "style": "symptom", "blind": "add_feature"}
+{"task": "Make a program that converts markdown documents into HTML with custom styling options", "intent": "script_cli", "style": "symptom", "blind": "add_feature"}
+{"task": "Create an application that validates configuration files against a schema and reports errors", "intent": "script_cli", "style": "symptom", "blind": "new_package"}
+{"task": "Write a tool that analyzes code coverage reports and highlights untested functions", "intent": "script_cli", "style": "symptom", "blind": "add_feature"}
+{"task": "Construct a utility that monitors system resources and sends alerts when thresholds are exceeded", "intent": "script_cli", "style": "symptom", "blind": "add_feature"}
+{"task": "Design a program that generates random test data according to specified patterns", "intent": "script_cli", "style": "symptom", "blind": "new_package"}
+{"task": "Create an application that parses XML feeds and converts them into structured JSON output", "intent": "script_cli", "style": "symptom", "blind": "new_package"}
+{"task": "Build a utility that manages project dependencies and resolves version conflicts", "intent": "script_cli", "style": "symptom", "blind": "add_feature"}
+{"task": "Develop a tool that calculates file checksums and compares them with reference values", "intent": "script_cli", "style": "symptom", "blind": "add_feature"}
+{"task": "Write a program that extracts metadata from multimedia files and organizes it in a database", "intent": "script_cli", "style": "symptom", "blind": "new_package"}
+{"task": "make a date parser that handles multiple formats", "intent": "script_cli", "style": "casual", "blind": "add_feature"}
+{"task": "build a config validator that checks yaml syntax", "intent": "script_cli", "style": "casual", "blind": "add_feature"}
+{"task": "write tool to extract data from pdf tables", "intent": "script_cli", "style": "casual", "blind": "add_feature"}
+{"task": "create invoice generator with tax calculations", "intent": "script_cli", "style": "casual", "blind": "add_feature"}
+{"task": "write a tool that sorts orders by date and customer", "intent": "script_cli", "style": "casual", "blind": "add_feature"}

@@ -215,9 +215,17 @@ def _is_skill_name(verb: str) -> bool:
 
 
 def parse_turn_smart(
-    text: str, *, question: bool = False, ship: bool = False
+    text: str, *, question: bool = False, ship: bool = False,
+    asked_done: bool = False,
 ) -> AgentTurn | None:
-    """Small models paste the Action menu. Pick one block by task kind."""
+    """Small models paste the Action menu. Pick one block by task kind.
+
+    `asked_done` is set when the harness's last message told the model to
+    finish. A reply that pastes its whole plan again then carries a stale
+    patch above its done block, and taking the patch sent a 30B round the
+    same refused Find: until the budget ran out, with the fix already in
+    and the suite green. Once done has been asked for, done wins.
+    """
     matches = [
         match
         for match in _ACTION.finditer(text)
@@ -227,7 +235,9 @@ def parse_turn_smart(
         return parse_turn(text)
     if len(matches) == 1:
         return parse_turn(text[matches[0].start() :])
-    if question:
+    if asked_done:
+        prefer = ("done",)
+    elif question:
         prefer = _PREFERRED_QUESTION
     elif ship:
         prefer = _PREFERRED_SHIP

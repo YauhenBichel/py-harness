@@ -53,6 +53,19 @@ def make_handler(project: Path, *, allow_writes: bool, model: str):
             self.wfile.flush()
             self.close_connection = True
 
+        def _drain(self) -> None:
+            """Read and discard the request body before an early refusal.
+
+            Answering a POST without reading its body and then closing
+            the socket makes Windows abort the client's connection
+            (WinError 10053) before it has read the reply, so a 403 the
+            server did send arrives as a dropped connection. CI on
+            windows-latest failed that way on a read-only refusal.
+            """
+            length = int(self.headers.get("content-length") or 0)
+            if 0 < length <= MAX_BODY:
+                self.rfile.read(length)
+
         def _body(self) -> dict | None:
             length = int(self.headers.get("content-length") or 0)
             if length > MAX_BODY:
@@ -96,9 +109,11 @@ def make_handler(project: Path, *, allow_writes: bool, model: str):
                 self._chat()
                 return
             if path not in READ_ONLY_ROUTES + WRITE_ROUTES:
+                self._drain()
                 self._send(404, {"error": "no such route"})
                 return
             if path in WRITE_ROUTES and not allow_writes:
+                self._drain()
                 self._send(
                     403,
                     {

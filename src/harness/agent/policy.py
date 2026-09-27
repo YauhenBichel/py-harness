@@ -144,8 +144,18 @@ class LoopState:
     instructions: tuple[str, ...] = ()
     guard: LoopGuard = field(default_factory=LoopGuard)
     files_seen: set[str] = field(default_factory=set)
+    wrote_paths: set[str] = field(default_factory=set)
     repairs: int = 0
     existing_paths: tuple[str, ...] = ()
+    # The suite's colour before the model touched anything ("green",
+    # "red", "none", or "" when not measured), its colour after the
+    # latest run of it, that run's output, and how many red results
+    # have come back since something was written. A run that turns a
+    # green suite red has broken what it did not break at the start.
+    suite_at_start: str = ""
+    suite_now: str = ""
+    suite_output: str = ""
+    suite_reds: int = 0
 
 
 def refuse_patch_before_reading(state: LoopState, turn) -> str:
@@ -677,8 +687,12 @@ def write_needs_a_test(state: LoopState, result: str, path: str) -> bool:
     symbol = covered_symbol(state.task) or question_symbol(state.task)
     if looks_like_add_feature(state.task) or looks_like_write_tests(state.task):
         return bool(symbol) and not tests_call(state.project, symbol)
-    if looks_like_bugfix(state.task) and symbol:
-        return not tests_call(state.project, symbol)
+    # A bug fix is done when the suite is green again, not when a new test
+    # exists. Demanding one here handed the model the write-tests skill,
+    # whose example test calls `multiply` and `weekday`; a 30B copied it
+    # verbatim in every traced run, then added a `multiply` to the named
+    # file to make its own copy pass. Eleven of fifteen bug-fix runs on
+    # 2026-09-27 hit the step limit that way with the fix already in.
     return False
 
 
@@ -712,16 +726,30 @@ def _app_ready_to_run(state: LoopState, result: str) -> bool:
 
 
 def _named_bugfix_patch(state: LoopState) -> str:
-    """Point a named-file bugfix back at the impl, not at a rewritten test."""
+    """Point a named-file bugfix back at the impl, not at a rewritten test.
+
+    Once the named file has been patched in this run the demand is met,
+    and repeating it sends the model back to a Find: that no longer
+    matches. That loop ran a fix to the step limit four turns after it
+    had landed. From then on the next step is the suite, then done.
+    """
     if not looks_like_bugfix(state.task):
         return ""
     named = named_project_file(state.task, state.project)
     if not named:
         return ""
+    if _same_file(named) in {_same_file(rel) for rel in state.wrote_paths}:
+        if state.ran_tests:
+            return "The fix is in and the suite passed. Action: done Summary: say what you changed.\n"
+        return RUN_SUITE
     return (
         f"Next Action must be patch Path: {named} with a Find: line "
         "copied whole from the file. Do not edit tests.\n"
     )
+
+
+def _same_file(rel: str) -> str:
+    return rel.replace("\\", "/").lstrip("./")
 
 
 def repair_after_failed_run(state: LoopState, result: str) -> str:

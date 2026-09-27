@@ -50,6 +50,7 @@ Public pages do not name other editors or chat products.
 | [The wall two local models share]({{ '/investigations/the-wall/' | relative_url }}) | Tier six: 18 of 20 hosted 32B, 8 and 11 for the two local models. They are level; the gap to the larger one is not. |
 | [What the totals were hiding]({{ '/investigations/totals-hide-things/' | relative_url }}) | 9 of 20 against 10 of 20 looked like noise. It was two opposite effects, one of them a wrong function written with no model. Now 19 of 20. |
 | [A day of repairs]({{ '/investigations/a-day-of-repairs/' | relative_url }}) | Nine fixes, 51 of 75 to 64 of 75. Almost none of it was the model. Two moved nothing and are kept anyway. |
+| [Where py-harness stands]({{ '/status/' | relative_url }}) | The status board: what is fixed, what is open, and what to do next, ranked by harm. |
 | [Two models, one wall]({{ '/investigations/two-models/' | relative_url }}) | The same 75 jobs. 51 vs 50. They fail in opposite ways. |
 | [Model lanes]({{ '/investigations/model-lanes/' | relative_url }}) | Which local weight for a question, a write, or a ship. Default stays 8B. |
 | [Hub models]({{ '/investigations/hub-models/' | relative_url }}) | 8192-warmed SWE daily clamp: first generate 180s. Do not switch. |
@@ -90,4 +91,5 @@ Public pages do not name other editors or chat products.
 | [Everyday skills]({{ '/investigations/everyday-skills/' | relative_url }}) | Each skill is one copy-paste step, written for an 8B. |
 | [Skills]({{ '/skills/' | relative_url }}) | The twenty-four kit skills and when each one loads. |
 | [Platform engineering]({{ '/investigations/platform-engineering/' | relative_url }}) | Small files that must work on every OS. |
+| [What would make it useful]({{ '/investigations/what-would-make-it-useful/' | relative_url }}) | Every method, ranked against this project's own numbers. A local 30B scores 20/20 where the old default scored 8/20. |
 | [Architecture]({{ '/architecture/' | relative_url }}) | Layers from the bottom up. A cycle fails the merge gate. |

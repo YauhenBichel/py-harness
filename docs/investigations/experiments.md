@@ -1383,3 +1383,36 @@ the size of the model you mean to run.
 
 Write-up: [Cloud weights]({{ '/investigations/cloud-weights/' | relative_url }})
 · [Bench record]({{ '/investigations/bench-record/' | relative_url }}).
+
+### What the decider exposed
+
+**Example.** The harness decides "is this a bug fix?" with a regular
+expression that keys on *fix, bug, crash* and exception names. A fitted
+decision model (`bge-m3` embeddings, one logistic regression per
+intent) was measured against it: 86% against 53% on hand-written
+phrasings. Whether that helps a *run* is a separate question, so a
+seventh benchmark tier was added — the tier-5 bugs said the way people
+report them, no keyword — and the two deciders were run as an A/B on
+tiers 5 and 7, five passes each, a local 30B.
+
+**Result**
+
+| Measurement | Outcome |
+| --- | --- |
+| Cases on tiers 1–6 the two deciders route differently | **0 of 15**. An A/B there compares a run with itself |
+| Tier-7 cases they route differently | **4 of 4** |
+| A/B, pass count | **30 / 30 both arms.** NOISE, at a ceiling |
+| A/B, runs that hit the step limit | regex **9**, decision model **16** — 6.2 min against 16.9 |
+| Traced cause | Fix landed on step one; the bug-fix path then demanded a test, handed over the write-tests skill, and the model copied its `multiply` example verbatim. Then the named-file nudge kept demanding a patch already made |
+| After that fix | step-limit runs **3 and 3**; mean steps 3.2 and 2.2 |
+| Second traced cause | Told "Action: done Summary: …", the model answered in a sentence with no Action line, then re-pasted its plan with the stale patch on top |
+| After both fixes | step-limit runs **0 and 0**; mean steps 1.9 (regex) against 1.4 (model); 1.5 min against 4.0 |
+
+The decider was right, and being right made the runs worse until the
+bug-fix path could close. On this model the swap changes how a run
+ends, not whether it works: the symptom-phrased NameError goes from
+three model steps to none. The pass count could see none of this; the
+ledger now reports step-limit runs and mean steps beside it.
+
+Write-up: [What would make it useful]({{ '/investigations/what-would-make-it-useful/' | relative_url }})
+· records `docs/experiments/decide-*.json`, `bugfix-closes-*.json`, `bugfix-done-*.json`.

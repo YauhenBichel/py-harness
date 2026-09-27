@@ -1,0 +1,170 @@
+{
+  "name": "baseline-t1-qwen3coder30b",
+  "when": "2026-09-24",
+  "commit": "bcb1f88",
+  "dirty": true,
+  "machine": "Darwin arm64",
+  "model": "qwen3-coder:30b",
+  "engine": "ollama",
+  "tiers": [
+    1
+  ],
+  "passes": 3,
+  "seconds": 65.3,
+  "worked": 9,
+  "runs": 9,
+  "totals_per_pass": [
+    3,
+    3,
+    3
+  ],
+  "errored_runs": 0,
+  "zero_step_runs": 0,
+  "runs_that_asked": 0,
+  "rows": [
+    {
+      "case": "double",
+      "tier": 1,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 12.8,
+      "pass": 1
+    },
+    {
+      "case": "largest",
+      "tier": 1,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 6.8,
+      "pass": 1
+    },
+    {
+      "case": "initials",
+      "tier": 1,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 7.0,
+      "pass": 1
+    },
+    {
+      "case": "double",
+      "tier": 1,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 6.2,
+      "pass": 2
+    },
+    {
+      "case": "largest",
+      "tier": 1,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 6.6,
+      "pass": 2
+    },
+    {
+      "case": "initials",
+      "tier": 1,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 6.8,
+      "pass": 2
+    },
+    {
+      "case": "double",
+      "tier": 1,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 5.9,
+      "pass": 3
+    },
+    {
+      "case": "largest",
+      "tier": 1,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 6.7,
+      "pass": 3
+    },
+    {
+      "case": "initials",
+      "tier": 1,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 4,
+      "writes": [
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "seconds": 6.6,
+      "pass": 3
+    }
+  ]
+}

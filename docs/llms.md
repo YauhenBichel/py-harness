@@ -44,6 +44,7 @@ Measured on one laptop, 29 Aug 2026: 8B first Action on three scoped tasks 3/3; 
 - [The wall two local models share]({{ '/investigations/the-wall/' | absolute_url }}): On tier six a hosted 32B scores 18 of 20 against 8 and 11 for the two local models, which are level with each other. Part of that tier is out of reach of any further rule.
 - [What the totals were hiding]({{ '/investigations/totals-hide-things/' | absolute_url }}): A change scored 9 of 20 against 10 of 20 and looked like noise. Underneath, the harness was writing a wrong function with no model at all. Fixing it took tier three to 19 of 20.
 - [A day of repairs, measured]({{ '/investigations/a-day-of-repairs/' | absolute_url }}): Nine harness and instrument fixes took the benchmark from 51 of 75 to 64 of 75. Two of them moved nothing and are kept anyway.
+- [Where py-harness stands]({{ '/status/' | absolute_url }}): The status board — what was fixed on 6 September, what is still open, and what to do next ranked by harm.
 - [Two models, one wall]({{ '/investigations/two-models/' | absolute_url }}): Same score, opposite failures — one writes wrong code, the other writes nothing.
 - [Where the failures are]({{ '/investigations/failures/' | absolute_url }}): A third of runs fail; two thirds of those wrote the wrong code, which no rule can catch.
 - [What the harness cannot fix]({{ '/investigations/limits/' | absolute_url }}): Seven measurements where the harness knew something and it made no difference — and the one refusal that was taught to earn itself.
@@ -61,6 +62,7 @@ Measured on one laptop, 29 Aug 2026: 8B first Action on three scoped tasks 3/3; 
 - [Everyday laptop]({{ '/investigations/everyday-laptop/' | absolute_url }}): Why the 0.5B LoRA is not daily work.
 - [Everyday skills]({{ '/investigations/everyday-skills/' | absolute_url }}): Skills are one copy-paste Action, written for an 8B.
 - [Harness comparison]({{ '/investigations/harness-comparison/' | absolute_url }}): What transfers from other published harnesses. No free shell tool.
+- [What would make it useful]({{ '/investigations/what-would-make-it-useful/' | absolute_url }}): Every method reviewed against this project's own numbers. The model ceiling was the cheapest thing to fix; training is not viable with thirty rows.
 - [0.5B vibe review]({{ '/research-vibe-review/' | absolute_url }}): Held-out vibe tasks and a 100-file stub walk that was not a review.
 
 ## Code and weights

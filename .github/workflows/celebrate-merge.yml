@@ -1,107 +1,19 @@
 name: Celebrate merge
-
-# After a human PR merges, comment with a celebrating GIF.
-# Prefer a G-rated Giphy GIF when GIPHY_API_KEY is set
-# (https://developers.giphy.com/dashboard). Otherwise use the Slack /
-# Discord Party Parrot copies in .github/celebrate/ (see NOTICE).
-# Tenor's public API is gone (June 2026); do not call it.
-# The search tag is picked from the PR title (fix / feat / docs / …).
-# pull_request_target so fork merges can be commented; do not check out the PR head.
-
 on:
   pull_request_target:
     types: [closed]
-
 permissions:
   pull-requests: write
-
 jobs:
   celebrate:
-    if: >-
-      github.event.pull_request.merged == true &&
-      github.event.pull_request.user.type != 'Bot'
+    if: github.event.pull_request.merged && github.event.pull_request.user.type != 'Bot'
     runs-on: ubuntu-latest
     steps:
-      - name: Pick a G-rated GIF
-        id: gif
-        env:
-          GIPHY_API_KEY: ${{ secrets.GIPHY_API_KEY }}
-          PR_TITLE: ${{ github.event.pull_request.title }}
-          REPO: ${{ github.repository }}
-          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
-        run: |
-          python3 - <<'PY'
-          import os
-          import urllib.parse
-          import urllib.request
-
-          title = os.environ.get("PR_TITLE", "")
-          key = os.environ.get("GIPHY_API_KEY", "").strip()
-          repo = os.environ.get("REPO", "").strip()
-          branch = os.environ.get("DEFAULT_BRANCH", "main").strip() or "main"
-          out = os.environ["GITHUB_OUTPUT"]
-          low = title.lower()
-          if any(word in low for word in ("fix", "bug", "hotfix", "patch")):
-              tag = "nailed it"
-          elif any(word in low for word in ("feat", "add ", "added", "new ")):
-              tag = "ship it"
-          elif any(word in low for word in ("doc", "readme")):
-              tag = "nice work"
-          elif any(word in low for word in ("test", "ci")):
-              tag = "high five"
-          elif any(word in low for word in ("refactor", "clean")):
-              tag = "cleanup"
-          else:
-              tag = "celebration"
-          url = ""
-          if key:
-              qs = urllib.parse.urlencode(
-                  {"api_key": key, "tag": tag, "rating": "g"}
-              )
-              req = urllib.request.Request(
-                  f"https://api.giphy.com/v1/gifs/random?{qs}",
-                  headers={"User-Agent": "py-harness-celebrate-merge"},
-              )
-              try:
-                  with urllib.request.urlopen(req, timeout=20) as resp:
-                      import json
-
-                      data = json.load(resp)
-                  images = (data.get("data") or {}).get("images") or {}
-                  url = (
-                      (images.get("downsized") or {}).get("url")
-                      or (images.get("original") or {}).get("url")
-                      or ""
-                  )
-              except Exception as exc:
-                  print(f"giphy skipped: {exc}")
-          if not url and repo:
-              slug = tag.replace(" ", "-")
-              url = (
-                  f"https://raw.githubusercontent.com/{repo}/{branch}"
-                  f"/.github/celebrate/{slug}.gif"
-              )
-          with open(out, "a", encoding="utf-8") as fh:
-              fh.write(f"url={url}\n")
-              fh.write(f"tag={tag}\n")
-          PY
-
-      - uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
-        env:
-          GIF_URL: ${{ steps.gif.outputs.url }}
-          GIF_TAG: ${{ steps.gif.outputs.tag }}
+      # Pinned to a commit, not the tag. This job runs on
+      # `pull_request_target` with `pull-requests: write`, so it has the
+      # repository's token on a pull request from anyone. A tag can be
+      # moved; a commit cannot.
+      - uses: YauhenBichel/merge-cheer@6daba95cfd238b1e8c823e193632678f295dc1a3 # v1.7.0
         with:
-          script: |
-            const login = context.payload.pull_request.user.login;
-            const gif = process.env.GIF_URL || "";
-            const tag = process.env.GIF_TAG || "celebration";
-            let body = `Merged — thank you @${login}.\n`;
-            if (gif) {
-              body += `\n![${tag}](${gif})\n`;
-            }
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-              body,
-            });
+          model: gpt-4o-mini
+          model-api-key: ${{ secrets.OPENAI_API_KEY }}

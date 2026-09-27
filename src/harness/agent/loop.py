@@ -23,7 +23,7 @@ from harness.act.autofix import (
     apply_person_bind,
     unbound_typo,
 )
-from harness.act.parse import parse_turn_smart
+from harness.act.parse import AgentTurn, parse_turn_smart
 from harness.act.tools import run_python
 from harness.scan.names import undefined_in_file
 from harness.agent.dispatch import ACTIONS, run_action
@@ -447,6 +447,7 @@ class Agent:
                 options.drafts,
                 question=looks_like_question(options.task),
                 ship=looks_like_ship(options.task),
+                asked_done=_asked_for_done(prompt),
             )
             _remember(generate, prompt, draft)
             options.emit(
@@ -737,8 +738,22 @@ def _with_task(options: AgentOptions, task: str) -> AgentOptions:
     return replace(options, task=task)
 
 
+def _asked_for_done(prompt: str) -> bool:
+    """True when the harness's last message told the model to finish.
+
+    Only the finishing nudge counts, the one that ends "Action: done
+    Summary: say what you changed". The opening prompt for a question
+    also mentions done, as one option among several, and a first reply
+    of "I think I should look around" must stay unparsed there.
+    """
+    lines = [line for line in prompt.splitlines() if line.strip()]
+    return bool(lines) and lines[-1].rstrip().endswith(
+        "Action: done Summary: say what you changed."
+    )
+
+
 def _first_that_parses(generate, prompt: str, drafts: int, *, question: bool,
-                       ship: bool):
+                       ship: bool, asked_done: bool = False):
     """Ask up to `drafts` times, and keep the first reply that parses.
 
     A reply the loop cannot read costs a whole step: it is answered with
@@ -751,16 +766,25 @@ def _first_that_parses(generate, prompt: str, drafts: int, *, question: bool,
     Anything further would need the action carried out, and a draft that
     has been carried out cannot be taken back.
 
+    One reading is added when the harness has just asked for done: a
+    reply with no Action line at all is the summary, said plainly.
+    Told "Action: done Summary: say what you changed", a 30B answered
+    "I changed the tax rate from 0.02 to 0.2" — which is the summary —
+    and was told it could not be parsed, five times, until the budget
+    ran out with the fix in and the suite green.
+
     Returns the draft kept, its parsed turn, and how many were asked for,
     so a run can be read afterwards for how often this fired.
     """
     draft = generate(prompt)
-    turn = parse_turn_smart(draft, question=question, ship=ship)
+    turn = parse_turn_smart(draft, question=question, ship=ship, asked_done=asked_done)
     tried = 1
     while turn is None and tried < drafts:
         tried += 1
         draft = generate(prompt)
-        turn = parse_turn_smart(draft, question=question, ship=ship)
+        turn = parse_turn_smart(draft, question=question, ship=ship, asked_done=asked_done)
+    if turn is None and asked_done and draft.strip():
+        turn = AgentTurn(action="done", summary=draft.strip())
     return draft, turn, tried
 
 

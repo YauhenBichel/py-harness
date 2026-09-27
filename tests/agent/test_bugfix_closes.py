@@ -176,5 +176,86 @@ class TheLoopRecordsWhatItWroteTest(unittest.TestCase):
         self.assertIn("src/orders.py", states[-1].wrote_paths, states[-1].wrote_paths)
 
 
+class SayingDonePlainlyTest(unittest.TestCase):
+    """Told to finish, the 30B answered in a sentence, or pasted its whole
+    plan again with the stale patch above the done block. Either way the
+    fix was in and the suite green, and the run ran out of steps."""
+
+    def _run(self, *drafts: str):
+        from unittest import mock
+
+        from harness import Agent, AgentOptions
+
+        remaining = list(drafts)
+
+        def generate(_prompt: str) -> str:
+            return remaining.pop(0) if remaining else "Action: done\nSummary: out of drafts"
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            _project(root)
+            (root / "src" / "orders.py").write_text(
+                "def compute_total(prices):\n    return sum(prices)\n\n"
+                "def last_price(prices):\n    return prices[len(prices)]\n",
+                encoding="utf-8",
+            )
+            with mock.patch(
+                "harness.agent.loop.make_generate", lambda *a, **k: ("scripted", generate)
+            ):
+                return Agent(AgentOptions(project=root, task=KEYWORD, steps=4)).run()
+
+    PATCH = (
+        "Action: patch\nPath: src/orders.py\n"
+        "Find:     return prices[len(prices)]\nReplace:     return prices[-1]\n"
+    )
+
+    def test_a_bare_sentence_after_done_was_asked_is_the_summary(self) -> None:
+        got = self._run(
+            self.PATCH,
+            "I changed last_price to return the last element.",
+        )
+        self.assertEqual(got.stopped, "done", [s.result or s.refused for s in got.steps])
+        self.assertTrue(got.ok)
+        self.assertIn("last_price", got.summary)
+        self.assertEqual(len(got.steps), 2)
+
+    def test_a_pasted_plan_after_done_was_asked_takes_its_done_block(self) -> None:
+        got = self._run(
+            self.PATCH,
+            "Action: read\nPath: src/orders.py\n\n" + self.PATCH
+            + "\nAction: run\nArgv: -m unittest discover -s tests -q\n\n"
+            "Action: done\nSummary: fixed last_price\n",
+        )
+        self.assertEqual(got.stopped, "done", [s.result or s.refused for s in got.steps])
+        self.assertEqual(got.summary, "fixed last_price")
+        self.assertEqual(len(got.steps), 2)
+
+    def test_a_sentence_before_done_was_asked_still_does_not_parse(self) -> None:
+        from harness.agent.loop import _first_that_parses
+
+        _draft, turn, _tried = _first_that_parses(
+            lambda _p: "Sure, let me look at that.", "p", 1, question=False, ship=False
+        )
+        self.assertIsNone(turn)
+
+    def test_only_the_finishing_nudge_counts_as_asking_for_done(self) -> None:
+        from harness.agent.loop import _asked_for_done
+
+        self.assertTrue(_asked_for_done(
+            "Tool result:\npatched src/orders.py\nexit 0\nOK\n\n"
+            "Tests passed. Action: done Summary: say what you changed.\n"))
+        self.assertTrue(_asked_for_done(
+            "Tool result:\nFind: string not in file.\n\n"
+            "The fix is in and the suite passed. Action: done Summary: say what you changed.\n"))
+        # The opening prompt for a question lists done as one option.
+        self.assertFalse(_asked_for_done(
+            "Questions: if you see # auto-read, Action: done. Else read one file, then done.\n"
+            "Files:\n  src/orders.py\n\nTask: what does compute_total return?\n"))
+        self.assertFalse(_asked_for_done(
+            "Nothing was changed. Action: patch Path: src/orders.py with a Find: line "
+            "copied whole from the file and a Replace:. If the file is already correct, "
+            "Action: done Summary: copy the line that makes it correct.\n"))
+
+
 if __name__ == "__main__":
     unittest.main()

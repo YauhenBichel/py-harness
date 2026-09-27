@@ -81,10 +81,16 @@ def dirty() -> bool:
 
     An arm measured on a dirty tree cannot be replayed from its commit,
     so the record says so rather than implying otherwise.
+
+    The ledger itself does not count. The first arm of an A/B files its
+    record before the second runs, and that file is an output of the
+    measurement, not an input to it; counting it marked the second arm
+    of every A/B as unreplayable.
     """
     try:
         out = subprocess.run(
-            ["git", "-C", str(ROOT), "status", "--porcelain"],
+            ["git", "-C", str(ROOT), "status", "--porcelain", "--",
+             ".", f":(exclude){LEDGER.relative_to(ROOT).as_posix()}"],
             capture_output=True, text=True, timeout=30, check=False,
         )
     except OSError:
@@ -160,6 +166,34 @@ class Result:
     def asked(self) -> int:
         return sum(1 for r in self.rows if r.get("asked", 0) > 0)
 
+    @property
+    def out_of_steps(self) -> int:
+        """Runs the harness could not close: they stopped on the step limit.
+
+        "Worked" is read off the project afterwards, so a run can land the
+        fix on step one and still burn the other nine failing to say done.
+        Two arms at 30 of 30 hid exactly that: one closed 22 runs, the
+        other 16, at nearly three times the wall clock. On a real task
+        that is a run the user finishes by hand.
+        """
+        return sum(1 for r in self.rows if r.get("stopped") == "steps")
+
+    @property
+    def mean_steps(self) -> float:
+        counted = [r["steps"] for r in self.rows if isinstance(r.get("steps"), int)]
+        return sum(counted) / len(counted) if counted else 0.0
+
+    @property
+    def steps_by_case(self) -> dict[str, float]:
+        """Mean steps per case, over the runs that have a count."""
+        total: dict[str, int] = collections.Counter()
+        seen: dict[str, int] = collections.Counter()
+        for row in self.rows:
+            if isinstance(row.get("steps"), int):
+                total[row["case"]] += row["steps"]
+                seen[row["case"]] += 1
+        return {case: total[case] / seen[case] for case in sorted(seen)}
+
     def as_dict(self) -> dict:
         return {
             "name": self.name,
@@ -179,6 +213,8 @@ class Result:
             "totals_per_pass": self.totals,
             "errored_runs": self.errored,
             "zero_step_runs": self.zero_step,
+            "out_of_steps_runs": self.out_of_steps,
+            "mean_steps": round(self.mean_steps, 2),
             "runs_that_asked": self.asked,
             "rows": self.rows,
         }
@@ -287,10 +323,14 @@ def describe(result: Result) -> str:
         f"   {result.when}   {result.seconds / 60:.1f} min",
         f"  per pass {result.totals}",
         f"  zero-step runs {result.zero_step}   runs that asked {result.asked}"
+        f"   hit the step limit {result.out_of_steps}"
+        f"   mean steps {result.mean_steps:.1f}"
         + (f"   ERRORED {result.errored}" if result.errored else ""),
     ]
+    steps = result.steps_by_case
     for case, (good, total) in result.by_case.items():
-        lines.append(f"    {case:<16} {good}/{total}")
+        mean = f"   {steps[case]:.1f} steps" if case in steps else ""
+        lines.append(f"    {case:<16} {good}/{total}{mean}")
     return "\n".join(lines)
 
 
@@ -355,6 +395,13 @@ def compare(a: Result, b: Result) -> str:
             f"Zero-step runs moved {a.zero_step} -> {b.zero_step}. A run that "
             "writes without asking the model is either a repair the harness is "
             "sure of or a bug that looks just like one. Check which."
+        )
+    if a.out_of_steps or b.out_of_steps:
+        out.append(
+            f"Runs that hit the step limit: {a.name} {a.out_of_steps}, "
+            f"{b.name} {b.out_of_steps} (mean steps {a.mean_steps:.1f} against "
+            f"{b.mean_steps:.1f}). A run that worked but never said done is "
+            "one the harness could not close; the pass count does not see it."
         )
     # A flat line matters because it means something stopped being
     # decided by the model. At a ceiling or a floor it means no such

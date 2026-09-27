@@ -592,6 +592,7 @@ class Agent:
             state.ran_tests = True
         if result.startswith(("patched", "wrote")):
             run.writes.append(turn.path or state.last_path)
+            state.wrote_paths.add(turn.path or state.last_path)
             state.wrote_something = True
             cover = _cover_after_add(
                 self.project, run.options.task, turn.path or state.last_path

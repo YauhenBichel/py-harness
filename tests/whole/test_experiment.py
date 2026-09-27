@@ -269,3 +269,90 @@ class TheRecordTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TheLedgerIsNotADirtyTreeTest(unittest.TestCase):
+    """The first arm of an A/B files its record before the second arm
+    runs. That record is an output of the measurement; if it counted as
+    a change, the second arm of every A/B would be marked unreplayable,
+    which is what happened to decide-model on 2026-09-27."""
+
+    def setUp(self) -> None:
+        import subprocess
+        import tempfile
+
+        self.mod = _experiment()
+        self.tmp = tempfile.TemporaryDirectory()
+        root = Path(self.tmp.name)
+        git = ["git", "-C", str(root)]
+        subprocess.run(git + ["init", "-q"], check=True)
+        subprocess.run(git + ["config", "user.email", "t@t"], check=True)
+        subprocess.run(git + ["config", "user.name", "t"], check=True)
+        (root / "src").mkdir()
+        (root / "src" / "a.py").write_text("x = 1\n", encoding="utf-8")
+        subprocess.run(git + ["add", "."], check=True)
+        subprocess.run(git + ["commit", "-q", "-m", "clean"], check=True)
+        self.root = root
+        self.mod.ROOT = root
+        self.mod.LEDGER = root / "docs" / "experiments"
+
+    def tearDown(self) -> None:
+        self.tmp.cleanup()
+
+    def test_a_clean_tree_is_clean(self) -> None:
+        self.assertFalse(self.mod.dirty())
+
+    def test_a_record_the_pipeline_filed_does_not_dirty_the_tree(self) -> None:
+        self.mod.LEDGER.mkdir(parents=True)
+        (self.mod.LEDGER / "arm-a.json").write_text("{}\n", encoding="utf-8")
+        self.assertFalse(self.mod.dirty())
+
+    def test_an_edited_source_still_does(self) -> None:
+        self.mod.LEDGER.mkdir(parents=True)
+        (self.mod.LEDGER / "arm-a.json").write_text("{}\n", encoding="utf-8")
+        (self.root / "src" / "a.py").write_text("x = 2\n", encoding="utf-8")
+        self.assertTrue(self.mod.dirty())
+
+    def test_a_new_file_outside_the_ledger_still_does(self) -> None:
+        (self.root / "src" / "b.py").write_text("", encoding="utf-8")
+        self.assertTrue(self.mod.dirty())
+
+
+class ARunThatNeverSaidDoneTest(unittest.TestCase):
+    """Two arms at 30 of 30 hid one arm closing 22 runs and the other 16,
+    at nearly three times the wall clock. The pass count is read off the
+    project afterwards, so it cannot see a run that landed the fix on
+    step one and burned the rest of its budget failing to say done."""
+
+    def setUp(self) -> None:
+        self.mod = _experiment()
+
+    def _arm(self, name: str, stopped: list[str], steps: list[int]):
+        result = _result(self.mod, name, {"x": "Y" * len(stopped)})
+        for row, how, n in zip(result.rows, stopped, steps):
+            row["stopped"] = how
+            row["steps"] = n
+        return result
+
+    def test_runs_that_hit_the_step_limit_are_counted(self) -> None:
+        arm = self._arm("a", ["done", "steps", "steps"], [2, 10, 10])
+        self.assertEqual(arm.out_of_steps, 2)
+        self.assertAlmostEqual(arm.mean_steps, 22 / 3)
+        self.assertEqual(arm.as_dict()["out_of_steps_runs"], 2)
+
+    def test_compare_says_so_when_the_pass_counts_agree(self) -> None:
+        closed = self._arm("closed", ["done"] * 5, [2] * 5)
+        stuck = self._arm("stuck", ["done", "steps", "steps", "steps", "steps"], [2, 10, 10, 10, 10])
+        out = self.mod.compare(closed, stuck)
+        self.assertIn("NOISE", out)
+        self.assertIn("hit the step limit: closed 0, stuck 4", out)
+        self.assertIn("mean steps 2.0 against 8.4", out)
+
+    def test_nothing_is_said_when_every_run_closed(self) -> None:
+        a = self._arm("a", ["done"] * 5, [2] * 5)
+        b = self._arm("b", ["done"] * 5, [3] * 5)
+        self.assertNotIn("Runs that hit the step limit", self.mod.compare(a, b))
+
+    def test_describe_shows_mean_steps_per_case(self) -> None:
+        arm = self._arm("a", ["done", "steps"], [2, 10])
+        self.assertIn("6.0 steps", self.mod.describe(arm))

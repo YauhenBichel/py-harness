@@ -259,5 +259,31 @@ class AJsonObjectIsATurnTest(unittest.TestCase):
         self.assertEqual(turn.action, "read")
 
 
+class ABareDiffIsAPatchTest(unittest.TestCase):
+    """The next run sent the diff with no Action line at all, ten times."""
+
+    BARE = (
+        "```diff\ndiff --git a/src/orders.py b/src/orders.py\n"
+        "--- a/src/orders.py\n+++ b/src/orders.py\n"
+        "@@ -2,5 +2,5 @@ Order arithmetic.\"\"\"\n \n"
+        " def compute_total(prices: list[int]) -> int:\n"
+        "-    return sum(prices) - 1\n+    return sum(prices)\n```\n"
+    )
+
+    def test_a_diff_alone_is_a_patch_to_its_file(self) -> None:
+        turn = parse_turn_smart(self.BARE)
+        self.assertIsNotNone(turn)
+        self.assertEqual(turn.action, "patch")
+        self.assertEqual(turn.path, "src/orders.py")
+        self.assertEqual(turn.find, "    return sum(prices) - 1")
+        self.assertEqual(turn.replace, "    return sum(prices)")
+
+    def test_a_diff_with_no_hunk_is_not_a_turn(self) -> None:
+        self.assertIsNone(parse_turn_smart("--- a/x.py\n+++ b/x.py\n"))
+
+    def test_a_diff_with_no_path_is_not_a_turn(self) -> None:
+        self.assertIsNone(parse_turn_smart("@@ -1 +1 @@\n-a\n+b\n"))
+
+
 if __name__ == "__main__":
     unittest.main()

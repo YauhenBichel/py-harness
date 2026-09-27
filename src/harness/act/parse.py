@@ -225,6 +225,25 @@ def _from_diff(text: str) -> dict[str, str]:
     return found
 
 
+def _from_bare_diff(text: str) -> AgentTurn | None:
+    """A reply that is only a unified diff is a patch, or None.
+
+    The same 7B, on the next run, sent the diff with no Action line at
+    all: file headers, a hunk, the fix. Ten times, ten "Could not
+    parse". A hunk with removed or added lines and a path is a patch.
+    """
+    found = _from_diff(text)
+    if not found.get("path") or not (found.get("find") or found.get("append")):
+        return None
+    return AgentTurn(
+        action="patch",
+        path=found["path"],
+        find=found.get("find", ""),
+        replace=found.get("replace", ""),
+        append=found.get("append", ""),
+    )
+
+
 _JSON_KEYS = {
     "path": "path", "file": "path", "query": "query", "pattern": "pattern",
     "summary": "summary", "find": "find", "replace": "replace",
@@ -349,7 +368,7 @@ def parse_turn_smart(
         if match.group(1).lower() in KNOWN_ACTIONS or _is_skill_name(match.group(1))
     ]
     if not matches:
-        return parse_turn(text) or _from_json(text)
+        return parse_turn(text) or _from_json(text) or _from_bare_diff(text)
     if len(matches) == 1:
         return parse_turn(text[matches[0].start() :])
     if asked_done:

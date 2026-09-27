@@ -366,7 +366,8 @@ def compare(a: Result, b: Result) -> str:
             "moved, this cannot say which one moved it."
         )
 
-    out.append(f"{'case':<18}{a.name:>14}{b.name:>14}   moved")
+    width = max(14, len(a.name) + 2, len(b.name) + 2)
+    out.append(f"{'case':<18}{a.name:>{width}}{b.name:>{width}}   moved")
     for case in sorted(set(a.by_case) | set(b.by_case)):
         ag, at = a.by_case.get(case, (0, 0))
         bg, bt = b.by_case.get(case, (0, 0))
@@ -375,7 +376,7 @@ def compare(a: Result, b: Result) -> str:
             delta = bg / bt - ag / at
             if abs(delta) >= 0.2:
                 moved = f"  {'+' if delta > 0 else ''}{delta * 100:.0f}%"
-        out.append(f"{case:<18}{f'{ag}/{at}':>14}{f'{bg}/{bt}':>14}{moved}")
+        out.append(f"{case:<18}{f'{ag}/{at}':>{width}}{f'{bg}/{bt}':>{width}}{moved}")
 
     out.append("")
     if call == "noise":

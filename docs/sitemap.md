@@ -22,6 +22,7 @@ permalink: /sitemap.xml
   <url><loc>{{ '/investigations/' | absolute_url }}</loc><lastmod>2026-09-05</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>{{ '/cite/' | absolute_url }}</loc><lastmod>2026-09-05</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>{{ '/references/' | absolute_url }}</loc><lastmod>2026-09-06</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>{{ '/experiments/' | absolute_url }}</loc><lastmod>2026-09-27</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>{{ '/investigations/experiments/' | absolute_url }}</loc><lastmod>2026-09-27</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>{{ '/investigations/held-out-exec-eval/' | absolute_url }}</loc><lastmod>2026-09-05</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>{{ '/investigations/sample-and-run/' | absolute_url }}</loc><lastmod>2026-09-05</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>

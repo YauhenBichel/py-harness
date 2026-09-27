@@ -153,6 +153,7 @@ Architecture {{ '/architecture/' | absolute_url }}
 Folders {{ '/tree/' | absolute_url }}
 Cite {{ '/cite/' | absolute_url }}
 References {{ '/references/' | absolute_url }}
+Experiments, every run {{ '/experiments/' | absolute_url }}
 Experiments {{ '/investigations/experiments/' | absolute_url }}
 0.5B exact-stdout eval {{ '/investigations/held-out-exec-eval/' | absolute_url }}
 0.5B sample-and-run {{ '/investigations/sample-and-run/' | absolute_url }}

@@ -61,12 +61,25 @@ class LoopGuard:
     """Remembers explore actions and patch bodies already seen in this run."""
 
     seen: dict[tuple[str, ...], str] = field(default_factory=dict)
+    # Why a patch was refused, in the words the model was given. A repeat
+    # hears those words again, not a generic "take a different action":
+    # every refusal in the loop names the one right next step, and the
+    # retry is exactly when that step is needed.
+    reasons: dict[tuple[str, ...], str] = field(default_factory=dict)
 
-    def remember_patch_result(self, turn, result: str, path: str | None = None) -> None:
-        """Record whether a previously accepted patch was applied or refused."""
+    def remember_patch_result(
+        self, turn, result: str, path: str | None = None, reason: str = ""
+    ) -> None:
+        """Record whether a previously accepted patch was applied or refused.
+
+        `reason` is the refusal or tool result the model saw, kept so a
+        repeat can be answered with it.
+        """
         patch = patch_key(turn, path)
         if patch is not None and patch in self.seen:
             self.seen[patch] = result
+            if reason.strip():
+                self.reasons[patch] = reason.strip()
 
     def check(self, turn, path: str | None = None) -> str:
         if turn is None:
@@ -74,6 +87,12 @@ class LoopGuard:
         patch = patch_key(turn, path)
         if patch is not None:
             if result := self.seen.get(patch):
+                reason = self.reasons.get(patch, "")
+                if result == "refused" and reason:
+                    return (
+                        "already proposed that exact patch for this path. "
+                        f"It was refused: {reason}"
+                    )
                 return (
                     f"already proposed that exact patch for this path. It was {result}; "
                     "repeating it will not help. Read the "

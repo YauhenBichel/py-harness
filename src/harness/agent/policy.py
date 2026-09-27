@@ -328,19 +328,25 @@ def refuse_before(state: LoopState, turn) -> str:
             turn.path or state.last_path or ""
         ).lower():
             return ""
-        if turn.action == "patch":
-            state.guard.remember_patch_result(turn, "refused", path=turn.path or state.last_path)
-        return (
+        blocked = (
             "Harness already applied the mechanical fix. "
             "Action: run Argv: -m unittest discover -s tests -q"
         )
-    if not state.allow_writes and turn.action in WRITE_ACTIONS:
         if turn.action == "patch":
-            state.guard.remember_patch_result(turn, "refused", path=turn.path or state.last_path)
-        return (
+            state.guard.remember_patch_result(
+                turn, "refused", path=turn.path or state.last_path, reason=blocked
+            )
+        return blocked
+    if not state.allow_writes and turn.action in WRITE_ACTIONS:
+        blocked = (
             "This run is read-only. Do not patch, edit, or run. "
             "Action: done Summary: say what you would change and why."
         )
+        if turn.action == "patch":
+            state.guard.remember_patch_result(
+                turn, "refused", path=turn.path or state.last_path, reason=blocked
+            )
+        return blocked
     if turn.action == "ask" and state.wrote_something:
         # A live run wrote a function and a test, then asked which of two
         # readings was meant. The question was reasonable and far too
@@ -361,7 +367,9 @@ def refuse_before(state: LoopState, turn) -> str:
         )
     blocked = _tool_refusals(state, turn)
     if blocked and turn.action == "patch":
-        state.guard.remember_patch_result(turn, "refused", path=turn.path or state.last_path)
+        state.guard.remember_patch_result(
+            turn, "refused", path=turn.path or state.last_path, reason=blocked
+        )
     return blocked
 
 

@@ -173,5 +173,117 @@ class DoneWinsOnceAskedForTest(unittest.TestCase):
         self.assertEqual(parse_turn_smart(single, asked_done=True).action, "read")
 
 
+class ADiffIsAPatchTest(unittest.TestCase):
+    """A 7B answered "Action: patch" with a fenced unified diff, correct
+    and complete, and heard "patch needs Find: or Append:" ten times."""
+
+    DIFF = (
+        "Action: patch\n```diff\n"
+        "diff --git a/src/orders.py b/src/orders.py\n"
+        "--- a/src/orders.py\n+++ b/src/orders.py\n"
+        "@@ -5,7 +5,7 @@ def last_price(prices: list[int]) -> int:\n"
+        "-    return prices[len(prices)]\n"
+        "+    return prices[-1]\n"
+        "```\n"
+    )
+
+    def test_removed_and_added_lines_are_find_and_replace(self) -> None:
+        turn = parse_turn_smart(self.DIFF)
+        self.assertEqual(turn.action, "patch")
+        self.assertEqual(turn.find, "    return prices[len(prices)]")
+        self.assertEqual(turn.replace, "    return prices[-1]")
+
+    def test_the_path_comes_from_the_header_when_none_is_given(self) -> None:
+        self.assertEqual(parse_turn_smart(self.DIFF).path, "src/orders.py")
+
+    def test_a_given_path_wins_over_the_header(self) -> None:
+        turn = parse_turn_smart(self.DIFF.replace("Action: patch\n", "Action: patch\nPath: pkg/o.py\n"))
+        self.assertEqual(turn.path, "pkg/o.py")
+
+    def test_context_lines_are_trimmed_so_the_find_is_the_changed_lines(self) -> None:
+        diff = (
+            "Action: patch\n```diff\n--- a/x.py\n+++ b/x.py\n@@ -1,3 +1,3 @@\n"
+            " def f():\n-    return 1\n+    return 2\n \n```\n"
+        )
+        turn = parse_turn_smart(diff)
+        self.assertEqual(turn.find, "    return 1")
+        self.assertEqual(turn.replace, "    return 2")
+
+    def test_an_addition_only_hunk_is_an_append(self) -> None:
+        diff = "Action: patch\n```diff\n--- a/x.py\n+++ b/x.py\n@@ -3,0 +4,2 @@\n+def g():\n+    return 3\n```\n"
+        turn = parse_turn_smart(diff)
+        self.assertEqual(turn.find, "")
+        self.assertEqual(turn.append, "def g():\n    return 3")
+
+    def test_explicit_fields_are_left_alone(self) -> None:
+        turn = parse_turn_smart("Action: patch\nPath: a.py\nFind: x = 1\nReplace: x = 2\n")
+        self.assertEqual((turn.find, turn.replace), ("x = 1", "x = 2"))
+
+
+class AJsonObjectIsATurnTest(unittest.TestCase):
+    """The same 7B, on another run, answered every turn as ```json``` with
+    an "action" key, once with single-quoted values, and parsed to nothing
+    ten times."""
+
+    def test_valid_json_patch(self) -> None:
+        turn = parse_turn_smart(
+            '```json\n{"action": "patch", "path": "src/orders.py", "find": "TAX = 0.02", "replace": "TAX = 0.2"}\n```'
+        )
+        self.assertEqual(turn.action, "patch")
+        self.assertEqual(turn.path, "src/orders.py")
+        self.assertEqual((turn.find, turn.replace), ("TAX = 0.02", "TAX = 0.2"))
+
+    def test_single_quoted_values_still_read(self) -> None:
+        turn = parse_turn_smart(
+            "```json\n{\n  \"action\": \"patch\",\n  \"path\": \"src/orders.py\",\n"
+            "  \"find\": 'return subtotal + (subtotal * TAX)',\n  \"replace\": 'return subtotal * 1.2'\n}\n```"
+        )
+        self.assertEqual(turn.action, "patch")
+        self.assertEqual(turn.find, "return subtotal + (subtotal * TAX)")
+
+    def test_read_and_run(self) -> None:
+        self.assertEqual(parse_turn_smart('{"action": "read", "path": "src/orders.py"}').path, "src/orders.py")
+        run = parse_turn_smart('{"action": "run", "argv": ["-m", "unittest", "discover", "-s", "tests", "-q"]}')
+        self.assertEqual(run.argv, ("-m", "unittest", "discover", "-s", "tests", "-q"))
+
+    def test_an_edit_carries_its_source(self) -> None:
+        turn = parse_turn_smart('{"action": "edit", "path": "a.py", "content": "x = 1\\n"}')
+        self.assertEqual(turn.source, "x = 1\n")
+
+    def test_braces_in_prose_are_not_a_turn(self) -> None:
+        self.assertIsNone(parse_turn_smart("I would use a dict like {'a': 1} here."))
+        self.assertIsNone(parse_turn_smart('{"action": "start_line", "path": "x"}'))
+
+    def test_an_action_line_still_wins(self) -> None:
+        turn = parse_turn_smart('Action: read\nPath: a.py\n{"action": "done"}')
+        self.assertEqual(turn.action, "read")
+
+
+class ABareDiffIsAPatchTest(unittest.TestCase):
+    """The next run sent the diff with no Action line at all, ten times."""
+
+    BARE = (
+        "```diff\ndiff --git a/src/orders.py b/src/orders.py\n"
+        "--- a/src/orders.py\n+++ b/src/orders.py\n"
+        "@@ -2,5 +2,5 @@ Order arithmetic.\"\"\"\n \n"
+        " def compute_total(prices: list[int]) -> int:\n"
+        "-    return sum(prices) - 1\n+    return sum(prices)\n```\n"
+    )
+
+    def test_a_diff_alone_is_a_patch_to_its_file(self) -> None:
+        turn = parse_turn_smart(self.BARE)
+        self.assertIsNotNone(turn)
+        self.assertEqual(turn.action, "patch")
+        self.assertEqual(turn.path, "src/orders.py")
+        self.assertEqual(turn.find, "    return sum(prices) - 1")
+        self.assertEqual(turn.replace, "    return sum(prices)")
+
+    def test_a_diff_with_no_hunk_is_not_a_turn(self) -> None:
+        self.assertIsNone(parse_turn_smart("--- a/x.py\n+++ b/x.py\n"))
+
+    def test_a_diff_with_no_path_is_not_a_turn(self) -> None:
+        self.assertIsNone(parse_turn_smart("@@ -1 +1 @@\n-a\n+b\n"))
+
+
 if __name__ == "__main__":
     unittest.main()

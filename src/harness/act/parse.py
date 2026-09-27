@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import ast
+import json
 import re
 from dataclasses import dataclass
 
@@ -171,6 +173,132 @@ def _body_after_action(text: str) -> str:
     return "\n".join(lines).strip("\n")
 
 
+_DIFF_HEADER = re.compile(r"^\+\+\+\s+(?:b/)?(\S+)", re.MULTILINE)
+_HUNK = re.compile(r"^@@.*@@", re.MULTILINE)
+
+
+def _from_diff(text: str) -> dict[str, str]:
+    """Find, Replace and Path read off a unified diff, or {}.
+
+    A 7B answers "Action: patch" with a fenced ```diff``` block: the
+    file headers, a hunk, `-` for the old line and `+` for the new. That
+    is a complete, correct patch, and the harness answered "patch needs
+    Find: or Append:" ten times in a row while the model re-sent it. The
+    first hunk's removed lines are the Find and its added lines the
+    Replace, with context lines kept on both sides so the Find still
+    matches whole lines. A hunk that only adds is an Append.
+    """
+    hunk = _HUNK.search(text)
+    if not hunk:
+        return {}
+    old: list[str] = []
+    new: list[str] = []
+    for line in text[hunk.end():].splitlines()[1:]:
+        if line.startswith("@@") or line.startswith("```"):
+            break
+        if line.startswith("---") or line.startswith("+++"):
+            continue
+        if line.startswith("-"):
+            old.append(line[1:])
+        elif line.startswith("+"):
+            new.append(line[1:])
+        elif line.startswith(" ") or not line:
+            old.append(line[1:])
+            new.append(line[1:])
+        else:
+            break
+    while old and new and old[0] == new[0]:
+        old.pop(0)
+        new.pop(0)
+    while old and new and old[-1] == new[-1]:
+        old.pop()
+        new.pop()
+    found: dict[str, str] = {}
+    header = _DIFF_HEADER.search(text)
+    if header and header.group(1) not in {"/dev/null"}:
+        found["path"] = header.group(1)
+    if old:
+        found["find"] = "\n".join(old).rstrip()
+        found["replace"] = "\n".join(new).rstrip()
+    elif new:
+        found["append"] = "\n".join(new).rstrip()
+    return found
+
+
+def _from_bare_diff(text: str) -> AgentTurn | None:
+    """A reply that is only a unified diff is a patch, or None.
+
+    The same 7B, on the next run, sent the diff with no Action line at
+    all: file headers, a hunk, the fix. Ten times, ten "Could not
+    parse". A hunk with removed or added lines and a path is a patch.
+    """
+    found = _from_diff(text)
+    if not found.get("path") or not (found.get("find") or found.get("append")):
+        return None
+    return AgentTurn(
+        action="patch",
+        path=found["path"],
+        find=found.get("find", ""),
+        replace=found.get("replace", ""),
+        append=found.get("append", ""),
+    )
+
+
+_JSON_KEYS = {
+    "path": "path", "file": "path", "query": "query", "pattern": "pattern",
+    "summary": "summary", "find": "find", "replace": "replace",
+    "append": "append", "add": "append", "scope": "scope", "name": "name",
+    "number": "number", "title": "title", "body": "body",
+}
+
+
+def _from_json(text: str) -> AgentTurn | None:
+    """A turn written as a JSON object, or None.
+
+    Small chat models answer in ```json``` with {"action": "patch",
+    "path": ..., "find": ..., "replace": ...}, and not always in valid
+    JSON: a 7B quoted the values with single quotes. Both are read.
+    Only an object with a known action counts, so braces in prose or in
+    a code sample are never mistaken for a turn.
+    """
+    start, end = text.find("{"), text.rfind("}")
+    if start < 0 or end <= start:
+        return None
+    raw = text[start:end + 1]
+    data = None
+    for load in (json.loads, ast.literal_eval):
+        try:
+            data = load(raw)
+            break
+        except (ValueError, SyntaxError, TypeError, MemoryError, RecursionError):
+            continue
+    if not isinstance(data, dict):
+        return None
+    action = str(data.get("action") or "").strip().lower()
+    if action not in KNOWN_ACTIONS:
+        return None
+    fields: dict[str, object] = {}
+    for key, value in data.items():
+        target = _JSON_KEYS.get(str(key).lower())
+        if target and value is not None:
+            fields[target] = str(value)
+    argv = data.get("argv") or data.get("args") or ()
+    if isinstance(argv, str):
+        argv = argv.split()
+    source = None
+    if action == "edit":
+        for key in ("source", "content", "new_content", "code"):
+            if data.get(key):
+                source = str(data[key])
+                break
+    return AgentTurn(
+        action=action,
+        argv=tuple(str(part) for part in argv if str(part)),
+        source=source,
+        **fields,  # type: ignore[arg-type]
+    )
+
+
 def parse_turn(text: str) -> AgentTurn | None:
     match = _ACTION.search(text)
     if not match:
@@ -188,21 +316,29 @@ def parse_turn(text: str) -> AgentTurn | None:
         extra = _block(text, "Append") or _block(text, "Add")
         if extra:
             source = extra
+    find = unfenced(_block(text, "Find"))
+    replace = unfenced(_block(text, "Replace"))
+    append = unfenced(_block(text, "Append") or _block(text, "Add") or body_as_append)
+    path = fields.get("path") or fields.get("file", "")
+    if action == "patch" and not (find or replace or append):
+        diff = _from_diff(text)
+        find = diff.get("find", "")
+        replace = diff.get("replace", "")
+        append = diff.get("append", "")
+        path = path or diff.get("path", "")
     return AgentTurn(
         action=action,
-        path=fields.get("path") or fields.get("file", ""),
+        path=path,
         query=fields.get("query", ""),
         pattern=fields.get("pattern", ""),
         argv=argv,
         summary=fields.get("summary", ""),
         source=source,
-        find=unfenced(_block(text, "Find")),
-        replace=unfenced(_block(text, "Replace")),
+        find=find,
+        replace=replace,
         scope=fields.get("scope", ""),
         name=fields.get("name", ""),
-        append=unfenced(
-            _block(text, "Append") or _block(text, "Add") or body_as_append
-        ),
+        append=append,
         number=fields.get("number", ""),
         title=fields.get("title", ""),
         body=_block(text, "Body"),
@@ -232,7 +368,7 @@ def parse_turn_smart(
         if match.group(1).lower() in KNOWN_ACTIONS or _is_skill_name(match.group(1))
     ]
     if not matches:
-        return parse_turn(text)
+        return parse_turn(text) or _from_json(text) or _from_bare_diff(text)
     if len(matches) == 1:
         return parse_turn(text[matches[0].start() :])
     if asked_done:

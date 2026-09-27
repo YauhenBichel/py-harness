@@ -1,0 +1,455 @@
+{
+  "name": "diff-json-7b",
+  "when": "2026-09-27",
+  "commit": "b124106",
+  "dirty": false,
+  "machine": "Darwin arm64",
+  "model": "qwen2.5-coder:7b",
+  "engine": "ollama",
+  "tiers": [
+    5,
+    7
+  ],
+  "passes": 5,
+  "seconds": 356.1,
+  "decide": "model",
+  "drafts": 1,
+  "worked": 15,
+  "runs": 30,
+  "totals_per_pass": [
+    3,
+    3,
+    3,
+    3,
+    3
+  ],
+  "errored_runs": 0,
+  "zero_step_runs": 10,
+  "out_of_steps_runs": 15,
+  "mean_steps": 5.57,
+  "runs_that_asked": 0,
+  "rows": [
+    {
+      "case": "fix-nameerror",
+      "tier": 5,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 0,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 2.1,
+      "pass": 1
+    },
+    {
+      "case": "fix-offbyone",
+      "tier": 5,
+      "worked": "no",
+      "why": "IndexError: list index out of range",
+      "suite": "",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [],
+      "seconds": 17.0,
+      "pass": 1
+    },
+    {
+      "case": "said-nameerror",
+      "tier": 7,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 0,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 2.3,
+      "pass": 1
+    },
+    {
+      "case": "said-offbyone",
+      "tier": 7,
+      "worked": "no",
+      "why": "IndexError: list index out of range",
+      "suite": "",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [],
+      "seconds": 5.7,
+      "pass": 1
+    },
+    {
+      "case": "said-toolow",
+      "tier": 7,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 3,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 8.5,
+      "pass": 1
+    },
+    {
+      "case": "said-wrongtax",
+      "tier": 7,
+      "worked": "no",
+      "why": "AssertionError",
+      "suite": "",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [],
+      "seconds": 18.5,
+      "pass": 1
+    },
+    {
+      "case": "fix-nameerror",
+      "tier": 5,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 0,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 2.0,
+      "pass": 2
+    },
+    {
+      "case": "fix-offbyone",
+      "tier": 5,
+      "worked": "no",
+      "why": "IndexError: list index out of range",
+      "suite": "",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [],
+      "seconds": 12.5,
+      "pass": 2
+    },
+    {
+      "case": "said-nameerror",
+      "tier": 7,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 0,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 2.2,
+      "pass": 2
+    },
+    {
+      "case": "said-offbyone",
+      "tier": 7,
+      "worked": "no",
+      "why": "IndexError: list index out of range",
+      "suite": "",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [],
+      "seconds": 6.0,
+      "pass": 2
+    },
+    {
+      "case": "said-toolow",
+      "tier": 7,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 3,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 7.8,
+      "pass": 2
+    },
+    {
+      "case": "said-wrongtax",
+      "tier": 7,
+      "worked": "no",
+      "why": "AssertionError",
+      "suite": "",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [],
+      "seconds": 78.2,
+      "pass": 2
+    },
+    {
+      "case": "fix-nameerror",
+      "tier": 5,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 0,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 2.0,
+      "pass": 3
+    },
+    {
+      "case": "fix-offbyone",
+      "tier": 5,
+      "worked": "no",
+      "why": "IndexError: list index out of range",
+      "suite": "",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [],
+      "seconds": 10.9,
+      "pass": 3
+    },
+    {
+      "case": "said-nameerror",
+      "tier": 7,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 0,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 2.2,
+      "pass": 3
+    },
+    {
+      "case": "said-offbyone",
+      "tier": 7,
+      "worked": "no",
+      "why": "IndexError: list index out of range",
+      "suite": "",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [],
+      "seconds": 10.5,
+      "pass": 3
+    },
+    {
+      "case": "said-toolow",
+      "tier": 7,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 6,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 14.4,
+      "pass": 3
+    },
+    {
+      "case": "said-wrongtax",
+      "tier": 7,
+      "worked": "no",
+      "why": "AssertionError",
+      "suite": "",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [],
+      "seconds": 9.1,
+      "pass": 3
+    },
+    {
+      "case": "fix-nameerror",
+      "tier": 5,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 0,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 2.2,
+      "pass": 4
+    },
+    {
+      "case": "fix-offbyone",
+      "tier": 5,
+      "worked": "no",
+      "why": "IndexError: list index out of range",
+      "suite": "",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [],
+      "seconds": 10.7,
+      "pass": 4
+    },
+    {
+      "case": "said-nameerror",
+      "tier": 7,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 0,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 1.8,
+      "pass": 4
+    },
+    {
+      "case": "said-offbyone",
+      "tier": 7,
+      "worked": "no",
+      "why": "IndexError: list index out of range",
+      "suite": "",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [],
+      "seconds": 16.0,
+      "pass": 4
+    },
+    {
+      "case": "said-toolow",
+      "tier": 7,
+      "worked": "yes",
+      "why": "",
+      "suite": "green",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 2,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 11.7,
+      "pass": 4
+    },
+    {
+      "case": "said-wrongtax",
+      "tier": 7,
+      "worked": "no",
+      "why": "AssertionError",
+      "suite": "",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [],
+      "seconds": 16.9,
+      "pass": 4
+    },
+    {
+      "case": "fix-nameerror",
+      "tier": 5,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 0,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 2.1,
+      "pass": 5
+    },
+    {
+      "case": "fix-offbyone",
+      "tier": 5,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 43.0,
+      "pass": 5
+    },
+    {
+      "case": "said-nameerror",
+      "tier": 7,
+      "worked": "yes",
+      "why": "",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 0,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 2.2,
+      "pass": 5
+    },
+    {
+      "case": "said-offbyone",
+      "tier": 7,
+      "worked": "no",
+      "why": "IndexError: list index out of range",
+      "suite": "",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [],
+      "seconds": 11.3,
+      "pass": 5
+    },
+    {
+      "case": "said-toolow",
+      "tier": 7,
+      "worked": "no",
+      "why": "AssertionError",
+      "suite": "red",
+      "stopped": "steps",
+      "asked": 0,
+      "steps": 10,
+      "writes": [],
+      "seconds": 13.6,
+      "pass": 5
+    },
+    {
+      "case": "said-wrongtax",
+      "tier": 7,
+      "worked": "no",
+      "why": "AssertionError",
+      "suite": "",
+      "stopped": "done",
+      "asked": 0,
+      "steps": 3,
+      "writes": [
+        "src/orders.py"
+      ],
+      "seconds": 12.3,
+      "pass": 5
+    }
+  ]
+}

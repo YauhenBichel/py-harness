@@ -12,6 +12,7 @@ an allowed action out.
 
 from __future__ import annotations
 
+import re
 import uuid
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -36,6 +37,7 @@ from harness.agent.policy import (
     refuse_done,
     should_run_suite_after_write,
 )
+from harness.agent.policy import MAX_REPAIRS
 from harness.agent.prompt import Preamble, build_preamble
 from harness.locate import named_file_review_summary
 from harness.memory import Conversation
@@ -437,6 +439,7 @@ class Agent:
         )
         options.emit("engine", f"{label}  project {self.project}  mode {pre.brief.kind}")
         state = self._starting_state(run)
+        _measure_suite_at_start(self.project, state)
         prompt = run.first_prompt()
         steps: list[Step] = []
 
@@ -482,9 +485,15 @@ class Agent:
                 # The model has run out of refusals but still has nothing
                 # to show. Let the run end; do not let it end as a win.
                 unproven = done_without_proof(state, turn)
+                # A finished run over a suite it turned red is not a win,
+                # whatever the model's sentence says.
+                worse = _suite_is_worse(state)
+                summary = unproven or turn.summary or "done"
+                if worse:
+                    summary = f"{summary}\n{_closing_note(self.project, state, run.writes)}"
                 return AgentResult(
-                    ok=not unproven,
-                    summary=unproven or turn.summary or "done",
+                    ok=not unproven and not worse,
+                    summary=summary,
                     stopped="done",
                     steps=tuple(steps),
                     writes=tuple(run.writes),
@@ -511,7 +520,9 @@ class Agent:
                     )
                     return AgentResult(
                         ok=False,
-                        summary=question.render(),
+                        summary=_with_closing_note(
+                            question.render(), self.project, state, run.writes
+                        ),
                         stopped="question",
                         steps=tuple(steps),
                         writes=tuple(run.writes),
@@ -528,6 +539,22 @@ class Agent:
             steps.append(
                 Step(number, turn.action, state.last_path, result=result, draft=draft)
             )
+            if _broke_it(state):
+                # The suite was green when this run started, it is red
+                # now, and the one repair did not fix it. Appending
+                # another patch has no business here; stop and say which
+                # file, and where the backups are.
+                return AgentResult(
+                    ok=False,
+                    summary=_with_closing_note(
+                        f"stopped after {number} steps: this run turned the "
+                        "suite red and one repair did not fix it.",
+                        self.project, state, run.writes,
+                    ),
+                    stopped="broke",
+                    steps=tuple(steps),
+                    writes=tuple(run.writes),
+                )
             prompt = (
                 f"Tool result:\n{result}\n\n{nudge}"
                 if nudge
@@ -536,7 +563,9 @@ class Agent:
 
         return AgentResult(
             ok=False,
-            summary=f"stopped after {options.steps} steps",
+            summary=_with_closing_note(
+                f"stopped after {options.steps} steps", self.project, state, run.writes
+            ),
             stopped="steps",
             steps=tuple(steps),
             writes=tuple(run.writes),
@@ -591,6 +620,8 @@ class Agent:
             state.files_seen.add(state.last_path)
         if turn.action == "run" and result.startswith("exit 0"):
             state.ran_tests = True
+        if turn.action == "run":
+            _note_suite(state, getattr(turn, "argv", ()), result)
         if result.startswith(("patched", "wrote")):
             run.writes.append(turn.path or state.last_path)
             state.wrote_paths.add(turn.path or state.last_path)
@@ -617,11 +648,10 @@ def _nudge_after_action(project, state: LoopState, turn, result: str, target):
     """After a write, run the suite when tests already cover the work."""
     if not should_run_suite_after_write(state, result, state.last_path):
         return result, next_prompt(state, turn, result, target)
-    suite = run_python(
-        project, ("-m", "unittest", "discover", "-s", "tests", "-q")
-    )
+    suite = run_python(project, SUITE_ARGV)
     if suite.startswith("exit 0"):
         state.ran_tests = True
+    _note_suite(state, SUITE_ARGV, suite)
     run_turn = SimpleNamespace(action="run", path=getattr(turn, "path", "") or "")
     return (
         f"{result}\n{suite}",
@@ -638,6 +668,103 @@ def _cover_after_add(project, task: str, path: str) -> str:
     if "test" in (path or "").replace("\\", "/").lower():
         return ""
     return apply_cover_test(project, task, write=True)
+
+
+SUITE_ARGV = ("-m", "unittest", "discover", "-s", "tests", "-q")
+
+
+def _measure_suite_at_start(project, state: LoopState) -> None:
+    """Know the suite's colour before the model touches anything.
+
+    A run that turns a green suite red has broken something it did not
+    break at the start. Without this reading, red at the end is only
+    red: the run behind #339 ended "stopped after 20 steps" over a
+    project whose 996 tests no longer imported, and nothing said so.
+    Read-only runs change nothing, so they are not measured.
+    """
+    if not state.allow_writes or not (Path(project) / "tests").is_dir():
+        return
+    verdict, output = _verify_mechanical(project)
+    state.suite_at_start = {"passed": "green", "no suite": "none"}.get(verdict, "red")
+    state.suite_output = output
+
+
+def _note_suite(state: LoopState, argv, result: str) -> None:
+    """Remember the suite's colour after a run of it, and count the reds."""
+    if "unittest" not in " ".join(argv) or not result.startswith("exit "):
+        return
+    state.suite_output = result
+    if result.startswith("exit 0"):
+        state.suite_now = "green"
+        state.suite_reds = 0
+        return
+    state.suite_now = "red"
+    if state.wrote_something:
+        state.suite_reds += 1
+
+
+def _suite_is_worse(state: LoopState) -> bool:
+    return state.suite_at_start == "green" and state.suite_now == "red"
+
+
+def _broke_it(state: LoopState) -> bool:
+    """True when this run turned a green suite red and its repair failed.
+
+    One repair is allowed, the same one `repair_after_failed_run` sends
+    the traceback back for. A second red result after a write means the
+    model is now appending over a project it has broken.
+    """
+    return _suite_is_worse(state) and state.wrote_something and state.suite_reds > MAX_REPAIRS
+
+
+def _failing_line(output: str) -> str:
+    """The one line of a red suite worth repeating: the error or the test."""
+    for line in output.splitlines():
+        text = line.strip()
+        if re.match(r"^(\w+Error\b|FAIL:|ERROR:|FAILED\b)", text):
+            return text
+    kept = [
+        line.strip()
+        for line in output.splitlines()
+        if line.strip() and not set(line.strip()) <= {"-", "="}
+    ]
+    return kept[-1] if kept else "exit code was not 0"
+
+
+def _closing_note(project, state: LoopState, writes) -> str:
+    """What was changed, on the way out, and whether the suite is worse.
+
+    Every ending names the files written and the backups beside them,
+    and says whether the suite is worse than when the run started. The
+    model's sentence alone was "stopped after 20 steps" over a suite
+    that no longer imported (#339).
+    """
+    lines: list[str] = []
+    written = list(dict.fromkeys(writes))
+    if written:
+        backups = [f"{rel}.bak" for rel in written if (Path(project) / f"{rel}.bak").is_file()]
+        lines.append(
+            "Wrote: " + ", ".join(written)
+            + (f" (backups: {', '.join(backups)})" if backups else "")
+            + "."
+        )
+    if _suite_is_worse(state):
+        lines.append(
+            "The suite was green before this run and is red now: "
+            f"{_failing_line(state.suite_output)} "
+            "Restore from the backups if the change is not wanted."
+        )
+    elif state.suite_at_start == "red" and written:
+        now = {"red": " and still is.", "green": " and is green now."}.get(state.suite_now, ".")
+        lines.append(f"The suite was already red before this run{now}")
+    elif state.suite_at_start == "green" and written and not state.suite_now:
+        lines.append("The suite was not run after these changes.")
+    return "\n".join(lines)
+
+
+def _with_closing_note(headline: str, project, state: LoopState, writes) -> str:
+    note = _closing_note(project, state, writes)
+    return f"{headline}\n{note}" if note else headline
 
 
 def _autofix_paths(note: str) -> list[str]:

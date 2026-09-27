@@ -103,6 +103,26 @@ result.summary   # the question and the options
 result.writes    # ()
 ```
 
+### When the run breaks the suite
+
+Before the model starts, a run that may write reads the suite once. If
+the suite was green then and is red after a write, the model gets the
+one repair the loop always allows. A second red result stops the run:
+
+```python
+result.stopped   # "broke"
+result.ok        # False
+result.summary   # "stopped after 4 steps: this run turned the suite red and one repair did not fix it.
+                 #  Wrote: src/orders.py (backups: src/orders.py.bak).
+                 #  The suite was green before this run and is red now: FAIL: test_total (tests.test_orders.T)
+                 #  Restore from the backups if the change is not wanted."
+```
+
+Every other ending that wrote something carries the same two lines:
+which files were written, with their backups, and whether the suite is
+worse than when the run started. A `done` over a suite this run turned
+red is `ok=False`.
+
 ## Install
 
 The harness uses only the standard library, so there is nothing to build and

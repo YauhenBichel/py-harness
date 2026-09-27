@@ -99,6 +99,54 @@ class AgainstRealDiscoveryTest(unittest.TestCase):
         self.assertFalse(ran_no_tests(result))
 
 
+class ZeroTestsDoesNotMarkTheSuiteAsRunTest(unittest.TestCase):
+    """The other half of #173. The nudge said "not done", but the loop had
+    already set `ran_tests` on the exit code alone, so the next `done`
+    passed the write gate over a suite that proved nothing. Python 3.11
+    exits 0 on an empty collection; 3.12 exits 5."""
+
+    ZERO = "exit 0\n\n----------------------------------------------------------------------\nRan 0 tests in 0.000s\n\nNO TESTS RAN\n"
+    ONE = "exit 0\n.\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n"
+
+    def test_suite_passed_needs_a_test_to_have_run(self) -> None:
+        from harness.agent.loop import _suite_passed
+
+        self.assertFalse(_suite_passed(self.ZERO))
+        self.assertTrue(_suite_passed(self.ONE))
+        self.assertFalse(_suite_passed("exit 1\nFAIL: test_x\n"))
+
+    def test_the_automatic_suite_run_does_not_count_zero_tests(self) -> None:
+        from unittest import mock
+
+        from harness.agent import loop as L
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "tests").mkdir()
+            state = LoopState(task="add multiply to src/m.py", project=root, wrote_something=True)
+            turn = SimpleNamespace(action="patch", path="src/m.py")
+            with mock.patch.object(L, "should_run_suite_after_write", return_value=True), \
+                 mock.patch.object(L, "run_python", return_value=self.ZERO):
+                _result, nudge = L._nudge_after_action(root, state, turn, "patched src/m.py", None)
+        self.assertFalse(state.ran_tests, "zero tests were recorded as a passing suite")
+        self.assertEqual(nudge, NO_TESTS_RAN)
+
+    def test_the_automatic_suite_run_counts_a_real_pass(self) -> None:
+        from unittest import mock
+
+        from harness.agent import loop as L
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "tests").mkdir()
+            state = LoopState(task="add multiply to src/m.py", project=root, wrote_something=True)
+            turn = SimpleNamespace(action="patch", path="src/m.py")
+            with mock.patch.object(L, "should_run_suite_after_write", return_value=True), \
+                 mock.patch.object(L, "run_python", return_value=self.ONE):
+                L._nudge_after_action(root, state, turn, "patched src/m.py", None)
+        self.assertTrue(state.ran_tests)
+
+
 if __name__ == "__main__":
     unittest.main()
 

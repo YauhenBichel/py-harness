@@ -37,7 +37,7 @@ from harness.agent.policy import (
     refuse_done,
     should_run_suite_after_write,
 )
-from harness.agent.policy import MAX_REPAIRS
+from harness.agent.policy import MAX_REPAIRS, ran_no_tests
 from harness.agent.prompt import Preamble, build_preamble
 from harness.locate import named_file_review_summary
 from harness.memory import Conversation
@@ -622,7 +622,7 @@ class Agent:
             return str(exc)
         if turn.action == "read" and state.last_path:
             state.files_seen.add(state.last_path)
-        if turn.action == "run" and result.startswith("exit 0"):
+        if turn.action == "run" and _suite_passed(result):
             state.ran_tests = True
         if turn.action == "run":
             _note_suite(state, getattr(turn, "argv", ()), result)
@@ -660,7 +660,7 @@ def _nudge_after_action(project, state: LoopState, turn, result: str, target):
     if not should_run_suite_after_write(state, result, state.last_path):
         return result, next_prompt(state, turn, result, target)
     suite = run_python(project, SUITE_ARGV)
-    if suite.startswith("exit 0"):
+    if _suite_passed(suite):
         state.ran_tests = True
     _note_suite(state, SUITE_ARGV, suite)
     run_turn = SimpleNamespace(action="run", path=getattr(turn, "path", "") or "")
@@ -682,6 +682,18 @@ def _cover_after_add(project, task: str, path: str) -> str:
 
 
 SUITE_ARGV = ("-m", "unittest", "discover", "-s", "tests", "-q")
+
+
+def _suite_passed(result: str) -> bool:
+    """A green suite ran something.
+
+    `unittest discover` exits 0 on Python 3.11 when it collected no
+    tests (3.12 exits 5). Reading that exit code alone as a pass let a
+    later `done` through over a suite that had proved nothing, the
+    other half of #173: the nudge said "not done" and the state said
+    tests had passed.
+    """
+    return result.startswith("exit 0") and not ran_no_tests(result)
 
 
 def _measure_suite_at_start(project, state: LoopState) -> None:

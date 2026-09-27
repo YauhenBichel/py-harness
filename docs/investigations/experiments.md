@@ -1441,3 +1441,26 @@ repair; each further one on the bug-fix path widens the gain.
 
 Write-up: [What would make it useful]({{ '/investigations/what-would-make-it-useful/' | relative_url }})
 · records `docs/experiments/decide-regex-7b.json`, `decide-model-7b.json`.
+
+### Reading the 7B's replies
+
+**Example.** The 7B's failures on the bug tiers, traced: a correct fix
+written as a fenced unified diff under `Action: patch`, refused ten
+times with "patch needs Find: or Append:"; every turn as a JSON object
+with an `action` key, parsed to nothing; and the diff with no Action
+line at all. Three shapes of the same format failure. The parser reads
+all three now.
+
+**Result**, same arm as the decider measurement (7B, tiers 5 and 7,
+five passes, decision model):
+
+| Measurement | Outcome |
+| --- | --- |
+| before | 11 / 30 |
+| diff under Action, and JSON objects | **15 / 30** — REAL, +4 outside a floor of 1; "one too low" 1/5 → 4/5 |
+| a bare diff as a patch as well | 15 / 30 — NOISE inside a floor of 3 |
+| what the floor says | at 15 of 30 the 7B's pass-to-pass spread is three cases; five passes cannot see a gain under four |
+| the two bugs still at 1/5 | a wrong line patched and done said over it: the model, not the parser |
+
+Write-up: [What would make it useful]({{ '/investigations/what-would-make-it-useful/' | relative_url }})
+· records `docs/experiments/diff-json-7b.json`, `bare-diff-7b.json`.

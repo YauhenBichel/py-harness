@@ -292,6 +292,44 @@ deterministically once it knows what kind of task it has. Today that
 is the typo repair. Every further deterministic repair on the bug-fix
 path widens that gain; nothing on the model's side does.
 
+### Reading the small model's replies
+
+The 7B's failures were traced next, and none of the first three was
+reasoning. Asked to fix a one-line bug, it wrote the fix as a fenced
+unified diff under `Action: patch` — correct and complete — and heard
+"patch needs Find: or Append:" ten times. On another run it answered
+every turn as a JSON object with an `action` key, once with
+single-quoted values, and parsed to nothing ten times. On a third it
+sent the diff with no Action line at all. This is the format-compliance
+failure the literature review above said dominates small models,
+arriving in three shapes.
+
+The parser now reads all three: a hunk's removed lines are the Find and
+its added lines the Replace, a JSON object with a known action is a
+turn, and a reply that is only a diff is a patch to the file in its
+header. Measured on the same arm as above, one reading at a time:
+
+| 7B, tiers 5 and 7, decision model | worked | hit the step limit | mean steps |
+| --- | --- | --- | --- |
+| before | 11/30 | 18 | 6.5 |
+| diff under Action, and JSON | **15/30** | 15 | 5.6 |
+| bare diff too | 15/30 | 14 | 5.2 |
+
+The first step is **REAL, +4 outside a floor of 1**: the "one too low"
+bug goes from 1 of 5 to 4 of 5, and the keyword off-by-one from 0 to 1.
+The second step is NOISE: the same 15, with the cases reshuffled inside
+a floor of 3. That floor is the other finding. At 15 of 30 the 7B's
+own pass-to-pass spread is three cases, so with five passes nothing
+smaller than a four-case gain can be seen at all, and the bare-diff
+reading, which can only turn an unparsed reply into a patch, is below
+it. The two bugs still at 1 of 5 are model errors now — a wrong line
+patched and `done` said over it — not the harness refusing a right
+answer.
+
+So on this model the ordering from the top of the note held: after the
+decider's one repair, the next four cases came from reading what the
+model wrote, not from asking it to write differently.
+
 ### A note on the 8B
 
 The plan was to measure on `llama3.1:8b`, the everyday model. On the

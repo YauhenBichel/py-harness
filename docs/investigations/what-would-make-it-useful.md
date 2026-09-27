@@ -265,6 +265,47 @@ finding: the instrument was wrong before the model was. Two arms at
 beside the pass count, and refuses to let a first arm's own ledger
 record mark the second arm as unreplayable.
 
+### On a 7B, the decider moves the score
+
+The same A/B on a model that cannot recover from a wrong path:
+`qwen2.5-coder:7b`, tiers 5 and 7, five passes, same GPU, after the
+three fixes above.
+
+| tiers 5 and 7, 30 runs an arm | worked | hit the step limit | mean steps |
+| --- | --- | --- | --- |
+| regex | 6/30 | 24 | 8.3 |
+| decision model | **11/30** | 18 | 6.5 |
+
+**REAL: +5, outside a floor of 1.** The first time the decider has moved
+a pass count. And the whole of it is one case: the symptom-phrased
+NameError goes from 0 of 5 to 5 of 5. The regex reads "stops with: name
+'subtotl' is not defined" as a feature request and hands it to a model
+that cannot fix it in ten steps; the decision model reads it as a fix,
+and the harness's own typo repair then lands it in zero steps, before
+the model is asked anything. The keyword version of the same bug was
+already 5 of 5 on both arms for the same reason.
+
+The other four bugs the 7B cannot fix on either route, 1 of 5 at best.
+So the honest reading is narrower than "the decider helps": on a small
+model the decider is worth exactly what the harness can do
+deterministically once it knows what kind of task it has. Today that
+is the typo repair. Every further deterministic repair on the bug-fix
+path widens that gain; nothing on the model's side does.
+
+### A note on the 8B
+
+The plan was to measure on `llama3.1:8b`, the everyday model. On the
+GPU host it could not be measured: coherent under about five hundred
+prompt tokens and word salad above that, at every context size and
+batch size tried, until the length limit — the harness's real first
+prompt, 1,269 tokens, got 6,923 tokens of nothing. The 30B and the 7B
+on the same prompt are fine, so it is that model on that Ollama build
+(0.34.0, ROCm), not the prompt. A first probe returned garbage on a
+2,846-token prompt and was read as "the model answered"; the
+instrument, again. Until it is understood, no number from that host
+for that model means anything, and the 7B stands in for the small
+model.
+
 ## The order of work
 
 1. **Change the default model.** Free, measured, done in four minutes.

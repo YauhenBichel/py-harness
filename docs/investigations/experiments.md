@@ -1416,3 +1416,28 @@ ledger now reports step-limit runs and mean steps beside it.
 
 Write-up: [What would make it useful]({{ '/investigations/what-would-make-it-useful/' | relative_url }})
 · records `docs/experiments/decide-*.json`, `bugfix-closes-*.json`, `bugfix-done-*.json`.
+
+### The decider on a 7B
+
+**Example.** The regex-against-decision-model A/B, repeated on a small
+model that cannot recover from a wrong path: `qwen2.5-coder:7b`, tiers
+5 and 7, five passes, on the same GPU as the 30B runs above, after the
+three bug-fix path fixes.
+
+**Result**
+
+| Measurement | Outcome |
+| --- | --- |
+| regex | **6 / 30**; 24 runs hit the step limit |
+| decision model | **11 / 30**; 18 hit the step limit |
+| verdict | **REAL**, +5 outside a floor of 1 |
+| where the gain is | the symptom-phrased NameError, 0/5 → 5/5, in zero model steps: routed as a fix, the harness's typo repair lands it before the model is asked |
+| the other four bugs | 1/5 at best on either route |
+| `llama3.1:8b` on the same host | **not measurable**: word salad above ~500 prompt tokens on this Ollama build (0.34.0, ROCm); the 30B and 7B on the same prompt are fine |
+
+On a small model the decider is worth what the harness can do
+deterministically once it knows the kind of task. Today that is one
+repair; each further one on the bug-fix path widens the gain.
+
+Write-up: [What would make it useful]({{ '/investigations/what-would-make-it-useful/' | relative_url }})
+· records `docs/experiments/decide-regex-7b.json`, `decide-model-7b.json`.

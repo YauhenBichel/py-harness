@@ -181,7 +181,89 @@ arm measured with the regex cannot inherit it. If no embedding model is
 reachable, nothing is registered and the regex answers as before.
 
 Whether the swap helps the *benchmark* — not just the decision — is a
-separate measurement, and the next one.
+separate measurement. It was made on 27 September, and what it found
+was not about the decider.
+
+### What the decider exposed
+
+First, which cases could an A/B even move? `intent_routes.py` asks
+both deciders about every benchmark task before anything runs. On
+tiers 1 to 6, **none of the fifteen route differently**: every fix
+there says "fix" or names the exception, which is exactly what the
+regex keys on. An A/B on those tiers compares a run with itself, and
+the tool now says so. So a seventh tier was added — the tier-5 bugs
+said the way people report them, with no keyword in them:
+
+> the totals from compute_total in src/orders.py come out one too low
+
+Four cases, and all four route differently: the regex sees a feature,
+the decision model sees a fix.
+
+Then the A/B, on tiers 5 and 7, five passes, a local 30B. Both arms
+scored **30 of 30**. The verdict on the pass count is NOISE, as it has
+to be at a ceiling. But the ledger also counts something the pass count
+cannot see: runs that landed the fix and then **never managed to say
+done**, burning the rest of their budget until the step limit stopped
+them.
+
+| tiers 5 and 7, 30 runs an arm | worked | hit the step limit | mean steps | minutes |
+| --- | --- | --- | --- | --- |
+| regex | 30/30 | 9 | 4.4 | 6.2 |
+| decision model | 30/30 | **16** | 6.0 | **16.9** |
+
+Routing a symptom-phrased task as a fix — correctly — made the run
+worse. Tracing one showed why, and it was two harness faults on the
+bug-fix path, both already there on tier 5 with only one case to show
+them:
+
+1. After the patch landed, the policy demanded a new test and rendered
+   the write-tests skill, whose example calls `multiply` and `weekday`.
+   The 30B copied the example verbatim, the gate refused it because
+   `multiply` did not exist, and the model added a `multiply` to the
+   named file to make its own copy pass.
+2. Once that was over, every non-write turn was still answered with
+   "Next Action must be patch Path: src/orders.py with a Find:", so the
+   model re-sent a Find: that no longer matched, four turns in a row.
+
+Fixed: a bug fix closes when the suite is green, and the named-file
+nudge stands down once that file has been patched. Re-measured, with
+the same cases and the same model:
+
+| after the first fix | worked | hit the step limit | mean steps | minutes |
+| --- | --- | --- | --- | --- |
+| regex | 30/30 | 3 | 3.2 | 3.7 |
+| decision model | 30/30 | 3 | 2.2 | 5.0 |
+
+The three that remained were a third fault. Told "Tests passed. Action:
+done Summary: say what you changed", the model answered with the
+summary as a sentence and no Action line, was told it could not be
+parsed, and then pasted its whole plan again with the stale patch above
+the done block, which the parser took. Fixed too: once the finishing
+nudge has been sent, a reply with no Action line is the summary, and a
+reply with several blocks is read at its done block.
+
+| after both fixes | worked | hit the step limit | mean steps | minutes |
+| --- | --- | --- | --- | --- |
+| regex | 30/30 | **0** | 1.9 | 1.5 |
+| decision model | 30/30 | **0** | 1.4 | 4.0 |
+
+So, the honest answer on the decider. On a 30B at the ceiling it does
+not change whether a run works. It changes how a run closes: the
+symptom-phrased NameError goes from three model steps to none, because
+routing it as a fix lets the harness's own typo repair handle it, which
+is where the zero-step count moving from 5 to 10 comes from. Mean
+steps 1.9 against 1.4 is the whole measurable difference, and the
+model arm's extra minutes are the embedding call, which loads `bge-m3`
+beside the 30B on the same host. Where the routing should matter is on
+a model that cannot recover from a wrong path — the 8B — and on a real
+repository, and neither has been measured yet.
+
+What the day actually produced is the pattern this whole note keeps
+finding: the instrument was wrong before the model was. Two arms at
+30 of 30 hid one arm taking nearly three times as long as the other.
+`compare` now reports runs that hit the step limit and mean steps
+beside the pass count, and refuses to let a first arm's own ledger
+record mark the second arm as unreplayable.
 
 ## The order of work
 

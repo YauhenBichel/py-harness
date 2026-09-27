@@ -22,7 +22,7 @@ permalink: /sitemap.xml
   <url><loc>{{ '/investigations/' | absolute_url }}</loc><lastmod>2026-09-05</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>{{ '/cite/' | absolute_url }}</loc><lastmod>2026-09-05</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>{{ '/references/' | absolute_url }}</loc><lastmod>2026-09-06</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>{{ '/investigations/experiments/' | absolute_url }}</loc><lastmod>2026-09-06</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>{{ '/investigations/experiments/' | absolute_url }}</loc><lastmod>2026-09-27</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>{{ '/investigations/held-out-exec-eval/' | absolute_url }}</loc><lastmod>2026-09-05</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>{{ '/investigations/sample-and-run/' | absolute_url }}</loc><lastmod>2026-09-05</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>{{ '/investigations/bench-record/' | absolute_url }}</loc><lastmod>2026-08-29</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
@@ -52,7 +52,7 @@ permalink: /sitemap.xml
   <url><loc>{{ '/investigations/everyday-laptop/' | absolute_url }}</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>{{ '/investigations/everyday-skills/' | absolute_url }}</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>{{ '/investigations/harness-comparison/' | absolute_url }}</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>{{ '/investigations/what-would-make-it-useful/' | absolute_url }}</loc><lastmod>2026-09-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>{{ '/investigations/what-would-make-it-useful/' | absolute_url }}</loc><lastmod>2026-09-27</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>{{ '/llms.txt' | absolute_url }}</loc><lastmod>2026-08-29</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>{{ '/llms-full.txt' | absolute_url }}</loc><lastmod>2026-08-29</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
 </urlset>

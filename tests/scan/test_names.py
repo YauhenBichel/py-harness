@@ -126,7 +126,10 @@ class StyleOracleTest(unittest.TestCase):
             (root / "tests").mkdir()
             (root / "src" / "orders.py").write_text(FIXED, encoding="utf-8")
             (root / "tests" / "test_orders.py").write_text(
-                "def test_compute_total_sums_the_prices(self) -> None:\n    pass\n",
+                "import unittest\n\n\n"
+                "class TestOrders(unittest.TestCase):\n"
+                "    def test_compute_total_sums_the_prices(self) -> None:\n"
+                "        pass\n",
                 encoding="utf-8",
             )
             task = "write tests for apply_discount in src/orders.py"
@@ -135,8 +138,10 @@ class StyleOracleTest(unittest.TestCase):
                 refuse_done_oracle(task, root, "src/orders.py"),
             )
             (root / "tests" / "test_orders.py").write_text(
-                "def test_apply_discount_reduces_the_total(self) -> None:\n"
-                "    got = apply_discount(10, 0.2)\n",
+                "import unittest\n\n\n"
+                "class TestOrders(unittest.TestCase):\n"
+                "    def test_apply_discount_reduces_the_total(self) -> None:\n"
+                "        got = apply_discount(10, 0.2)\n",
                 encoding="utf-8",
             )
             self.assertEqual(refuse_done_oracle(task, root, "src/orders.py"), "")

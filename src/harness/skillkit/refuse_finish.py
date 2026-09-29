@@ -33,47 +33,117 @@ from harness.task import (
 )
 
 
-def _a_test_uses(body: str, symbol: str) -> bool:
-    """True when some `def test_...` in `body` actually mentions `symbol`.
+def _class_bases(node: ast.ClassDef) -> list[str]:
+    """The names a class inherits from, as they are written."""
+    names: list[str] = []
+    for base in node.bases:
+        if isinstance(base, ast.Name):
+            names.append(base.id)
+        elif isinstance(base, ast.Attribute):
+            names.append(base.attr)
+    return names
 
-    Asking only whether the name appears anywhere in the test files
-    accepted a file holding one import line and nothing else. On a real
-    module the run wrote exactly that, reported `done`, and `unittest
-    discover` found no tests at all. An import is not coverage.
+
+def _is_test_case(
+    node: ast.ClassDef,
+    classes: dict[str, ast.ClassDef],
+    seen: frozenset[str] = frozenset(),
+) -> bool:
+    """True when `unittest discover` would collect this class.
+
+    A class counts when it inherits from `unittest.TestCase`, however
+    that is spelled, or from another class in the same file that does.
+    A `test_` method anywhere else is never run, so it is not coverage.
+    """
+    for base in _class_bases(node):
+        if base.endswith("TestCase"):
+            return True
+        parent = classes.get(base)
+        if (
+            parent is not None
+            and base not in seen
+            and _is_test_case(parent, classes, seen | {base})
+        ):
+            return True
+    return False
+
+
+def _test_cases(tree: ast.AST) -> list[ast.ClassDef]:
+    """The `TestCase` subclasses a parsed file declares."""
+    classes = {
+        node.name: node for node in ast.walk(tree) if isinstance(node, ast.ClassDef)
+    }
+    return [node for node in classes.values() if _is_test_case(node, classes)]
+
+
+def _mentions(node: ast.AST, symbol: str) -> bool:
+    """True when `node` names `symbol` at all."""
+    for child in ast.walk(node):
+        if isinstance(child, ast.Name) and child.id == symbol:
+            return True
+        if isinstance(child, ast.Attribute) and child.attr == symbol:
+            return True
+    return False
+
+
+def _a_test_uses(body: str, symbol: str) -> bool:
+    """True when a test method calls `symbol`.
+
+    The method has to be one `unittest discover` would run: a method of
+    a `TestCase` subclass. An 8B run, asked to cover `apply_discount`,
+    wrote
+
+        def test_apply_discount(self) -> None:
+            from pricing import apply_discount
+            got = apply_discount(100.0, 25.0)
+
+    a test method with no class around it. It compiles, so nothing
+    errors; discovery imports the file, finds no `TestCase` subclass,
+    collects nothing and exits 0, and the run reported `done` over a
+    suite that ran nothing. Asking only whether the name appears
+    anywhere in the test files accepted a file holding one import line
+    the same way. An import is not coverage, and neither is a method
+    no runner will call.
     """
     if not body.strip() or not symbol:
         return False
     try:
         tree = ast.parse(body)
     except (SyntaxError, ValueError):
-        # Unparsable here means several files concatenated. Fall back to
-        # requiring the name somewhere after a test definition.
-        return bool(re.search(rf"def test_\w*[\s\S]*?\b{re.escape(symbol)}\b", body))
-    for node in ast.walk(tree):
-        if not isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
-            continue
-        if not node.name.startswith("test"):
-            continue
-        for child in ast.walk(node):
-            if isinstance(child, ast.Name) and child.id == symbol:
-                return True
-            if isinstance(child, ast.Attribute) and child.attr == symbol:
+        # A file discovery cannot import is a file whose tests never
+        # run, so nothing in it counts.
+        return False
+    for cls in _test_cases(tree):
+        for node in cls.body:
+            if not isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                continue
+            if not node.name.startswith("test"):
+                continue
+            if _mentions(node, symbol):
                 return True
     return False
 
 
+def test_files(project: Path) -> list[Path]:
+    """The files under tests/ that `unittest discover` would collect."""
+    tests = Path(project) / "tests"
+    if not tests.is_dir():
+        return []
+    return [path for path in sorted(tests.glob("test_*.py")) if path.is_file()]
+
+
 def tests_call(project: Path, symbol: str) -> bool:
     """True when some test in tests/ actually calls symbol."""
-    tests = Path(project) / "tests"
-    if not tests.is_dir() or not symbol:
+    if not symbol:
         return False
-    body = ""
-    for path in sorted(tests.glob("test_*.py")):
+    for path in test_files(project):
         try:
-            body += "\n" + path.read_text(encoding="utf-8")
+            body = path.read_text(encoding="utf-8")
         except OSError:
             continue
-    return _a_test_uses(body, symbol)
+        if _a_test_uses(body, symbol):
+            return True
+    return False
 
 
 def refuse_done_oracle(task: str, project: Path, last_path: str) -> str:
@@ -126,24 +196,15 @@ def refuse_done_oracle(task: str, project: Path, last_path: str) -> str:
                 )
     if looks_like_write_tests(task):
         symbol = covered_symbol(task)
-        if symbol:
-            tests = Path(project) / "tests"
-            body = ""
-            if tests.is_dir():
-                for path in sorted(tests.glob("test_*.py")):
-                    try:
-                        body += path.read_text(encoding="utf-8")
-                    except OSError:
-                        continue
-            if not _a_test_uses(body, symbol):
-                test_rel = "tests/test_module.py"
-                if named:
-                    test_rel = f"tests/test_{Path(named).stem}.py"
-                return (
-                    f"no test calls {symbol}. "
-                    f"Action: patch Path: {test_rel} "
-                    f"Append: one AAA test that calls {symbol}."
-                )
+        if symbol and not tests_call(project, symbol):
+            test_rel = "tests/test_module.py"
+            if named:
+                test_rel = f"tests/test_{Path(named).stem}.py"
+            return (
+                f"no test calls {symbol}. "
+                f"Action: patch Path: {test_rel} "
+                f"Append: one AAA test that calls {symbol}."
+            )
     if looks_like_fix_smell(task) and named:
         old, new = rename_pair(task)
         try:

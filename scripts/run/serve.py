@@ -80,7 +80,13 @@ class Handler(BaseHTTPRequestHandler):
         if urlparse(self.path).path != "/v1/python-vibe":
             self._json(404, {"error": "not found"})
             return
-        length = int(self.headers.get("Content-Length") or "0")
+        # A negative length would make read() wait for the client to close,
+        # which is no cap at all; a non-number would crash the handler.
+        raw_length = (self.headers.get("Content-Length") or "0").strip()
+        if not raw_length.isdigit():
+            self._json(400, {"error": "invalid content-length"})
+            return
+        length = int(raw_length)
         if length > MAX_BODY:
             self._json(413, {"error": "body too large"})
             return

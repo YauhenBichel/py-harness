@@ -1,5 +1,6 @@
 import importlib.util
 import json
+import socket
 import threading
 import unittest
 import urllib.error
@@ -88,6 +89,41 @@ class ServeSidecarTest(unittest.TestCase):
         self.assertEqual(status, 413)
         self.assertEqual(payload["error"], "body too large")
 
+
+    def _raw_post(self, content_length: str) -> tuple[int, dict]:
+        """POST with a Content-Length header written by hand and no body,
+        the connection left open, as a client that never finishes would.
+        The old code waited here for a body that never came."""
+        host, port = self.httpd.server_address[:2]
+        with socket.create_connection((host, port), timeout=5) as conn:
+            conn.sendall(
+                (
+                    "POST /v1/python-vibe HTTP/1.1\r\n"
+                    f"Host: {host}\r\n"
+                    "Content-Type: application/json\r\n"
+                    f"Content-Length: {content_length}\r\n"
+                    "\r\n"
+                ).encode("ascii")
+            )
+            # The reply can arrive in several packets; read until the
+            # server closes the connection.
+            reply = b""
+            while chunk := conn.recv(65536):
+                reply += chunk
+        head, _, body = reply.partition(b"\r\n\r\n")
+        status = int(head.split(b" ", 2)[1])
+        return status, json.loads(body.decode("utf-8"))
+
+    def test_negative_length_is_refused_not_read_to_the_end(self) -> None:
+        # read(-1) would read until the client closes: no cap at all.
+        status, payload = self._raw_post("-1")
+        self.assertEqual(status, 400)
+        self.assertEqual(payload["error"], "invalid content-length")
+
+    def test_non_numeric_length_is_refused(self) -> None:
+        status, payload = self._raw_post("lots")
+        self.assertEqual(status, 400)
+        self.assertEqual(payload["error"], "invalid content-length")
 
 if __name__ == "__main__":
     unittest.main()

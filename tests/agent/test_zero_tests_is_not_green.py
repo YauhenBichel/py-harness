@@ -27,6 +27,7 @@ from harness.agent.policy import (  # noqa: E402
     LoopState,
     next_prompt,
     ran_no_tests,
+    refuse_done,
 )
 
 DISCOUNT = "def apply_discount(total, percent):\n    return round(total * (1 - percent / 100), 2)\n"
@@ -195,3 +196,82 @@ class TheLoopIsToldTest(unittest.TestCase):
             "exit 1\nAssertionError: expected 'Ran 0 tests' in output\n"
         )
         self.assertNotEqual(got, NO_TESTS_RAN)
+
+
+class TheFinishGateIsToldTest(unittest.TestCase):
+    """Reading the suite is not enough; the finish gate has to refuse too.
+
+    `_suite_passed` and `NO_TESTS_RAN` send the run back, but a model that
+    says `done` anyway still had to get past the finish oracle, and the
+    oracle asked only whether some `def test_...` mentioned the symbol.
+    The orphan method above does mention it, so the run reported done over
+    the file it had just been warned about. Issue #173.
+    """
+
+    TASK = "write tests for apply_discount"
+    SUMMARY = "Tests for apply_discount function added in tests/test_module.py."
+    IMPORT_ONLY = "from pricing import apply_discount\n"
+    PLAIN_CLASS = (
+        "import unittest\n\n"
+        "from pricing import apply_discount\n\n\n"
+        "class TestApplyDiscount:\n"
+        "    def test_apply_discount(self) -> None:\n"
+        "        self.assertEqual(apply_discount(100.0, 25.0), 75.0)\n"
+    )
+    SUBCLASS = (
+        "import unittest\n\n"
+        "from pricing import apply_discount\n\n\n"
+        "class PricingTest(unittest.TestCase):\n"
+        "    pass\n\n\n"
+        "class TestApplyDiscount(PricingTest):\n"
+        "    def test_apply_discount(self) -> None:\n"
+        "        self.assertEqual(apply_discount(100.0, 25.0), 75.0)\n"
+    )
+
+    def _done_over(self, tmp: str, name: str, body: str) -> tuple[str, str]:
+        """What the finish gate says, and what discovery really runs."""
+        root = Path(tmp)
+        (root / "tests").mkdir()
+        (root / "pricing.py").write_text(DISCOUNT, encoding="utf-8")
+        (root / "tests" / name).write_text(body, encoding="utf-8")
+        state = LoopState(
+            task=self.TASK,
+            project=root,
+            wrote_something=True,
+            last_path=f"tests/{name}",
+            ran_tests=False,
+        )
+        turn = SimpleNamespace(
+            action="done", path=f"tests/{name}", summary=self.SUMMARY
+        )
+        proc = subprocess.run(
+            [sys.executable, "-m", "unittest", "discover", "-s", "tests", "-q"],
+            cwd=root, capture_output=True, text=True, timeout=60, check=False,
+        )
+        discovery = f"exit {proc.returncode}\n{proc.stdout}{proc.stderr}"
+        return refuse_done(state, turn), discovery
+
+    def test_the_orphan_method_is_refused(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            blocked = self._done_over(tmp, "test_module.py", ORPHAN_METHOD)[0]
+        self.assertIn("no test calls apply_discount", blocked)
+
+    def test_a_real_test_case_still_finishes(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            blocked = self._done_over(tmp, "test_pricing.py", REAL_TEST)[0]
+        self.assertEqual(blocked, "")
+
+    def test_the_refusal_matches_what_discovery_collects(self) -> None:
+        """Refused exactly when discovery runs nothing, and not otherwise."""
+        bodies = {
+            "test_module.py": ORPHAN_METHOD,
+            "test_import_only.py": self.IMPORT_ONLY,
+            "test_plain_class.py": self.PLAIN_CLASS,
+            "test_pricing.py": REAL_TEST,
+            "test_subclass.py": self.SUBCLASS,
+        }
+        for name, body in bodies.items():
+            with self.subTest(name=name):
+                with tempfile.TemporaryDirectory() as tmp:
+                    blocked, discovery = self._done_over(tmp, name, body)
+                self.assertEqual(bool(blocked), ran_no_tests(discovery))

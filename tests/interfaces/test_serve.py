@@ -91,8 +91,9 @@ class ServeSidecarTest(unittest.TestCase):
 
 
     def _raw_post(self, content_length: str) -> tuple[int, dict]:
-        """POST with a Content-Length header written by hand, and the
-        connection left open, as a client that never finishes would."""
+        """POST with a Content-Length header written by hand and no body,
+        the connection left open, as a client that never finishes would.
+        The old code waited here for a body that never came."""
         host, port = self.httpd.server_address[:2]
         with socket.create_connection((host, port), timeout=5) as conn:
             conn.sendall(
@@ -102,10 +103,14 @@ class ServeSidecarTest(unittest.TestCase):
                     "Content-Type: application/json\r\n"
                     f"Content-Length: {content_length}\r\n"
                     "\r\n"
-                    '{"prompt":"x"}'
                 ).encode("ascii")
             )
-            head, _, body = conn.recv(65536).partition(b"\r\n\r\n")
+            # The reply can arrive in several packets; read until the
+            # server closes the connection.
+            reply = b""
+            while chunk := conn.recv(65536):
+                reply += chunk
+        head, _, body = reply.partition(b"\r\n\r\n")
         status = int(head.split(b" ", 2)[1])
         return status, json.loads(body.decode("utf-8"))
 

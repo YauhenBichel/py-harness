@@ -37,8 +37,7 @@ py-harness run  "find the NameError and fix it"
 Activate `.venv` in **every new terminal**. If the shell says
 `command not found: py-harness`, it is not active. Daily work needs
 `ollama pull llama3.1:8b`. From a clone,
-`python3 scripts/run/install.py` is the editable install.
-Settings such as `OLLAMA_HOST` are listed in [`.env.example`](./.env.example).
+`python3 scripts/run/install.py` is the editable install. Settings: [`.env.example`](./.env.example).
 
 `ask` never writes. `run` writes, then runs the tests. The NameError
 sample is built into the tool (no model). Another folder:

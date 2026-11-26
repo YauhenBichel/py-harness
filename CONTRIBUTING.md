@@ -48,6 +48,21 @@ the public adapters without an account.
   `scripts/measure/skill_probe.py` shows the intended first Action
 - Docs, CI, eval prompts, and drop-in files under `editors/`
 
+### Naming conventions
+
+Choose names that describe the work or behavior.
+
+| Kind | Do | Do not |
+| --- | --- | --- |
+| Function | `total_price(quantity, unit_price)` | `calc`, `tmp`, `x`, `TotalPrice` |
+| Class | `PriceLine`, `TestMultiply` | `pricing`, `Test`, `test_mathy` |
+| Module | `pkg/pricing.py` | `util.py`, `helpers.py`, `misc.py` |
+| Test | `test_total_price_returns_product` + `got =` | `test_it_works`, `assertEqual(fn(), n)` on one line |
+
+For renaming an unclear function, see [fix-smell](./skills/fix-smell/SKILL.md).
+For tests, arrange inputs, store the result in `got`, then assert it.
+See [write-tests](./skills/write-tests/SKILL.md) for examples.
+
 ## Before you open a pull request
 
 - [ ] `PYTHONPATH=src python -m unittest discover -s tests -q` passes

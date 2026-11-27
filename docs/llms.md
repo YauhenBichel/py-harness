@@ -18,6 +18,7 @@ Measured on one laptop, 29 Aug 2026: 8B first Action on three scoped tasks 3/3; 
 - [Commands]({{ '/api/' | absolute_url }}): Every command and flag, the Python API, and the local HTTP server.
 - [Demo]({{ '/demo/' | absolute_url }}): Eleven everyday tasks on one small tree. Includes misses.
 - [Live demo]({{ '/live/' | absolute_url }}): pip install session, then the 5 Sep 2026 recording on demo/orders. Only ask called the 8B.
+- [FAQ]({{ '/faq/' | absolute_url }}): When to use it and when not. Plain-text output of brief and run on demo/orders. Answers on data privacy and write limits.
 - [Skills]({{ '/skills/' | absolute_url }}): The twenty-four kit skills and when the harness loads each one.
 - [Architecture]({{ '/architecture/' | absolute_url }}): Bottom-up harness layers. Imports only point downward.
 - [Folders]({{ '/tree/' | absolute_url }}): What each directory is. Demo is demo/orders. Do not run brief on the repository root.

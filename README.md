@@ -7,10 +7,10 @@
 [![Pages](https://github.com/YauhenBichel/py-harness/actions/workflows/pages.yml/badge.svg)](https://yauhenbichel.github.io/py-harness/)
 [![Contributors](https://img.shields.io/github/contributors/YauhenBichel/py-harness)](https://github.com/YauhenBichel/py-harness#contributors)
 
-Four jobs on your laptop: **ask**, **write a test**, **fix a bug**, **add
-one small function**. Only touches the folder you point at. Daily work
-is `py-harness` plus Ollama `llama3.1:8b`. Not everyday-ready.
-Site: [yauhenbichel.github.io/py-harness](https://yauhenbichel.github.io/py-harness/).
+py-harness runs a small local coding model (Ollama) on one Python folder,
+with no cloud API: **ask**, **write a test**, **fix a bug**, **add one small
+function**. Only touches the folder you point at. Daily work is `py-harness`
+plus `llama3.1:8b`. Not everyday-ready. Site: [yauhenbichel.github.io/py-harness](https://yauhenbichel.github.io/py-harness/).
 
 ## Run it
 
@@ -32,6 +32,7 @@ cd py-harness/demo/orders
 py-harness brief
 py-harness ask  "what does compute_total return?"
 py-harness run  "find the NameError and fix it"
+# bound unique NameError typo (subtotl → subtotal) in src/orders.py. Tests passed.
 ```
 
 Activate `.venv` in **every new terminal**. If the shell says
@@ -43,10 +44,8 @@ Activate `.venv` in **every new terminal**. If the shell says
 sample is built into the tool (no model). Another folder:
 `py-harness ask ~/app "what does add return?"`.
 
-[Start](https://yauhenbichel.github.io/py-harness/start/) ·
-[Commands](https://yauhenbichel.github.io/py-harness/api/) ·
-[Contributing](./CONTRIBUTING.md) ·
-[Security](./SECURITY.md)
+[Start](https://yauhenbichel.github.io/py-harness/start/) · [Commands](https://yauhenbichel.github.io/py-harness/api/) ·
+[FAQ](https://yauhenbichel.github.io/py-harness/faq/) · [Contributing](./CONTRIBUTING.md) · [Security](./SECURITY.md)
 
 ## What it looks like
 

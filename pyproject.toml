@@ -11,7 +11,7 @@ readme = "README.md"
 license = "Apache-2.0"
 requires-python = ">=3.11"
 authors = [{ name = "Yauhen Bichel" }]
-keywords = ["llm", "coding-agent", "ollama", "local"]
+keywords = ["llm", "coding-agent", "ollama", "local", "local-llm", "python", "test-generation", "bug-fix", "mcp", "cursor", "vscode", "offline"]
 classifiers = [
   "Development Status :: 4 - Beta",
   "Intended Audience :: Developers",
@@ -41,6 +41,7 @@ Homepage = "https://github.com/YauhenBichel/py-harness"
 Documentation = "https://yauhenbichel.github.io/py-harness/"
 Source = "https://github.com/YauhenBichel/py-harness"
 PyPI = "https://pypi.org/project/py-harness-cli/"
+Issues = "https://github.com/YauhenBichel/py-harness/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]

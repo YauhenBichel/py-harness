@@ -4,11 +4,12 @@ description: Scaffolds pkg/ + tests/ with exports-only __init__. Use when the ta
 ---
 
 Action: edit
-Path: pkg/__init__.py
+Path: pkg/total_price.py
 ```python
-"""Public exports only. Implementation lives in sibling modules."""
+def total_price(quantity: int, unit_price: int) -> int:
+    return quantity * unit_price
 ```
 
-New code goes in `pkg/<noun>.py`, not `__init__.py` and not
-`scripts/`. One noun per module. A CLI uses argparse. HTTP uses
+Keep pkg/__init__.py exports-only. Next add tests/test_total_price.py
+for the new function. One noun per module. A CLI uses argparse. HTTP uses
 urllib. Token from the environment. No curl.
